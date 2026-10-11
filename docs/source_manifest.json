@@ -1,0 +1,56 @@
+{
+  "snapshot_date": "2026-10-11",
+  "source_files_preserved_byte_for_byte": [
+    {
+      "path": "codes/JPX_debug_notes.md",
+      "size_bytes": 13223,
+      "sha256": "fd3e90d8ddad5080277ef8e23097a19279203af9252a0a17ae0dc4f07363043a"
+    },
+    {
+      "path": "codes/JPX_deep_learning_models.py",
+      "size_bytes": 4229,
+      "sha256": "4715426724c1c8bb1d5c9169c3d6514ab9e7e3c77d751677175466ab140ef5df"
+    },
+    {
+      "path": "codes/data_loader.py",
+      "size_bytes": 866,
+      "sha256": "7defa06e87cfe074a78956d14a46092b89dd995d148f2b2232c2b9a213501d6e"
+    },
+    {
+      "path": "codes/data_processor.py",
+      "size_bytes": 5473,
+      "sha256": "539e635fa3601cb09c92989062a5b02abca703ce0554972e88e3f6960b89383e"
+    },
+    {
+      "path": "codes/deep_learning.py",
+      "size_bytes": 4835,
+      "sha256": "37e4d8bcbdd8ed72212358598410c1e5ace020dbd13c63662239956a0e8a83db"
+    },
+    {
+      "path": "codes/features.py",
+      "size_bytes": 3183,
+      "sha256": "ee922075efe821e6f63bd50e34218308ed46d49c469acffe7600b5304b538384"
+    },
+    {
+      "path": "codes/main.py",
+      "size_bytes": 116,
+      "sha256": "23416b0eadee63dc28219fbfe9d139a53d935012b0b8e09e842cb29875c42d46"
+    },
+    {
+      "path": "codes/test_jpx_debug.py",
+      "size_bytes": 15510,
+      "sha256": "9851385aef812e8ad4ca7b44b5ff2b9c5fe3a9850524f35d1408250ca7362848"
+    },
+    {
+      "path": "Reflections/CNN-LSTM model/cnn_lstm_jpx_10_epoch_experiment_report_en.pdf",
+      "size_bytes": 75224,
+      "sha256": "dae1630aaf0724f249e4f4eb27385db7bd07fbcae1b70eda2121b6df221ff75e"
+    }
+  ],
+  "excluded": [
+    "raw data/*.csv",
+    "__pycache__/",
+    ".DS_Store"
+  ],
+  "source_code_modified": false
+}

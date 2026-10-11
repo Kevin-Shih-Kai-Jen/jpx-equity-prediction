@@ -1,0 +1,30 @@
+# Local competition data and generated model artifacts
+/data/*
+!/data/README.md
+*.pt
+*.pth
+*.ckpt
+*.pkl
+*.npz
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Credentials and machine-specific files
+.env
+.env.*
+!.env.example
+kaggle.json
+*.pem
+*.key
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,32 @@
+test_01_no_split_keeps_original_prices_and_volume (test_jpx_debug.DataTests.test_01_no_split_keeps_original_prices_and_volume) ... ok
+test_02_input_dataframe_is_not_mutated (test_jpx_debug.DataTests.test_02_input_dataframe_is_not_mutated) ... ok
+test_03_nonconsecutive_index_labels (test_jpx_debug.DataTests.test_03_nonconsecutive_index_labels) ... ok
+test_04_reordered_labels_must_not_remove_the_wrong_row (test_jpx_debug.DataTests.test_04_reordered_labels_must_not_remove_the_wrong_row) ... ok
+test_05_required_open_cannot_remain_nan (test_jpx_debug.DataTests.test_05_required_open_cannot_remain_nan) ... ok
+test_06_nonpositive_factors_are_rejected_or_repaired (test_jpx_debug.DataTests.test_06_nonpositive_factors_are_rejected_or_repaired) ... ok
+test_07_get_features_reports_missing_columns (test_jpx_debug.DataTests.test_07_get_features_reports_missing_columns) ... ok
+test_08_metadata_prints_column_names_not_a_method_object (test_jpx_debug.DataTests.test_08_metadata_prints_column_names_not_a_method_object) ... ok
+test_01_window_two_forward (test_jpx_debug.ModelTests.test_01_window_two_forward) ... ok
+test_02_current_window_one_design_must_run (test_jpx_debug.ModelTests.test_02_current_window_one_design_must_run) ... ok
+test_03_no_dropout1d_on_two_dimensional_batch_head (test_jpx_debug.ModelTests.test_03_no_dropout1d_on_two_dimensional_batch_head) ... ok
+test_04_configuration_uses_feature_count_not_row_count (test_jpx_debug.ModelTests.test_04_configuration_uses_feature_count_not_row_count) ... ok
+test_01_train_loss_shapes_match (test_jpx_debug.PipelineTests.test_01_train_loss_shapes_match) ... ok
+test_02_eval_loss_shapes_match (test_jpx_debug.PipelineTests.test_02_eval_loss_shapes_match) ... ok
+test_01_stock_boundaries_sorting_feature_order_and_last_target (test_jpx_debug.SequenceTests.test_01_stock_boundaries_sorting_feature_order_and_last_target) ... ok
+test_02_window_one_retains_all_rows (test_jpx_debug.SequenceTests.test_02_window_one_retains_all_rows) ... ok
+test_03_stock_shorter_than_window (test_jpx_debug.SequenceTests.test_03_stock_shorter_than_window) ... ok
+test_01_series (test_jpx_debug.TensorTests.test_01_series) ... ok
+test_02_dataframe (test_jpx_debug.TensorTests.test_02_dataframe) ... ok
+test_03_numpy_array (test_jpx_debug.TensorTests.test_03_numpy_array) ... ok
+test_04_scalar_list (test_jpx_debug.TensorTests.test_04_scalar_list) ... ok
+test_05_list_of_dataframe_windows (test_jpx_debug.TensorTests.test_05_list_of_dataframe_windows) ... ok
+test_01_training_processes_every_batch (test_jpx_debug.TrainingTests.test_01_training_processes_every_batch) ... ok
+test_02_training_returns_sample_weighted_mean (test_jpx_debug.TrainingTests.test_02_training_returns_sample_weighted_mean) ... ok
+test_03_empty_training_loader_has_clear_error (test_jpx_debug.TrainingTests.test_03_empty_training_loader_has_clear_error) ... ok
+test_04_evaluation_mean_and_no_grad_control (test_jpx_debug.TrainingTests.test_04_evaluation_mean_and_no_grad_control) ... ok
+test_05_evaluation_empty_loader_control (test_jpx_debug.TrainingTests.test_05_evaluation_empty_loader_control) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.808s
+
+OK
