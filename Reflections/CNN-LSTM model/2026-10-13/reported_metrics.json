@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-13",
+  "model": "CNN-LSTM",
+  "time_span": 42,
+  "epochs": 10,
+  "evaluation_data": "same data used for training (in-sample)",
+  "training_average_loss": 0.015604025316993357,
+  "evaluation_average_loss": 0.015570441672566427,
+  "sharpe": 0.10057470947504044,
+  "rank_ic": 0.0042738020891595,
+  "zero_baseline_mae_first_report": 0.015564425848424435,
+  "prediction_mean": 0.0007700243149884045,
+  "prediction_std": 0.0011315844021737576,
+  "target_mean": 0.0003973348648287356,
+  "target_std": 0.023427896201610565,
+  "model_mae": 0.015570441260933876,
+  "zero_baseline_mae": 0.015564427711069584,
+  "mae_improvement_percent": -0.038636498153209686,
+  "prediction_target_correlation": 0.052963461726903915,
+  "source": "User-provided update; no experiment or metric recomputation performed.",
+  "original_interpretation": "Today proves my model is working. With 10 epochs of training data and validate through the training data, I find out that my model can be trained, not just random output.",
+  "editorial_note": "The PDF qualifies the interpretation: in-sample evaluation does not establish generalization or rule out random output.",
+  "next_steps": [
+    "Use expanding-window validation.",
+    "Include early stopping.",
+    "Save trained models to reuse them when checking the pipeline.",
+    "Explore training methods: average loss over 20 time frames and a tentative (total_days / 20)^2 training schedule; design still to be refined.",
+    "Try the ensemble model from https://www.mdpi.com/2076-3417/13/7/4644"
+  ]
+}

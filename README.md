@@ -15,6 +15,7 @@ This repository presents an implementation in progress for an internship portfol
 | [Experiment entry point](codes/JPX_deep_learning_models.py) | Pipeline configuration and prediction diagnostics |
 | [Synthetic tests](codes/test_jpx_debug.py) | Checks for shapes, stock boundaries, data validation, and loss accounting |
 | [Experiment reflection (PDF)](Reflections/CNN-LSTM%20model/cnn_lstm_jpx_10_epoch_experiment_report_en.pdf) | Historical results, interpretation, and next questions |
+| [Daily update: 2026-10-13 (PDF)](Reflections/CNN-LSTM%20model/2026-10-13/output/pdf/CNN_LSTM_Daily_Update_2026-10-13.pdf) | User-reported Sharpe, Rank IC, and next steps; this upload adds no model-code changes |
 | [Debugging notes](codes/JPX_debug_notes.md) | Historical debugging exercises; some described issues have since been fixed |
 
 ## Current pipeline
