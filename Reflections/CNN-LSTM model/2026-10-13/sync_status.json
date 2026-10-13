@@ -1,0 +1,50 @@
+{
+  "status": "synced_to_correct_jpx_repository_and_verified",
+  "repository": "https://github.com/Kevin-Shih-Kai-Jen/jpx-equity-prediction",
+  "branch": "main",
+  "artifact_commit": "9851403bf026bf25178c8f9167fc06a94f32c214",
+  "artifact_directory": "Reflections/CNN-LSTM model/2026-10-13",
+  "authorization": "User explicitly corrected the destination to the JPX repository.",
+  "correction_record": {
+    "previous_destination": "Kevin-Shih-Kai-Jen/quant-learning-internship-2027",
+    "previous_commit": "f8ebf9db13bf62497f4e04e2accf20937055994d",
+    "reason": "Assistant initially selected the project archive; user clarified JPX repo was intended.",
+    "previous_remote_files": "Retained; no remote history deletion or rewriting performed."
+  },
+  "verification": {
+    "method": "Read files at the exact artifact commit; compared complete bytes, sizes and SHA-256.",
+    "files": [
+      {
+        "path": "Reflections/CNN-LSTM model/2026-10-13/create_pdf.py",
+        "bytes": 6687,
+        "sha256": "9aba4352ad43c8a1121067bbf1ef366e37e94011c994bec796111e1c7236593e",
+        "remote_blob_sha": "c7783a2c0120eab7e6f7804817cb9ecf414145c9"
+      },
+      {
+        "path": "Reflections/CNN-LSTM model/2026-10-13/reported_metrics.json",
+        "bytes": 1548,
+        "sha256": "3adb576ef4603042b7b21cb16dae224923a6e3a3efec8fe6ec0e4764bded7a18",
+        "remote_blob_sha": "210f54b9575859bac987932c616ed0f0ea2754d0"
+      },
+      {
+        "path": "Reflections/CNN-LSTM model/2026-10-13/output/pdf/CNN_LSTM_Daily_Update_2026-10-13.pdf",
+        "bytes": 3826,
+        "sha256": "4264ec5dffdf3807b5e1e490634d39d612ba15c891384dfaabadbd3963014794",
+        "remote_blob_sha": "545b72daed0ea2b6fc4f6efe58788d64e866cb32"
+      },
+      {
+        "path": "README.md",
+        "bytes": 5633,
+        "sha256": "6447e5e7b8f31b97f9eec65b29da34972d5b905b7baadd525eed32c293aaf8a8",
+        "remote_blob_sha": "94f659bbdd0faece9ad84b2b65340493894f29c9"
+      }
+    ]
+  },
+  "scope": "Existing daily-update PDF, reported metrics, PDF generator and README link only; no model training or model-code changes.",
+  "releases": {
+    "retrieved": [],
+    "created": [],
+    "reason": "All files are small and stored in Git."
+  },
+  "cleanup_scope": "Task-specific temporary README verification copy only, after final remote verification. Local deliverables and prior archive sync record retained."
+}
