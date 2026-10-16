@@ -1,0 +1,81 @@
+{
+  "snapshot_date": "2026-10-16",
+  "scope": "Current desktop JPX Python source and reflection PDFs, copied byte for byte.",
+  "files": [
+    {
+      "path": "codes/JPX_deep_learning_models.py",
+      "size_bytes": 5864,
+      "sha256": "baad183acdbade6248295ce7214ebcae3f08b2304d5bee7644e56eed8f6490d2"
+    },
+    {
+      "path": "codes/data_loader.py",
+      "size_bytes": 866,
+      "sha256": "7defa06e87cfe074a78956d14a46092b89dd995d148f2b2232c2b9a213501d6e"
+    },
+    {
+      "path": "codes/data_processor.py",
+      "size_bytes": 5876,
+      "sha256": "d1745b0e48fbd3f719d22ce9ff5b5968428ad13399713d3ff0b584bdfd40ca9d"
+    },
+    {
+      "path": "codes/deep_learning.py",
+      "size_bytes": 4759,
+      "sha256": "13ec3b4c603993f520f7b3650a6af2f2d16251ae7a12cde7bce3f110750b325d"
+    },
+    {
+      "path": "codes/evaluation.py",
+      "size_bytes": 6336,
+      "sha256": "2d7891b9239217db73f87d1137caba02894c6be86e1548179db9be7f6bcc7003"
+    },
+    {
+      "path": "codes/features.py",
+      "size_bytes": 3802,
+      "sha256": "269dc03306539104aa73d05c2bb431c1854c293833e4902b3bb42f9dffdc510d"
+    },
+    {
+      "path": "codes/main.py",
+      "size_bytes": 498,
+      "sha256": "87f0f50ffbeb593d96a1feb15c259f92a056cfb1ac8317fe5b2e3b1a90f40a8a"
+    },
+    {
+      "path": "codes/models.py",
+      "size_bytes": 2225,
+      "sha256": "5fb2fc04bbeb8ecedd6e1bf94b557457b9b33e5dedb3160d0bc7e6c46f7fdcfe"
+    },
+    {
+      "path": "codes/utils.py",
+      "size_bytes": 2399,
+      "sha256": "c4beda2640f32b58cf18db94d2e8a7fa55fe3f684e9a95937a69db63bcc528a2"
+    },
+    {
+      "path": "Reflections/CNN-LSTM model/CNN_LSTM_Daily_Update_2026-10-11.pdf",
+      "size_bytes": 75224,
+      "sha256": "dae1630aaf0724f249e4f4eb27385db7bd07fbcae1b70eda2121b6df221ff75e"
+    },
+    {
+      "path": "Reflections/CNN-LSTM model/CNN_LSTM_Daily_Update_2026-10-13.pdf",
+      "size_bytes": 3826,
+      "sha256": "4264ec5dffdf3807b5e1e490634d39d612ba15c891384dfaabadbd3963014794"
+    },
+    {
+      "path": "Reflections/CNN-LSTM model/CNN_LSTM_Daily_Update_2026_10_16.pdf",
+      "size_bytes": 3396,
+      "sha256": "b55b64ddaf05ed652a33bb86935ab53d202556f5e62818d4763469eb3d0bee35"
+    }
+  ],
+  "excluded": [
+    "data/*.csv (existing repository policy)",
+    "__pycache__/",
+    ".DS_Store"
+  ],
+  "verification": [
+    "All 9 Python source files parsed successfully with ast.parse.",
+    "All 12 copied files match source bytes.",
+    "Common credential patterns checked in Python source and extracted PDF text; none detected."
+  ],
+  "not_performed": [
+    "Full backtest rerun",
+    "Fresh dependency installation",
+    "Porting historical synthetic tests to current APIs"
+  ]
+}

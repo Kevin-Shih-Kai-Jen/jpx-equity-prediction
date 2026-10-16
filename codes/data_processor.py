@@ -169,6 +169,9 @@ def correct_prices_with_factors(df: pd.DataFrame):
         if not ok:
             table.at[i, "AdjustmentFactor"] = 1
     
+    if (table["AdjustmentFactor"] <= 0).any():
+        raise ValueError("AdjustmentFactor must be greater than 0")
+
     #===========================================================================================================#
     # sort values by SecuritiesCode, Date (Change str into Datetime)
     # cumprod values --> times adjustment factors (At) everyday(At = New_val * At-1)
@@ -180,8 +183,8 @@ def correct_prices_with_factors(df: pd.DataFrame):
         lambda s: s.cumprod().shift(1, fill_value=1.0)
     )
     
-    if (prior_factor <= 0).any():
-        raise ValueError("AdjustmentFactor can not be smaller or equal to 0")
+    if not np.isfinite(prior_factor).all() or (prior_factor <= 0).any():
+        raise ValueError("Cumulative AdjustmentFactor must be finite and greater than 0")
     
     for col_name in ["Open", "High", "Low", "Close"]:
         table[col_name] = table[col_name]/prior_factor
@@ -189,5 +192,14 @@ def correct_prices_with_factors(df: pd.DataFrame):
     
     return table
         
-    
+
+def get_time_for_specific_period(
+    df: pd.DataFrame,
+    start_time: str,
+    end_time: str
+) -> pd.DataFrame:
+    return df.loc[
+        (df["Date"] >= pd.to_datetime(start_time)) &
+        (df["Date"] < pd.to_datetime(end_time))
+    ]
     

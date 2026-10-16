@@ -1,77 +1,59 @@
 # JPX Equity Prediction
 
-A personal quantitative-finance learning project that builds a **PyTorch CNN-LSTM regression pipeline** for JPX stock-price data. It covers data validation, price and volume adjustment, feature scaling, per-security rolling windows, model training, and diagnostic evaluation against a zero-prediction baseline.
+A personal quantitative-finance learning project using a **PyTorch CNN-LSTM** to predict JPX stock targets. The current implementation includes corporate-action adjustment, training-period normalization, per-security rolling windows, expanding-window training and validation, and daily ranking diagnostics.
 
-This repository presents an implementation in progress for an internship portfolio. Current evaluation is **in-sample**; it does not establish out-of-sample predictive ability or trading performance.
+**Latest source sync: 2026-10-16.** This update copies the current desktop source and reflection PDFs without changing their contents. It does not publish a completed full backtest or establish predictive performance. Earlier snapshots and reports remain available in Git history and the repository.
 
 ## Explore the project
 
-| Component | What it demonstrates |
+| Component | Purpose |
 | --- | --- |
-| [Data loader](codes/data_loader.py) | CSV loading and basic data inspection |
-| [Data processor](codes/data_processor.py) | Required-field validation and corporate-action adjustment logic |
-| [Features](codes/features.py) | Standardization and rolling windows grouped by security |
-| [Deep learning](codes/deep_learning.py) | CNN-LSTM architecture, tensor conversion, training, and evaluation |
-| [Experiment entry point](codes/JPX_deep_learning_models.py) | Pipeline configuration and prediction diagnostics |
-| [Synthetic tests](codes/test_jpx_debug.py) | Checks for shapes, stock boundaries, data validation, and loss accounting |
-| [Experiment reflection (PDF)](Reflections/CNN-LSTM%20model/cnn_lstm_jpx_10_epoch_experiment_report_en.pdf) | Historical results, interpretation, and next questions |
-| [Daily update: 2026-10-13 (PDF)](Reflections/CNN-LSTM%20model/2026-10-13/output/pdf/CNN_LSTM_Daily_Update_2026-10-13.pdf) | User-reported Sharpe, Rank IC, and next steps; this upload adds no model-code changes |
-| [Debugging notes](codes/JPX_debug_notes.md) | Historical debugging exercises; some described issues have since been fixed |
+| [Entry point](codes/main.py) | Runs `model_2()`; includes a checkpoint-loading helper |
+| [Experiment pipeline](codes/JPX_deep_learning_models.py) | Data preparation, expanding windows, training, validation, and saving |
+| [CNN-LSTM model](codes/models.py) | Convolution, pooling, three-layer LSTM, and regression head |
+| [Training utilities](codes/deep_learning.py) | Tensor conversion, loaders, training, inference, and checkpoint I/O |
+| [Data loader](codes/data_loader.py) and [processor](codes/data_processor.py) | CSV loading, corporate-action adjustment, and date selection |
+| [Features](codes/features.py) | Row validation, normalization, and per-security sequences |
+| [Evaluation](codes/evaluation.py) | Daily ranking, spread returns, Sharpe, and Rank IC |
+| [Utilities](codes/utils.py) | Split dates, validation history, and runtime reporting |
+| [Latest reflection: 2026-10-16](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026_10_16.pdf) | Code corrections, runtime investigation, and next steps |
+| [Reflection: 2026-10-13](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026-10-13.pdf) | Earlier daily update |
+| [Reflection: 2026-10-11](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026-10-11.pdf) | Earlier daily update |
 
-## Current pipeline
+## Current default pipeline
 
-```text
-JPX stock_prices.csv
-    -> validate rows and adjust prices / volume
-    -> standardize OHLCV + ExpectedDividend
-    -> 42-row windows within each security
-    -> Conv1d -> ReLU -> conditional pooling -> dropout
-    -> three-layer LSTM -> dropout -> linear prediction
-    -> L1 loss with Adam; MAE and pooled Pearson diagnostics
-```
+`main.py` calls `model_2()`, which uses:
 
-Each window is paired with the `Target` value on its final row. Missing `ExpectedDividend` values are filled with zero. Execution selects Apple MPS when available and otherwise CPU.
+- A 42-row lookback and six inputs: Open, High, Low, Close, Volume, and ExpectedDividend.
+- Expanding training periods and validation blocks defined with `gap=180` calendar days.
+- Normalization statistics calculated from the training period and reused for validation.
+- Up to 41 preceding rows per security appended to validation as input history.
+- Removal of the final two distinct training dates from fitting to address forward-looking target overlap.
+- CNN kernel size 3, 64 output channels, and LSTM hidden size 100.
+- L1 loss, Adam, batch size 64, and 20 epochs per split.
+- Apple MPS when available, otherwise CPU. CUDA is not selected by the current source.
 
-## Installation and checks
+The model and optimizer are initialized before the split loop and retained across splits. This is continued training on expanding data, not an independent model fitted from scratch for each split. The older `model_1()` remains in the source as a separate in-sample experiment.
 
-Use Python **3.11 or newer** for the pinned dependencies. The published checks ran on Python 3.14.2 on macOS; other platforms have not been verified.
+## Run locally
 
-```bash
-git clone https://github.com/Kevin-Shih-Kai-Jen/jpx-equity-prediction.git
-cd jpx-equity-prediction
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-python -m unittest discover -s codes -p test_jpx_debug.py -v
-```
-
-On Windows, activate the environment with `.venv\Scripts\activate` instead.
-
-**Publication check, 2026-10-11: all 27 existing synthetic tests passed.** No JPX CSV is needed for these tests. See the [test output](docs/test_output.txt) and [publication notes](docs/PUBLICATION.md) for the verification scope.
-
-## Run the experiment
-
-1. Obtain `stock_prices.csv` from the [JPX competition data page](https://www.kaggle.com/competitions/jpx-tokyo-stock-exchange-prediction/data), subject to the provider's access requirements and terms. See [data setup](data/README.md).
-2. In `model_1()` in [JPX_deep_learning_models.py](codes/JPX_deep_learning_models.py), change the argument to `main_loader(...)` to the path of your local CSV. The original source snapshot still contains the author's machine-specific path.
-3. From the repository root, run:
+1. Obtain `stock_prices.csv` from the [JPX competition data page](https://www.kaggle.com/competitions/jpx-tokyo-stock-exchange-prediction/data). See [data setup](data/README.md).
+2. Install the dependencies in [requirements.txt](requirements.txt). Those pins record the initial publication environment; this sync does not verify a fresh installation.
+3. Change the machine-specific CSV path in `common_process()` in [the experiment pipeline](codes/JPX_deep_learning_models.py) to your local path.
+4. From the repository root, run:
 
    ```bash
    python codes/main.py
    ```
 
-This launches training. The implementation materializes all rolling windows in memory; full-data execution can require substantial memory. Full training was not rerun for this publication.
+Full-data execution materializes rolling windows in memory and can take several hours. Model saving writes to `checkpoints/CNN_LSTM` relative to the working directory. The source is preserved as supplied, including its checkpoint metadata and local path; these should be reviewed before reusing a checkpoint in another experiment.
 
-## What the current snapshot does and does not verify
+## Verification and history
 
-- **Evaluation:** training and evaluation use the same loader, and the scaler is fit on the full input. A chronological split and training-only scaler fit remain future work.
-- **Epoch count:** the caller passes `epoch=10`, but `train()` currently makes one pass through the loader and does not use this argument. The historical PDF's 10-epoch description is not reproduced by this source snapshot.
-- **Temporal architecture:** the current convolution kernel and input window both have length 42. Convolution therefore leaves one time step for the LSTM, and pooling is skipped. This differs from reference settings discussed in the PDF.
-- **Diagnostics:** the code calculates MAE and pooled Pearson correlation. These are not a daily ranking evaluation, Sharpe ratio, or a trading backtest.
-- **Data semantics:** synthetic tests do not validate real corporate-action timing, trading-calendar continuity, or every data-quality decision.
-- **Reproducibility:** no trained weights, fixed-seed experiment record, or raw training logs were included in the source folder. The PDF is preserved as a historical reflection rather than a newly verified run.
+The [2026-10-16 sync record](docs/SYNC_2026-10-16.md) and [file manifest](docs/source_manifest_2026-10-16.json) document the current upload. All nine supplied Python files passed syntax parsing, and all twelve copied files were checked against their source bytes. No full backtest was rerun for this upload.
 
-## Snapshot and provenance
+The [initial publication record](docs/PUBLICATION.md), [original manifest](docs/source_manifest.json), [synthetic test output](docs/test_output.txt), and [debugging notes](codes/JPX_debug_notes.md) describe the **2026-10-11 snapshot**. The historical test file is retained, but its old API assumptions have not been updated for the current module structure. Its recorded 27 passing tests must not be interpreted as a test result for this sync.
 
-The initial publication preserves all seven Python files, the debugging notes, and the PDF **byte for byte** from the supplied working folder. Added files provide repository documentation, dependency versions, ignore rules, and verification records. No model implementation was rewritten as part of the upload.
+Earlier [experiment reflections](Reflections/CNN-LSTM%20model/cnn_lstm_jpx_10_epoch_experiment_report_en.pdf) and the [previous October 13 upload record](Reflections/CNN-LSTM%20model/2026-10-13/) are preserved. Reflection documents are research notes, not newly reproduced performance evidence.
 
-The [source manifest](docs/source_manifest.json) records file sizes and SHA-256 hashes. Raw competition CSVs, Python caches, and macOS metadata are excluded. External data remains subject to its provider's terms; this initial snapshot does not add a software license.
+Raw competition CSVs, Python caches, and macOS metadata are excluded under the repository's existing policy. The original desktop files are retained unchanged.

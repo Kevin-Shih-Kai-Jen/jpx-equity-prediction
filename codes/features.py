@@ -13,7 +13,9 @@ def get_valid_rows(
     df = table.copy()
     
     # So that not_to_remove can have correct indexing    
-    results, _ = check_JPX_stock_price_csv(df.copy())
+    results, duplicates = check_JPX_stock_price_csv(df.copy())
+    if not duplicates.empty:
+        raise ValueError("Duplicate SecuritiesCode and Date rows")
     not_to_remove = [True] * len(df)
     
     # dict[str, list[tuple[int, bool, TypeError | ValueError | None]]]
@@ -32,7 +34,7 @@ def get_features(df: pd.DataFrame,
     ) -> pd.DataFrame:
     
     missing = [
-        features_col_name for n in features_col_name if n not in df
+        n for n in features_col_name if n not in df
     ]
     
     if missing:
@@ -42,22 +44,34 @@ def get_features(df: pd.DataFrame,
 
 
 def normalize_data(
-    df: pd.DataFrame | pd.DataFrame,
+    df: pd.DataFrame,
     col_names: list[str],
+    std: np.ndarray | None = None,
+    mean: np.ndarray | None = None
 ) -> tuple[pd.DataFrame, np.ndarray, np.ndarray]:
     missing = [name for name in col_names if name not in df.columns]
 
     if missing:
         raise ValueError(f"Columns not in DataFrame: {missing}")
-
-    scaler = StandardScaler()
-    normalized_df = df.copy()
-    normalized_df[col_names] = scaler.fit_transform(df[col_names])
     
-    mean = scaler.mean_
-    std = scaler.var_ ** 0.5
+    if (std is None) != (mean is None):
+        raise ValueError("std and mean must be provided together")
 
+    normalized_df = df.copy()
+    
+    if std is None:
+        scaler = StandardScaler()
+        
+        normalized_df[col_names] = scaler.fit_transform(df[col_names])
+        mean = scaler.mean_
+        std = scaler.scale_
+    else:
+        # std, mean are offered
+        normalized_df[col_names] = (df[col_names] - mean) / std
+    
     return normalized_df, mean, std
+    
+        
 
 
 def create_time_sequence(
@@ -65,6 +79,9 @@ def create_time_sequence(
     time_sequence: int = 1,
     col_names: list[str] = []
 ) -> tuple[list[list[float | int]], list[list[float | int]]]:
+    if isinstance(time_sequence, bool) or not isinstance(time_sequence, (int, np.integer)) or time_sequence <= 0:
+        raise ValueError("time_sequence must be a positive integer")
+
     if df.empty:
         raise ValueError("DataFrame is empty")
     
@@ -77,6 +94,7 @@ def create_time_sequence(
         
     
     X, y = [], []
+    
     
     df = df.sort_values(["SecuritiesCode", "Date"])
     
@@ -96,4 +114,5 @@ def create_time_sequence(
             y.append(y_np[i + time_sequence - 1])
     
     return X, y
+        
         
