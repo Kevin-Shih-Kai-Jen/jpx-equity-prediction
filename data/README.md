@@ -2,7 +2,17 @@
 
 The experiment entry point reads `stock_prices.csv` from the [JPX Tokyo Stock Exchange Prediction competition](https://www.kaggle.com/competitions/jpx-tokyo-stock-exchange-prediction/data).
 
-Download the competition data through your own account as required by the provider and use it under the applicable terms. Place the CSV here or in another local directory, then point the `main_loader(...)` call in `codes/JPX_deep_learning_models.py` to that file.
+Download the competition data through your own account as required by the provider and use it under the applicable terms. The default path is `data/stock_prices.csv`, resolved from the repository location. Place the CSV here, then run from the repository root:
+
+```bash
+python codes/main.py
+```
+
+To keep the CSV in another local directory, pass its path without editing the source:
+
+```bash
+python codes/main.py --data /path/to/stock_prices.csv
+```
 
 The current pipeline uses these columns:
 

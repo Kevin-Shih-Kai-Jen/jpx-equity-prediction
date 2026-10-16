@@ -1,5 +1,6 @@
 # Local competition data and generated model artifacts
 /data/*
+/checkpoints/
 !/data/README.md
 *.pt
 *.pth

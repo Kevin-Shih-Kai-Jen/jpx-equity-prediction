@@ -4,6 +4,8 @@ from torch.utils.data import TensorDataset, DataLoader
 import pandas as pd
 import numpy as np
 from pathlib import Path
+from datetime import datetime
+from uuid import uuid4
 
 
 
@@ -53,7 +55,9 @@ def train(model, data_loader, loss_fn, optimizer, epochs=1, device="cpu"):
     total_loss = 0.0
     total_sample = 0
     
-    for _ in range(epochs):
+    for epoch in range(epochs):
+        epoch_loss = 0.0
+        epoch_samples = 0
         for X_batch, y_batch in data_loader:
             X_batch = X_batch.to(device)
             y_batch = y_batch.to(device)
@@ -69,8 +73,18 @@ def train(model, data_loader, loss_fn, optimizer, epochs=1, device="cpu"):
             optimizer.step()
             
             batch_size = X_batch.shape[0]
-            total_loss += loss.item() * batch_size
+            batch_loss = loss.item() * batch_size
+            total_loss += batch_loss
             total_sample += batch_size
+            epoch_loss += batch_loss
+            epoch_samples += batch_size
+
+        if epoch_samples:
+            print(
+                f"Epoch {epoch + 1}/{epochs} - training average loss: "
+                f"{epoch_loss / epoch_samples:.6f}",
+                flush=True,
+            )
         
     if total_sample == 0:
         raise ValueError("Missing data (sample) for training")
@@ -129,8 +143,24 @@ def save_model(
     train_start,
     train_end,
     feature_columns,
+    *,
+    checkpoint_dir: str | Path | None = None,
+    metadata: dict | None = None,
 ):
-    model_path = Path("checkpoints") / model_name
+    """Save the supplied final model without overwriting an earlier run.
+
+    Metadata should contain plain Python values so the checkpoint remains
+    compatible with the default weights-only loader.
+    """
+    checkpoint_dir = (
+        Path(checkpoint_dir)
+        if checkpoint_dir is not None
+        else Path(__file__).resolve().parent.parent / "checkpoints"
+    )
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+    model_path = checkpoint_dir / (
+        f"{Path(model_name).stem}_{timestamp}_{uuid4().hex[:8]}.pt"
+    )
     model_path.parent.mkdir(parents=True, exist_ok=True)
 
     torch.save(
@@ -141,6 +171,7 @@ def save_model(
             "feature_columns": list(feature_columns),
             "train_start": train_start,
             "train_end": train_end,
+            "metadata": dict(metadata) if metadata is not None else {},
         },
         model_path,
     )
@@ -181,4 +212,3 @@ def load_model(
         checkpoint["train_start"],
         checkpoint["train_end"],
     )
-    

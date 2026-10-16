@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 import pandas as pd
+from pathlib import Path
 
 import deep_learning
 import models
@@ -13,13 +14,15 @@ import utils
 COL_NAMES = ["SecuritiesCode", "Date", "Open", "High", "Low", "Close", "Volume", "AdjustmentFactor", "Target"]
 FEAUTRES = ["Open", "High", "Low", "Close", "Volume", "ExpectedDividend"]
 TIME_SPAN = [42]
+DEFAULT_DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "stock_prices.csv"
 
     
 def common_process(
     train_and_val: list[str],
-    col_names: list[str]
+    col_names: list[str],
+    data_path: str | Path = DEFAULT_DATA_PATH,
 ):
-    df = main_loader("/Users/coolguy/Desktop/JPX/data/stock_prices.csv", show_basic_data=False)
+    df = main_loader(data_path, show_basic_data=False)
     
     df["ExpectedDividend"] = df["ExpectedDividend"].fillna(0)
     print("Stage 1: Loaded", flush=True)
@@ -63,8 +66,8 @@ def common_process(
 
 
 @utils.print_running_time
-def model_1():  
-    df, _, device, _, _ = common_process(["2017-01-01", "2021-07-01","2017-01-01", "2021-07-01"], COL_NAMES)
+def model_1(data_path: str | Path = DEFAULT_DATA_PATH):
+    df, _, device, _, _ = common_process(["2017-01-01", "2021-07-01","2017-01-01", "2021-07-01"], COL_NAMES, data_path)
     
     for time in TIME_SPAN:
         X, y = features.create_time_sequence(df, time_sequence=time, col_names=FEAUTRES)
@@ -92,7 +95,7 @@ def model_1():
     
     
 @utils.print_running_time
-def model_2():
+def model_2(data_path: str | Path = DEFAULT_DATA_PATH):
     #================================ Expanding window ================================#
     # Half of the year for validation
     splits = utils.create_start_end_date(
@@ -115,8 +118,11 @@ def model_2():
         loss_fn = nn.L1Loss()
         optimizer = torch.optim.Adam(model.parameters())
         
-        for train_and_val in splits:
-            train_df, val_df, device, mean, std = common_process(train_and_val, COL_NAMES)
+        for fold_index, train_and_val in enumerate(splits, start=1):
+            print(f"Fold {fold_index}/{len(splits)}: {train_and_val}", flush=True)
+            train_df, val_df, device, mean, std = common_process(train_and_val, COL_NAMES, data_path)
+            scaler_fit_start = train_df["Date"].min()
+            scaler_fit_end = train_df["Date"].max()
             val_df = utils.compensate_val_lost_time(train_df, val_df, time)
             
             # Since the last train target uses eval's first day and second day close price to calculate the target
@@ -148,16 +154,31 @@ def model_2():
         print(f"Total earnings (sum of daily returns): {total_earnings:.2%}")
         print(track_all_predictions)
         
-        deep_learning.save_model(
+        checkpoint_path = deep_learning.save_model(
             model=model,
             model_name='CNN_LSTM',
             mean=mean,
             std=std,
-            train_start="2017-01-01",
-            train_end="2021-01-01",
+            train_start=pd.Timestamp(train_df["Date"].min()).strftime("%Y-%m-%d"),
+            train_end=pd.Timestamp(train_df["Date"].max()).strftime("%Y-%m-%d"),
             feature_columns=FEAUTRES,
+            metadata={
+                "fold": fold_index,
+                "total_folds": len(splits),
+                "epochs_per_fold": 20,
+                "lookback": time,
+                "model_config": {
+                    "num_features": len(FEAUTRES),
+                    "cnn_out_channels": 64,
+                    "kernel_size": 3,
+                    "hidden_size": 100,
+                },
+                "train_date_bounds": "inclusive input-data dates after target purging",
+                "split_train_end_exclusive": pd.Timestamp(train_and_val[1]).strftime("%Y-%m-%d"),
+                "validation_start_inclusive": pd.Timestamp(train_and_val[2]).strftime("%Y-%m-%d"),
+                "validation_end_exclusive": pd.Timestamp(train_and_val[3]).strftime("%Y-%m-%d"),
+                "scaler_fit_start_inclusive": pd.Timestamp(scaler_fit_start).strftime("%Y-%m-%d"),
+                "scaler_fit_end_inclusive": pd.Timestamp(scaler_fit_end).strftime("%Y-%m-%d"),
+            },
         )
-
-            
-            
-        
+    return checkpoint_path

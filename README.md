@@ -2,13 +2,13 @@
 
 A personal quantitative-finance learning project using a **PyTorch CNN-LSTM** to predict JPX stock targets. The current implementation includes corporate-action adjustment, training-period normalization, per-security rolling windows, expanding-window training and validation, and daily ranking diagnostics.
 
-**Latest source sync: 2026-10-16.** This update copies the current desktop source and reflection PDFs without changing their contents. It does not publish a completed full backtest or establish predictive performance. Earlier snapshots and reports remain available in Git history and the repository.
+**Updated 2026-10-16.** The repository now includes a configurable data path, per-epoch training progress, and a final checkpoint with experiment metadata. These changes were checked with small tests; they do not establish predictive performance or reproduce a full-data backtest. Earlier snapshots and reports remain available in Git history and the repository.
 
 ## Explore the project
 
 | Component | Purpose |
 | --- | --- |
-| [Entry point](codes/main.py) | Runs `model_2()`; includes a checkpoint-loading helper |
+| [Entry point](codes/main.py) | Runs `model_2()` with an optional CSV path; includes a checkpoint-loading helper |
 | [Experiment pipeline](codes/JPX_deep_learning_models.py) | Data preparation, expanding windows, training, validation, and saving |
 | [CNN-LSTM model](codes/models.py) | Convolution, pooling, three-layer LSTM, and regression head |
 | [Training utilities](codes/deep_learning.py) | Tensor conversion, loaders, training, inference, and checkpoint I/O |
@@ -31,29 +31,48 @@ A personal quantitative-finance learning project using a **PyTorch CNN-LSTM** to
 - Removal of the final two distinct training dates from fitting to address forward-looking target overlap.
 - CNN kernel size 3, 64 output channels, and LSTM hidden size 100.
 - L1 loss, Adam, batch size 64, and 20 epochs per split.
+- Per-epoch progress, including the average training loss.
 - Apple MPS when available, otherwise CPU. CUDA is not selected by the current source.
 
-The model and optimizer are initialized before the split loop and retained across splits. This is continued training on expanding data, not an independent model fitted from scratch for each split. The older `model_1()` remains in the source as a separate in-sample experiment.
+The model and optimizer are initialized before the split loop and retained across splits. This is continued training on expanding data, rather than an independent model fitted from scratch for each split. The older `model_1()` remains in the source as a separate in-sample experiment.
+
+The default date range produces eight complete validation blocks. Validation ends on June 8, 2021; the final partial block before July 1 is not included. The lookback counts valid rows per security, so missing observations can make a window span more than 42 trading days.
+
+Only after all eight splits finish successfully, the final model is saved once as a uniquely named `.pt` file in the repository's `checkpoints/` directory. The file includes normalization statistics, feature columns, model configuration, and dates taken from the actual training and validation periods. `train_start` and `train_end` are inclusive training-input dates after target purging; metadata separately records the scaler-fitting range and validation boundaries. Repeated completed runs produce separate files. There are no intermediate checkpoints or automatic resume support.
 
 ## Run locally
 
 1. Obtain `stock_prices.csv` from the [JPX competition data page](https://www.kaggle.com/competitions/jpx-tokyo-stock-exchange-prediction/data). See [data setup](data/README.md).
-2. Install the dependencies in [requirements.txt](requirements.txt). Those pins record the initial publication environment; this sync does not verify a fresh installation.
-3. Change the machine-specific CSV path in `common_process()` in [the experiment pipeline](codes/JPX_deep_learning_models.py) to your local path.
+2. Install the dependencies in [requirements.txt](requirements.txt). Those pins record the initial publication environment; a fresh installation has not been verified by this update.
+3. Place the file at `data/stock_prices.csv` in this repository, or use the `--data` option to point to another local file.
 4. From the repository root, run:
 
    ```bash
    python codes/main.py
    ```
 
-Full-data execution materializes rolling windows in memory and can take several hours. Model saving writes to `checkpoints/CNN_LSTM` relative to the working directory. The source is preserved as supplied, including its checkpoint metadata and local path; these should be reviewed before reusing a checkpoint in another experiment.
+   To use a CSV stored elsewhere:
+
+   ```bash
+   python codes/main.py --data /path/to/stock_prices.csv
+   ```
+
+The default CSV path and checkpoint directory are resolved from the repository location. Full-data execution materializes rolling windows in memory and can take several hours. It does not save individual prediction rows. The final checkpoint supports later inference through `use_loaded_model()`; it is not a resumable training snapshot.
 
 ## Verification and history
 
-The [2026-10-16 sync record](docs/SYNC_2026-10-16.md) and [file manifest](docs/source_manifest_2026-10-16.json) document the current upload. All nine supplied Python files passed syntax parsing, and all twelve copied files were checked against their source bytes. No full backtest was rerun for this upload.
+Run the current small regression checks from the repository root:
 
-The [initial publication record](docs/PUBLICATION.md), [original manifest](docs/source_manifest.json), [synthetic test output](docs/test_output.txt), and [debugging notes](codes/JPX_debug_notes.md) describe the **2026-10-11 snapshot**. The historical test file is retained, but its old API assumptions have not been updated for the current module structure. Its recorded 27 passing tests must not be interpreted as a test result for this sync.
+```bash
+python -m unittest discover -s tests -v
+```
 
-Earlier [experiment reflections](Reflections/CNN-LSTM%20model/cnn_lstm_jpx_10_epoch_experiment_report_en.pdf) and the [previous October 13 upload record](Reflections/CNN-LSTM%20model/2026-10-13/) are preserved. Reflection documents are research notes, not newly reproduced performance evidence.
+The checks in [tests/test_pipeline.py](tests/test_pipeline.py) use small inputs and temporary files. They do not require the competition CSV or rerun the full training experiment.
 
-Raw competition CSVs, Python caches, and macOS metadata are excluded under the repository's existing policy. The original desktop files are retained unchanged.
+The [2026-10-16 sync record](docs/SYNC_2026-10-16.md) and [file manifest](docs/source_manifest_2026-10-16.json) document the earlier, unmodified source upload. Their byte comparisons and syntax checks apply to [that snapshot](https://github.com/Kevin-Shih-Kai-Jen/jpx-equity-prediction/tree/5c6657ef1d39d604f2a2de23a2ca99e6d87b2944), before the current code changes. No full backtest was rerun for this update.
+
+The [initial publication record](docs/PUBLICATION.md), [original manifest](docs/source_manifest.json), [synthetic test output](docs/test_output.txt), and [historical debugging notes](https://github.com/Kevin-Shih-Kai-Jen/jpx-equity-prediction/blob/5c6657ef1d39d604f2a2de23a2ca99e6d87b2944/codes/JPX_debug_notes.md) describe the **2026-10-11 snapshot**. The obsolete test and debugging-note files have been removed from `codes/`; the [original test file](https://github.com/Kevin-Shih-Kai-Jen/jpx-equity-prediction/blob/5c6657ef1d39d604f2a2de23a2ca99e6d87b2944/codes/test_jpx_debug.py) remains available in Git history. Its recorded 27 passing tests must not be interpreted as a result for the current code.
+
+The three dated reflection PDFs linked above are retained. Duplicate copies were removed after confirming matching SHA-256 hashes. The [previous October 13 upload record and generation files](Reflections/CNN-LSTM%20model/2026-10-13/) are preserved. Reflection documents are research notes, not newly reproduced performance evidence.
+
+Raw competition CSVs, the entire `checkpoints/` directory, Python caches, and macOS metadata are excluded from Git. The original desktop source and data remain unchanged.

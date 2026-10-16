@@ -1,11 +1,20 @@
+import argparse
 from pathlib import Path
 
 from models import CNN_LSTM
-from JPX_deep_learning_models import model_2, FEAUTRES
+from JPX_deep_learning_models import model_2, FEAUTRES, DEFAULT_DATA_PATH
 from deep_learning import load_model
 
 def main():
-    model_2()
+    parser = argparse.ArgumentParser(description="Run the JPX CNN-LSTM backtest.")
+    parser.add_argument(
+        "--data",
+        type=Path,
+        default=DEFAULT_DATA_PATH,
+        help="Path to stock_prices.csv (default: the repository's data directory).",
+    )
+    args = parser.parse_args()
+    model_2(data_path=args.data)
 
 def use_loaded_model(model_path: str | Path):
     model = CNN_LSTM(
@@ -23,4 +32,3 @@ def use_loaded_model(model_path: str | Path):
 
 if __name__ == "__main__":
     main()
-    

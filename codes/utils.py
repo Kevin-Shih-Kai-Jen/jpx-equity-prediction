@@ -1,13 +1,15 @@
 import pandas as pd
 import time
 from datetime import datetime, timedelta
+from functools import wraps
 
 
 def print_running_time(func):
-    def inner_func():
+    @wraps(func)
+    def inner_func(*args, **kwargs):
         print("\n============================== Program starts running ==============================\n")
         start_time = time.time()
-        func()
+        result = func(*args, **kwargs)
         end_time = time.time()
         print("\n============================== Program finished running ==============================\n")
         diff = end_time - start_time
@@ -15,6 +17,7 @@ def print_running_time(func):
         min = (diff - hr * 3600) // 60
         sec = diff - hr * 3600 - min * 60
         print(f"Total runtime: {hr}h, {min}m, {sec}s")
+        return result
     return inner_func
 
 
