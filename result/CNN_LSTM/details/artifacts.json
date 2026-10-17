@@ -1,0 +1,234 @@
+{
+  "source_commit": "b3cd1bfd617251c7eebc42c588e4067a09af1fe3",
+  "source_sha256": {
+    "codes/JPX_deep_learning_models.py": "4e8336d227c89b931470ba6c69b9a0600a94d388e8dec901dc8c7a136ae8a2b0",
+    "codes/data_loader.py": "7defa06e87cfe074a78956d14a46092b89dd995d148f2b2232c2b9a213501d6e",
+    "codes/data_processor.py": "d1745b0e48fbd3f719d22ce9ff5b5968428ad13399713d3ff0b584bdfd40ca9d",
+    "codes/deep_learning.py": "6eb023591258dc392ce16f6d43cc4bad752b2bc7ef9242cfb1506d71cd491b04",
+    "codes/evaluation.py": "2d7891b9239217db73f87d1137caba02894c6be86e1548179db9be7f6bcc7003",
+    "codes/features.py": "269dc03306539104aa73d05c2bb431c1854c293833e4902b3bb42f9dffdc510d",
+    "codes/main.py": "3e79dbff6e60245dea240291dcd246f9f5c15a488be0e02cb414d19d46cff8ee",
+    "codes/models.py": "5fb2fc04bbeb8ecedd6e1bf94b557457b9b33e5dedb3160d0bc7e6c46f7fdcfe",
+    "codes/utils.py": "8d9f93f10779a5ccf7258ce45fc9e242bfd99174e199e4030f3c30b910c64bde",
+    "requirements.txt": "859d823aa584b3b151707cda8def81961366469710091d575c76032dfdc877f8",
+    "cloud_run/run_cloud.py": "7ddebf42503dfef5e53534cdb314fc1803fd5f9e71f6970541695bc38b2c2cab"
+  },
+  "dataset_sha256": "bf774a86f834e5338bba74f2356ebb750f93a1cc4e89b064ee07251e8ed851db",
+  "completion": {
+    "status": "passed",
+    "audited_utc": "2026-10-17T03:35:47.723075+00:00",
+    "repository_commit": "b3cd1bfd617251c7eebc42c588e4067a09af1fe3",
+    "configuration": {
+      "seed": 20261016,
+      "device": "cpu",
+      "torch_threads": 8,
+      "interop_threads": 1,
+      "folds": 8,
+      "epochs_per_fold": 20,
+      "batch_size": 64,
+      "lookback": 42,
+      "features": [
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+        "ExpectedDividend"
+      ],
+      "shuffle": false,
+      "model_and_optimizer_continue_across_folds": true
+    },
+    "completed_folds": 8,
+    "completed_epochs": 160,
+    "original_run_start_utc": "2026-10-16T09:09:49.061287+00:00",
+    "completed_utc": "2026-10-17T03:35:42.186909+00:00",
+    "wall_elapsed_seconds_including_interruptions": 66353.125622,
+    "recorded_completed_epoch_training_seconds": 39656.61113632194,
+    "training_time_note": "Sum of 160 completed epoch timings; first 15 rounded to 0.01 s. Excludes validation, preprocessing, discarded interrupted work, and downtime. This is elapsed training time, not aggregate CPU core-seconds.",
+    "folds": [
+      {
+        "fold": 1,
+        "epochs": 20,
+        "validated_samples": 228778,
+        "cumulative_Adam_steps": 45960,
+        "completed_epoch_training_seconds": 673.5940996819924,
+        "validation_MAE": 0.012257196404170648,
+        "sharpe": 0.04920448362827301,
+        "rank_IC": 0.0058033325308073196,
+        "earnings": 0.00997020024806261
+      },
+      {
+        "fold": 2,
+        "epochs": 20,
+        "validated_samples": 224999,
+        "cumulative_Adam_steps": 163400,
+        "completed_epoch_training_seconds": 1637.1137969079791,
+        "validation_MAE": 0.014804567409241421,
+        "sharpe": 0.09739384055137634,
+        "rank_IC": 0.004374340533898045,
+        "earnings": 0.025318169966340065
+      },
+      {
+        "fold": 3,
+        "epochs": 20,
+        "validated_samples": 238188,
+        "cumulative_Adam_steps": 351140,
+        "completed_epoch_training_seconds": 2655.717528075991,
+        "validation_MAE": 0.01736525321440269,
+        "sharpe": 0.21955734491348267,
+        "rank_IC": 0.003304855976749041,
+        "earnings": 0.06080257520079613
+      },
+      {
+        "fold": 4,
+        "epochs": 20,
+        "validated_samples": 219242,
+        "cumulative_Adam_steps": 613300,
+        "completed_epoch_training_seconds": 3843.9044517440343,
+        "validation_MAE": 0.015768773004568568,
+        "sharpe": 0.10666251182556152,
+        "rank_IC": 0.006293857707731972,
+        "earnings": 0.02375032939016819
+      },
+      {
+        "fold": 5,
+        "epochs": 20,
+        "validated_samples": 234578,
+        "cumulative_Adam_steps": 943960,
+        "completed_epoch_training_seconds": 4902.356508475947,
+        "validation_MAE": 0.013415730770098536,
+        "sharpe": 0.2744266986846924,
+        "rank_IC": 0.010796095171790124,
+        "earnings": 0.05949534475803375
+      },
+      {
+        "fold": 6,
+        "epochs": 20,
+        "validated_samples": 229273,
+        "cumulative_Adam_steps": 1347920,
+        "completed_epoch_training_seconds": 6154.044204843012,
+        "validation_MAE": 0.022397004925611634,
+        "sharpe": 0.031784843653440475,
+        "rank_IC": -0.0022393104540364534,
+        "earnings": 0.012788139283657074
+      },
+      {
+        "fold": 7,
+        "epochs": 20,
+        "validated_samples": 238665,
+        "cumulative_Adam_steps": 1823520,
+        "completed_epoch_training_seconds": 9144.516319636987,
+        "validation_MAE": 0.016862466510824587,
+        "sharpe": 0.058279361575841904,
+        "rank_IC": 3.4516644964712835e-05,
+        "earnings": 0.024426253512501717
+      },
+      {
+        "fold": 8,
+        "epochs": 20,
+        "validated_samples": 237073,
+        "cumulative_Adam_steps": 2373700,
+        "completed_epoch_training_seconds": 10645.364226956,
+        "validation_MAE": 0.015344768460748266,
+        "sharpe": 0.06620778143405914,
+        "rank_IC": 0.001557087260703463,
+        "earnings": 0.019399568438529968
+      }
+    ],
+    "earnings_definition": "Sum of daily gross spread returns; 200 long and 200 short, each side absolute weights sum to 0.5. No transaction costs; not compounded net return.",
+    "sharpe_definition": "Daily mean spread return divided by sample standard deviation (ddof=1), risk-free base 0; not annualized.",
+    "rank_IC_definition": "Mean daily cross-sectional Spearman correlation between Prediction and Target.",
+    "total_earnings_sum_of_daily_returns": 0.2359505807980895,
+    "canonical_checkpoint_sha256": "1b795eb7e9b2075c9f4e967baa57a27fe830ae80db949301fe0413e488e5e46c",
+    "final_original_checkpoint": "checkpoints/CNN_LSTM_20261017_053542_185236_cbe77cda.pt",
+    "final_original_checkpoint_sha256": "b41c8fbea9ae426c782a4e1105e7fab6f4ddcc52d93fa65ede16dabcadb3e15f",
+    "checks": [
+      "8 validated folds and 160 completed epochs",
+      "recorded frozen source and dataset hashes",
+      "prediction lengths and finite values",
+      "metrics and completed.json consistency",
+      "Adam cumulative step counts across folds",
+      "final model tensors and normalization match canonical post-validation checkpoint"
+    ]
+  },
+  "original_result_files": [
+    {
+      "path": "cloud_run/results_20261016/fold_01_predictions.npy",
+      "bytes": 915240,
+      "sha256": "ec7ef7881cf43f76f51179624cc54d7d9f9738ddbbfec1811e3a82129e956ae7"
+    },
+    {
+      "path": "cloud_run/results_20261016/fold_02_predictions.npy",
+      "bytes": 900124,
+      "sha256": "c121c216bef1416bb70ac8b445e398ff986333438bbff33a94dc5e3f900bf3e2"
+    },
+    {
+      "path": "cloud_run/results_20261016/fold_03_predictions.npy",
+      "bytes": 952880,
+      "sha256": "ed2b5b97274eaf3d667f4874b2dc80ac5ab70758bd5496c487b76bff130e3c80"
+    },
+    {
+      "path": "cloud_run/results_20261016/fold_04_predictions.npy",
+      "bytes": 877096,
+      "sha256": "fc747afb1ece24c11d537bbc42bbe8fcaca22ddeabc800b6c4da5defa301ef3d"
+    },
+    {
+      "path": "cloud_run/results_20261016/fold_05_predictions.npy",
+      "bytes": 938440,
+      "sha256": "c50e1b2591d3e5adab7dec57b2d4b8a59dcab141cb5c3a9be54b8dd837cfc285"
+    },
+    {
+      "path": "cloud_run/results_20261016/fold_06_predictions.npy",
+      "bytes": 917220,
+      "sha256": "5dcccc3ce90c9f5c9064512705fee760267950296783af5fda0bea6316a1f45c"
+    },
+    {
+      "path": "cloud_run/results_20261016/fold_07_predictions.npy",
+      "bytes": 954788,
+      "sha256": "95f5db9da8d5534527995819e16a11dbbd3e75bcfd70591cbb73081069fa8c25"
+    },
+    {
+      "path": "cloud_run/results_20261016/fold_08_predictions.npy",
+      "bytes": 948420,
+      "sha256": "760ed0ecccd3ed933e84c449f91107d0fe8feb25dc2feb863ff44f5e67fb622c"
+    },
+    {
+      "path": "cloud_run/results_20261016/fold_results.json",
+      "bytes": 13222,
+      "sha256": "259fee0787567b84c03ca35cb0867fcead8c5cedf004c56766116dbd738c25e4"
+    },
+    {
+      "path": "cloud_run/results_20261016/completed.json",
+      "bytes": 14466,
+      "sha256": "54f05f85959949134c373c9ad20854f3f3c8e32e2ed8bd388458342b89a6fdb3"
+    },
+    {
+      "path": "cloud_run/results_20261016/completion_audit.json",
+      "bytes": 5026,
+      "sha256": "ebbf0b780b28e0efc16f9c2a376b73be9ee6327b970f05e50d2d32c62761b498"
+    }
+  ],
+  "model_files": [
+    {
+      "path": "cloud_run/results_20261016/resume_latest.pt",
+      "bytes": 2799135,
+      "sha256": "1b795eb7e9b2075c9f4e967baa57a27fe830ae80db949301fe0413e488e5e46c"
+    },
+    {
+      "path": "checkpoints/CNN_LSTM_20261017_053542_185236_cbe77cda.pt",
+      "bytes": 924681,
+      "sha256": "b41c8fbea9ae426c782a4e1105e7fab6f4ddcc52d93fa65ede16dabcadb3e15f"
+    }
+  ],
+  "availability_note": "The report folder includes the final inference checkpoint under details/model/, aggregate metrics, figures and analysis code. Raw stock data, per-security predictions and resumable training checkpoints remain in the separate completed-run archive.",
+  "published_model": {
+    "path": "result/CNN_LSTM/details/model/CNN_LSTM_final.pt",
+    "original_filename": "CNN_LSTM_20261017_053542_185236_cbe77cda.pt",
+    "sha256": "b41c8fbea9ae426c782a4e1105e7fab6f4ddcc52d93fa65ede16dabcadb3e15f",
+    "bytes": 924681,
+    "source_commit": "b3cd1bfd617251c7eebc42c588e4067a09af1fe3",
+    "format": "Original PyTorch final inference checkpoint; model_state_dict, mean, std, feature_columns, train_start, train_end and metadata",
+    "completed_training": "8 folds x 20 epochs, with model and Adam state continued across folds",
+    "training_resume_supported": false
+  }
+}

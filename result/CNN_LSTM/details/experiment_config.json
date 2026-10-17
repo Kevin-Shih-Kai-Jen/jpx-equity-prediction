@@ -1,0 +1,386 @@
+{
+  "repository": "Kevin-Shih-Kai-Jen/jpx-equity-prediction",
+  "source_commit": "b3cd1bfd617251c7eebc42c588e4067a09af1fe3",
+  "dataset": {
+    "filename": "stock_prices.csv",
+    "bytes": 217603723,
+    "sha256": "bf774a86f834e5338bba74f2356ebb750f93a1cc4e89b064ee07251e8ed851db"
+  },
+  "training": {
+    "seed": 20261016,
+    "device": "cpu",
+    "torch_threads": 8,
+    "interop_threads": 1,
+    "folds": 8,
+    "epochs_per_fold": 20,
+    "batch_size": 64,
+    "lookback": 42,
+    "features": [
+      "Open",
+      "High",
+      "Low",
+      "Close",
+      "Volume",
+      "ExpectedDividend"
+    ],
+    "shuffle": false,
+    "model_and_optimizer_continue_across_folds": true
+  },
+  "model": {
+    "name": "CNN_LSTM",
+    "conv1d_in_channels": 6,
+    "conv1d_out_channels": 64,
+    "conv1d_kernel_size": 3,
+    "conv1d_stride": 1,
+    "conv1d_padding": 0,
+    "activation": "ReLU",
+    "max_pool1d_kernel_size": 2,
+    "channel_dropout": 0.2,
+    "lstm_hidden_size": 100,
+    "lstm_layers": 3,
+    "lstm_dropout": 0.2,
+    "output_dropout": 0.2,
+    "linear_outputs": 1
+  },
+  "optimizer": {
+    "name": "Adam",
+    "learning_rate": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "epsilon": 1e-08,
+    "weight_decay": 0,
+    "amsgrad": false
+  },
+  "loss": "L1Loss (mean absolute error)",
+  "validation": {
+    "scheme": "expanding training window; 180-calendar-day validation intervals",
+    "purge": "remove last two available training dates",
+    "normalization": "fit on the pre-purge training partition; reuse for validation",
+    "history": "append up to 41 preceding input rows per security",
+    "final_partial_interval": "not evaluated by the original full-interval split loop"
+  },
+  "runtime_versions": {
+    "python": "3.12.14",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scikit_learn": "1.8.0"
+  },
+  "deterministic_algorithms_enabled": false,
+  "fold_contexts": [
+    {
+      "fold": 1,
+      "training_samples": 147019,
+      "validation_samples": 228778,
+      "split_dates": [
+        "2017-01-01 00:00:00",
+        "2017-06-30 00:00:00",
+        "2017-06-30 00:00:00",
+        "2017-12-27 00:00:00"
+      ],
+      "mean": [
+        2214.394463940618,
+        2237.3772129743497,
+        2192.4011474437807,
+        2215.3619832659874,
+        953083.0885915296,
+        0.15826098032326072
+      ],
+      "std": [
+        3281.234418240144,
+        3310.3097342325127,
+        3253.5183259926075,
+        3283.1269388003607,
+        6274482.620691516,
+        2.8425925622143695
+      ],
+      "features": [
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+        "ExpectedDividend"
+      ],
+      "scaler_fit_start": "2017-01-04 00:00:00",
+      "scaler_fit_end": "2017-06-29 00:00:00",
+      "purged_train_start": "2017-01-04 00:00:00",
+      "purged_train_end": "2017-06-27 00:00:00"
+    },
+    {
+      "fold": 2,
+      "training_samples": 375774,
+      "validation_samples": 224999,
+      "split_dates": [
+        "2017-01-01 00:00:00",
+        "2017-12-27 00:00:00",
+        "2017-12-27 00:00:00",
+        "2018-06-25 00:00:00"
+      ],
+      "mean": [
+        2402.1437516004285,
+        2427.619911185816,
+        2377.3240647481225,
+        2403.2637668551065,
+        914743.34554532,
+        0.14506591027972746
+      ],
+      "std": [
+        3698.4034405794705,
+        3733.526018134527,
+        3663.189880343975,
+        3700.355592350472,
+        5492861.1848040335,
+        2.653985114250829
+      ],
+      "features": [
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+        "ExpectedDividend"
+      ],
+      "scaler_fit_start": "2017-01-04 00:00:00",
+      "scaler_fit_end": "2017-12-26 00:00:00",
+      "purged_train_start": "2017-01-04 00:00:00",
+      "purged_train_end": "2017-12-22 00:00:00"
+    },
+    {
+      "fold": 3,
+      "training_samples": 600748,
+      "validation_samples": 238188,
+      "split_dates": [
+        "2017-01-01 00:00:00",
+        "2018-06-25 00:00:00",
+        "2018-06-25 00:00:00",
+        "2018-12-22 00:00:00"
+      ],
+      "mean": [
+        2572.1481506706828,
+        2601.6925732799286,
+        2542.79230653044,
+        2572.807117792871,
+        899400.7379524981,
+        0.15694156650864066
+      ],
+      "std": [
+        4078.7925978781514,
+        4124.058829662581,
+        4032.4055685912253,
+        4079.3547739801393,
+        5200416.70605073,
+        2.86061788988868
+      ],
+      "features": [
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+        "ExpectedDividend"
+      ],
+      "scaler_fit_start": "2017-01-04 00:00:00",
+      "scaler_fit_end": "2018-06-22 00:00:00",
+      "purged_train_start": "2017-01-04 00:00:00",
+      "purged_train_end": "2018-06-20 00:00:00"
+    },
+    {
+      "fold": 4,
+      "training_samples": 838894,
+      "validation_samples": 219242,
+      "split_dates": [
+        "2017-01-01 00:00:00",
+        "2018-12-22 00:00:00",
+        "2018-12-22 00:00:00",
+        "2019-06-20 00:00:00"
+      ],
+      "mean": [
+        2626.0666868902804,
+        2658.0617048549693,
+        2593.42411268217,
+        2625.6137552385703,
+        880976.7464136597,
+        0.16090821785508883
+      ],
+      "std": [
+        4165.915715863572,
+        4215.461484600359,
+        4113.035870927296,
+        4163.969732005818,
+        4941340.795476683,
+        2.8908427848903577
+      ],
+      "features": [
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+        "ExpectedDividend"
+      ],
+      "scaler_fit_start": "2017-01-04 00:00:00",
+      "scaler_fit_end": "2018-12-21 00:00:00",
+      "purged_train_start": "2017-01-04 00:00:00",
+      "purged_train_end": "2018-12-19 00:00:00"
+    },
+    {
+      "fold": 5,
+      "training_samples": 1058106,
+      "validation_samples": 234578,
+      "split_dates": [
+        "2017-01-01 00:00:00",
+        "2019-06-20 00:00:00",
+        "2019-06-20 00:00:00",
+        "2019-12-17 00:00:00"
+      ],
+      "mean": [
+        2618.2296761613065,
+        2650.7875527560973,
+        2585.0317126814907,
+        2617.880430919943,
+        861391.0839375033,
+        0.17013211254797622
+      ],
+      "std": [
+        4217.340998307705,
+        4268.232805768007,
+        4163.932684489107,
+        4216.149184940585,
+        4716774.30178272,
+        3.062716016959692
+      ],
+      "features": [
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+        "ExpectedDividend"
+      ],
+      "scaler_fit_start": "2017-01-04 00:00:00",
+      "scaler_fit_end": "2019-06-19 00:00:00",
+      "purged_train_start": "2017-01-04 00:00:00",
+      "purged_train_end": "2019-06-17 00:00:00"
+    },
+    {
+      "fold": 6,
+      "training_samples": 1292649,
+      "validation_samples": 229273,
+      "split_dates": [
+        "2017-01-01 00:00:00",
+        "2019-12-17 00:00:00",
+        "2019-12-17 00:00:00",
+        "2020-06-14 00:00:00"
+      ],
+      "mean": [
+        2628.5956494238344,
+        2660.9073601280757,
+        2595.750394167015,
+        2628.524929876631,
+        837028.474631832,
+        0.1689235977941262
+      ],
+      "std": [
+        4306.621102957257,
+        4357.095943245555,
+        4253.999177755722,
+        4305.979131538533,
+        4499779.456033967,
+        3.0383977321329962
+      ],
+      "features": [
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+        "ExpectedDividend"
+      ],
+      "scaler_fit_start": "2017-01-04 00:00:00",
+      "scaler_fit_end": "2019-12-16 00:00:00",
+      "purged_train_start": "2017-01-04 00:00:00",
+      "purged_train_end": "2019-12-12 00:00:00"
+    },
+    {
+      "fold": 7,
+      "training_samples": 1521885,
+      "validation_samples": 238665,
+      "split_dates": [
+        "2017-01-01 00:00:00",
+        "2020-06-14 00:00:00",
+        "2020-06-14 00:00:00",
+        "2020-12-11 00:00:00"
+      ],
+      "mean": [
+        2631.188403037331,
+        2665.407376665094,
+        2596.329082859314,
+        2631.277312648218,
+        851630.2411643231,
+        0.17821411589563071
+      ],
+      "std": [
+        4409.350920532014,
+        4463.696404673979,
+        4353.412997264485,
+        4409.751933078125,
+        4547557.059756411,
+        3.1946910758331066
+      ],
+      "features": [
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+        "ExpectedDividend"
+      ],
+      "scaler_fit_start": "2017-01-04 00:00:00",
+      "scaler_fit_end": "2020-06-12 00:00:00",
+      "purged_train_start": "2017-01-04 00:00:00",
+      "purged_train_end": "2020-06-10 00:00:00"
+    },
+    {
+      "fold": 8,
+      "training_samples": 1760514,
+      "validation_samples": 237073,
+      "split_dates": [
+        "2017-01-01 00:00:00",
+        "2020-12-11 00:00:00",
+        "2020-12-11 00:00:00",
+        "2021-06-09 00:00:00"
+      ],
+      "mean": [
+        2685.5529538831984,
+        2721.2548797923687,
+        2648.7466707433805,
+        2685.3763897853696,
+        844708.9775373739,
+        0.1737961017427484
+      ],
+      "std": [
+        4707.3767391343135,
+        4767.34422416122,
+        4644.7909300324,
+        4706.965193895015,
+        4447921.298044328,
+        3.1330670737933346
+      ],
+      "features": [
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+        "ExpectedDividend"
+      ],
+      "scaler_fit_start": "2017-01-04 00:00:00",
+      "scaler_fit_end": "2020-12-10 00:00:00",
+      "purged_train_start": "2017-01-04 00:00:00",
+      "purged_train_end": "2020-12-08 00:00:00"
+    }
+  ]
+}

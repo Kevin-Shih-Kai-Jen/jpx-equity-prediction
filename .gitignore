@@ -29,3 +29,6 @@ kaggle.json
 Thumbs.db
 .idea/
 .vscode/
+
+# Published final CNN-LSTM checkpoint (explicitly approved)
+!/result/CNN_LSTM/details/model/CNN_LSTM_final.pt
