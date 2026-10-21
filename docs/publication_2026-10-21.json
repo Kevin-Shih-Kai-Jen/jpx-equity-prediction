@@ -1,0 +1,89 @@
+{
+  "publication_date": "2026-10-21",
+  "repository": "Kevin-Shih-Kai-Jen/jpx-equity-prediction",
+  "purpose": "Publish supplied research documents in English, with reflections as the primary reading and results reports as supporting reading.",
+  "reading_order": [
+    "Reflections/README.md",
+    "result/README.md"
+  ],
+  "files": [
+    {
+      "path": "Reflections/reflections_1.pdf",
+      "category": "reflection",
+      "source_filename": "reflections_1.pdf",
+      "language": "en",
+      "operation": "unchanged",
+      "page_count": 1,
+      "size_bytes": 100357,
+      "source_sha256": "70a379ee16aea5211e4486e88249a94e2b19495e295686ca981158200dbb471a",
+      "published_sha256": "70a379ee16aea5211e4486e88249a94e2b19495e295686ca981158200dbb471a",
+      "git_blob_sha": "e526af182d99d5dc161869be5059ae207a5bc6ea"
+    },
+    {
+      "path": "result/ENSEMBLE/JPX_ENSEMBLE_Report_EN.pdf",
+      "category": "result",
+      "source_filename": "JPX_ENSEMBLE_Report_EN.pdf",
+      "language": "en",
+      "operation": "unchanged",
+      "page_count": 5,
+      "size_bytes": 54864,
+      "source_sha256": "4f7400e724874957f7ce5f545745e5b677bc262a853fbaa22670a3c510f94b19",
+      "published_sha256": "4f7400e724874957f7ce5f545745e5b677bc262a853fbaa22670a3c510f94b19",
+      "git_blob_sha": "63b835cbdb9423f641950b33103915571c246f37"
+    },
+    {
+      "path": "result/ENSEMBLE/JPX_No_ReLU_Full_Study_EN.pdf",
+      "category": "result",
+      "source_filename": "JPX_No_ReLU_Full_Study_EN.pdf",
+      "language": "en",
+      "operation": "unchanged",
+      "page_count": 7,
+      "size_bytes": 300358,
+      "source_sha256": "43652f6037bce6f81244c518d24e544b3df3adb843027c6957d83e5a89812fb1",
+      "published_sha256": "43652f6037bce6f81244c518d24e544b3df3adb843027c6957d83e5a89812fb1",
+      "git_blob_sha": "de72f4eea2b47dce1e07e471765f561f74d95c16"
+    },
+    {
+      "path": "result/ENSEMBLE/JPX_ENSEMBLE_Long_Short_Tail_Study_EN.pdf",
+      "category": "result",
+      "source_filename": "JPX_ENSEMBLE_Long_Short_Tail_Study_EN.pdf",
+      "language": "en",
+      "operation": "unchanged",
+      "page_count": 7,
+      "size_bytes": 225660,
+      "source_sha256": "55a48d0aa3e9348c9aa5c31aff8ec73cdc415bdfec53c45e1e28f4ab7e71c946",
+      "published_sha256": "55a48d0aa3e9348c9aa5c31aff8ec73cdc415bdfec53c45e1e28f4ab7e71c946",
+      "git_blob_sha": "c7e43eafd10ad67ad7f59a7bc046dd3878ca7fea"
+    },
+    {
+      "path": "result/CNN_LSTM/JPX_CNN_LSTM_42Day_No_ReLU_No_Pooling_Report_EN.pdf",
+      "category": "result",
+      "source_filename": "JPX_CNN_LSTM_42日_移除ReLU與Pooling_分析報告.pdf",
+      "language": "en",
+      "operation": "translated_zh_to_en",
+      "page_count": 9,
+      "size_bytes": 359290,
+      "source_sha256": "0f9e6dd29defb180c52da340dfb4bde247c7477404e183ec10f6b89ff016fde4",
+      "published_sha256": "db5f40866d5cde2860b4963d299687e4f3777746943693eb14c81b7cfbd45f61",
+      "git_blob_sha": "ae11cc0ca084fa6e70fcde715e7382fb3bd3cca8"
+    },
+    {
+      "path": "result/CNN_ENSEMBLE/JPX_CNN_Ensemble_Training_Analysis_20261019_EN.pdf",
+      "category": "result",
+      "source_filename": "JPX_training_analysis_20261019.pdf",
+      "language": "en",
+      "operation": "translated_zh_to_en",
+      "page_count": 4,
+      "size_bytes": 77573,
+      "source_sha256": "af501f760601cecfc9c779c65c4740f0b2368354dacc515be47ac108cb12459d",
+      "published_sha256": "aebf8651fe0ceef1b775f9ff3aa44ffbac5113e2db5a00f74ec801f99fd550b3",
+      "git_blob_sha": "78f17d41e46fc49d766c7b379c4a29824c79cd2e"
+    }
+  ],
+  "validation": {
+    "translations": "Full English translations; all rendered pages inspected. Decimal values and source hyperlink targets checked against the supplied PDFs.",
+    "unchanged_documents": "The four supplied English PDFs are byte-for-byte unchanged.",
+    "upload_integrity": "GitHub blob SHA-1 values matched locally computed Git blob hashes for all six PDFs.",
+    "scope": "Publication and organization only; no model training or backtest rerun."
+  }
+}

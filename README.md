@@ -1,10 +1,29 @@
 # JPX Equity Prediction
 
+## Start here: reflections
+
+**The reflections are the main reading in this repository.** They record the research questions, hypotheses, interpretation of results, unresolved issues, and next steps.
+
+- **[Read the latest reflection: JPX Model Research Log](Reflections/reflections_1.pdf)** - three experiments covering ReLU removal, CNN-LSTM, and CNN-Ensemble.
+- [Browse all reflections](Reflections/README.md) - latest reflection first, followed by the earlier CNN-LSTM updates.
+
+## Results reports - supporting reading
+
+Read the [results index](result/README.md) after the reflections for the detailed experiment reports, tables, figures, and limitations.
+
+| Model family | English reports |
+| --- | --- |
+| Ensemble | [Original evaluation](result/ENSEMBLE/JPX_ENSEMBLE_Report_EN.pdf) · [No-ReLU study](result/ENSEMBLE/JPX_No_ReLU_Full_Study_EN.pdf) · [Long/short and tail-ranking study](result/ENSEMBLE/JPX_ENSEMBLE_Long_Short_Tail_Study_EN.pdf) |
+| CNN-LSTM | [Original results](result/CNN_LSTM/CNN_LSTM_Results_EN.pdf) · [42-observation ReLU/pooling ablation](result/CNN_LSTM/JPX_CNN_LSTM_42Day_No_ReLU_No_Pooling_Report_EN.pdf) |
+| CNN-Ensemble | [Training and backtest analysis, 2026-10-19](result/CNN_ENSEMBLE/JPX_CNN_Ensemble_Training_Analysis_20261019_EN.pdf) |
+
+## Project and code
+
 A personal quantitative-finance learning project using a **PyTorch CNN-LSTM** to predict JPX stock targets. The current implementation includes corporate-action adjustment, training-period normalization, per-security rolling windows, expanding-window training and validation, and daily ranking diagnostics.
 
 **Updated 2026-10-16.** The repository now includes a configurable data path, per-epoch training progress, and a final checkpoint with experiment metadata. These changes were checked with small tests; they do not establish predictive performance or reproduce a full-data backtest. Earlier snapshots and reports remain available in Git history and the repository.
 
-## Completed CNN-LSTM results
+## Original CNN-LSTM baseline
 
 **Published 2026-10-17.** The frozen source commit `b3cd1bfd617251c7eebc42c588e4067a09af1fe3` completed all 8 folds, 20 epochs per fold, batch size 64 and lookback 42. Model and Adam state continued across folds.
 
@@ -22,7 +41,8 @@ Read the [English results PDF](result/CNN_LSTM/CNN_LSTM_Results_EN.pdf) for the 
 | [Features](codes/features.py) | Row validation, normalization, and per-security sequences |
 | [Evaluation](codes/evaluation.py) | Daily ranking, spread returns, Sharpe, and Rank IC |
 | [Utilities](codes/utils.py) | Split dates, validation history, and runtime reporting |
-| [Latest reflection: 2026-10-16](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026_10_16.pdf) | Code corrections, runtime investigation, and next steps |
+| [Latest reflection: model research log](Reflections/reflections_1.pdf) | Questions, hypotheses, findings, and next steps across three experiments |
+| [Reflection: 2026-10-16](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026_10_16.pdf) | Code corrections, runtime investigation, and next steps |
 | [Reflection: 2026-10-13](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026-10-13.pdf) | Earlier daily update |
 | [Reflection: 2026-10-11](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026-10-11.pdf) | Earlier daily update |
 
@@ -79,6 +99,6 @@ The [2026-10-16 sync record](docs/SYNC_2026-10-16.md) and [file manifest](docs/s
 
 The [initial publication record](docs/PUBLICATION.md), [original manifest](docs/source_manifest.json), [synthetic test output](docs/test_output.txt), and [historical debugging notes](https://github.com/Kevin-Shih-Kai-Jen/jpx-equity-prediction/blob/5c6657ef1d39d604f2a2de23a2ca99e6d87b2944/codes/JPX_debug_notes.md) describe the **2026-10-11 snapshot**. The obsolete test and debugging-note files have been removed from `codes/`; the [original test file](https://github.com/Kevin-Shih-Kai-Jen/jpx-equity-prediction/blob/5c6657ef1d39d604f2a2de23a2ca99e6d87b2944/codes/test_jpx_debug.py) remains available in Git history. Its recorded 27 passing tests must not be interpreted as a result for the current code.
 
-The three dated reflection PDFs linked above are retained. Duplicate copies were removed after confirming matching SHA-256 hashes. The [previous October 13 upload record and generation files](Reflections/CNN-LSTM%20model/2026-10-13/) are preserved. Reflection documents are research notes, not newly reproduced performance evidence.
+The three earlier CNN-LSTM reflection PDFs are retained. Duplicate copies were removed after confirming matching SHA-256 hashes. The [previous October 13 upload record and generation files](Reflections/CNN-LSTM%20model/2026-10-13/) are preserved. Reflection documents are research notes, not newly reproduced performance evidence.
 
 Raw competition CSVs, the entire `checkpoints/` directory, Python caches, and macOS metadata are excluded from Git. The single published final checkpoint under `result/CNN_LSTM/details/model/` is an explicit exception to the model-file ignore rule. The original desktop source and data remain unchanged.
