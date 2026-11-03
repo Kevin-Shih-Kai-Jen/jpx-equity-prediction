@@ -1,6 +1,8 @@
 # Modified PRISM: training and backtest evidence (2026-11-03)
 
-[Read the five-page Chinese report](PRISM_Research_Report_20261103_ZH.pdf).
+[Read the five-page English report](PRISM_Research_Report_20261103_EN.pdf).
+
+[Chinese edition](PRISM_Research_Report_20261103_ZH.pdf) is retained as a secondary translation.
 
 This is a research report, not a claim of stable alpha or an exact replication of the original paper.
 

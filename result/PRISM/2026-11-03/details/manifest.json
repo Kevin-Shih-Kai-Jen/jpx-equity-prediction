@@ -1,7 +1,7 @@
 {
   "README.md": {
-    "bytes": 2894,
-    "sha256": "7ed0df622c76b260c9c35472a824a2862d2a41ecd863ee74fd82868c71e7a446"
+    "bytes": 2992,
+    "sha256": "ca10724e02aa566f84fcde223b9e90decda52e4487530e3ae0ca6c519fa2f09a"
   },
   "PRISM_Research_Report_20261103_ZH.pdf": {
     "bytes": 160377,
@@ -30,5 +30,9 @@
   "details/summary.json": {
     "bytes": 666,
     "sha256": "a2ccfb28379946f7513d5872e280c6b1eaaf15e7f27b96a3905d4eeccf4a10e1"
+  },
+  "PRISM_Research_Report_20261103_EN.pdf": {
+    "bytes": 57980,
+    "sha256": "2d65cc91f3a0abf604bc628c3a059d2cd9bb0f2d2716cc44012bf316f18381dd"
   }
 }

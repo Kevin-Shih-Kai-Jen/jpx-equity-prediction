@@ -19,7 +19,7 @@ Read the [results index](result/README.md) after the reflections for the detaile
 
 ## Modified PRISM research (2026-11-03)
 
-[Report, source evidence and AI-use disclosure](result/PRISM/2026-11-03/README.md) · [Chinese PDF](result/PRISM/2026-11-03/PRISM_Research_Report_20261103_ZH.pdf)
+[Report, source evidence and AI-use disclosure](result/PRISM/2026-11-03/README.md) · [English PDF](result/PRISM/2026-11-03/PRISM_Research_Report_20261103_EN.pdf)
 
 The six-fold, 220-calendar-day run reports +20.7503% Earnings but near-zero Rank IC. The prior eight-fold run reports -5.7801%; differing test periods prevent a controlled improvement claim. Constant-input warnings remain unresolved. The included AI-assisted source is a **reference snapshot, not the exact executed Kaggle script**. Existing CNN pipelines are unchanged.
 

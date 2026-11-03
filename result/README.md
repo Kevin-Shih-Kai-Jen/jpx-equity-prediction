@@ -31,4 +31,4 @@ The reports and reflections preserve their original content, reported results, a
 
 ## Modified PRISM (2026-11-03)
 
-[Five-page Chinese report and evidence](PRISM/2026-11-03/README.md): six-fold 220-day result alongside the earlier eight-fold summary, architecture changes, AI assistance, and unresolved evaluation diagnostics. Exact Kaggle executable and daily predictions are not yet supplied.
+[Five-page English report and evidence](PRISM/2026-11-03/README.md): six-fold 220-day result alongside the earlier eight-fold summary, architecture changes, AI assistance, and unresolved evaluation diagnostics. Exact Kaggle executable and daily predictions are not yet supplied.
