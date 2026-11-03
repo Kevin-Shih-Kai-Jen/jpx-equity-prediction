@@ -17,6 +17,12 @@ Read the [results index](result/README.md) after the reflections for the detaile
 | CNN-LSTM | [Original results](result/CNN_LSTM/CNN_LSTM_Results_EN.pdf) · [42-observation ReLU/pooling ablation](result/CNN_LSTM/JPX_CNN_LSTM_42Day_No_ReLU_No_Pooling_Report_EN.pdf) |
 | CNN-Ensemble | [Training and backtest analysis, 2026-10-19](result/CNN_ENSEMBLE/JPX_CNN_Ensemble_Training_Analysis_20261019_EN.pdf) |
 
+## Modified PRISM research (2026-11-03)
+
+[Report, source evidence and AI-use disclosure](result/PRISM/2026-11-03/README.md) · [Chinese PDF](result/PRISM/2026-11-03/PRISM_Research_Report_20261103_ZH.pdf)
+
+The six-fold, 220-calendar-day run reports +20.7503% Earnings but near-zero Rank IC. The prior eight-fold run reports -5.7801%; differing test periods prevent a controlled improvement claim. Constant-input warnings remain unresolved. The included AI-assisted source is a **reference snapshot, not the exact executed Kaggle script**. Existing CNN pipelines are unchanged.
+
 ## Project and code
 
 A personal quantitative-finance learning project using a **PyTorch CNN-LSTM** to predict JPX stock targets. The current implementation includes corporate-action adjustment, training-period normalization, per-security rolling windows, expanding-window training and validation, and daily ranking diagnostics.

@@ -28,3 +28,7 @@ The 2026-10-21 upload adds five results reports and one reflection. The two Chin
 The reports and reflections preserve their original content, reported results, and interpretations. See the [publication manifest](../docs/publication_2026-10-21.json) for file provenance and checksums.
 
 [Back to the reflections](../Reflections/README.md) · [Back to the repository](../README.md)
+
+## Modified PRISM (2026-11-03)
+
+[Five-page Chinese report and evidence](PRISM/2026-11-03/README.md): six-fold 220-day result alongside the earlier eight-fold summary, architecture changes, AI assistance, and unresolved evaluation diagnostics. Exact Kaggle executable and daily predictions are not yet supplied.

@@ -1,0 +1,34 @@
+{
+  "README.md": {
+    "bytes": 2894,
+    "sha256": "7ed0df622c76b260c9c35472a824a2862d2a41ecd863ee74fd82868c71e7a446"
+  },
+  "PRISM_Research_Report_20261103_ZH.pdf": {
+    "bytes": 160377,
+    "sha256": "13f84e5013c7855ea505e71f78d3320ee5361e2202c9b7403c2e8fc687484e31"
+  },
+  "details/previous_180day_summary.txt": {
+    "bytes": 3099,
+    "sha256": "c503a7fd540fec889708cafd308991fec8670130bf1edaf5f85f3d6c2ba2f169"
+  },
+  "details/kaggle_220day_log.txt": {
+    "bytes": 39705,
+    "sha256": "4faefbccea22941de99fd7a503a283166f75155b2766f938a85627dc13ca507f"
+  },
+  "details/fold_results.png": {
+    "bytes": 32689,
+    "sha256": "d2e65dcba8508fa8d1104da14d652df4bd6570baf28576c50c97321f4393dc1e"
+  },
+  "details/train_prism_reference.py": {
+    "bytes": 88929,
+    "sha256": "26630c63f764a21916acba2d4f6bcddc412055feb3bbcc2fbb2189ab19f1ac57"
+  },
+  "details/fold_metrics.csv": {
+    "bytes": 617,
+    "sha256": "0ed43b6a30131bc71cdb20b61e3110c03f2bd149593a413dfc6a0958ecb94b23"
+  },
+  "details/summary.json": {
+    "bytes": 666,
+    "sha256": "a2ccfb28379946f7513d5872e280c6b1eaaf15e7f27b96a3905d4eeccf4a10e1"
+  }
+}

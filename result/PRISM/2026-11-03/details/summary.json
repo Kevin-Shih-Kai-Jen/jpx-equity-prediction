@@ -1,0 +1,24 @@
+{
+  "source": "download(1).txt",
+  "split_days": 220,
+  "split_days_source": "user statement; boundary differences verified",
+  "total_test_dates": 837,
+  "aggregate": {
+    "Earnings": 20.75033187866211,
+    "Sharpe": 0.0905131995677948,
+    "Rank IC": -0.0003595566061065999
+  },
+  "sum_fold_earnings_percent": 20.75033265352249,
+  "previous_run_source": "result.txt (summary only)",
+  "previous_run": {
+    "folds": 8,
+    "Earnings": -5.7801,
+    "Sharpe": -0.02707,
+    "Rank IC": 7.1e-05
+  },
+  "limitations": [
+    "Exact executed Kaggle source not supplied",
+    "No daily predictions or portfolio returns supplied",
+    "No independent backtest rerun"
+  ]
+}

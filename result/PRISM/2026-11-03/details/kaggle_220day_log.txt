@@ -1,0 +1,469 @@
+7.7s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.7s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.7s 3 0.00s - to python to disable frozen modules.
+7.7s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+8.3s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.3s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.3s 7 0.00s - to python to disable frozen modules.
+8.3s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+23.2s 9 {
+23.2s 10 "cuda": true,
+23.2s 11 "gpu": [
+23.2s 12 "Tesla T4",
+23.2s 13 "Tesla T4"
+23.2s 14 ],
+23.2s 15 "torch": "2.11.0+cu130",
+23.2s 16 "cuda_version": "13.0",
+23.2s 17 "tensor_device": "cuda:0",
+23.2s 18 "gradient_device": "cuda:0",
+23.2s 19 "csv": [
+23.2s 20 "/kaggle/input/datasets/aiaila101/stock-price/stock_prices.csv"
+23.2s 21 ],
+23.2s 22 "csv_sha256": [
+23.2s 23 "bf774a86f834e5338bba74f2356ebb750f93a1cc4e89b064ee07251e8ed851db"
+23.2s 24 ]
+23.2s 25 }
+23.3s 26 Writing /kaggle/working/train_prism.py
+25.9s 27 已從模型輸入排除標籤／識別欄位：['SecuritiesCode', 'Date', 'Target']
+25.9s 28 專案位置：/kaggle/working
+25.9s 29 運算裝置：cuda:0
+25.9s 30 GPU: Tesla T4, torch=2.11.0+cu130, CUDA=13.0
+26.6s 31 CSV SHA256: bf774a86f834e5338bba74f2356ebb750f93a1cc4e89b064ee07251e8ed851db
+35.1s 32 讀入 2,332,531 列，輸入特徵數 = 6
+35.1s 33 特徵順序：['Open', 'High', 'Low', 'Close', 'Volume', 'AdjustmentFactor']
+39.0s 34 
+39.0s 35 開跑前檢查：
+39.0s 36 lookback  split validation_start  fit_dates  validation_dates  test_dates  minimum_test_stocks
+39.0s 37 42      1       2017-07-05         82                22         148                 1840
+39.0s 38 42      2       2017-12-27        201                51         148                 1857
+39.0s 39 42      3       2018-06-22        319                81         143                 1868
+39.0s 40 42      4       2018-12-07        434               109         145                 1890
+39.0s 41 42      5       2019-06-07        550               138         147                 1926
+39.0s 42 42      6       2019-11-28        667               168         106                 1930
+39.1s 43 結果資料夾：/kaggle/working/prism_runs/20261103_060447_652818
+47.8s 44 Stage_1 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1843, 42, 6)
+51.7s 45 Epoch 1/1: train_prediction=0.0854672, train_aux=6.95932, val_prediction=0.0449814, val_aux=6.7789
+51.8s 46 Stage_2 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1843, 42, 6)
+52.4s 47 Epoch 1/2: train_prediction=0.00956151, train_aux=0.0209438, val_prediction=0.00633708, val_aux=0.0462005
+52.5s 48 已保存 /kaggle/working/prism_runs/20261103_060447_652818/smoke.stage2.last.pt；下次從 epoch 2 續訓
+52.5s 49 RESUME smoke.stage2.last.pt: next_epoch=2, completed=False
+52.5s 50 Stage_2 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1843, 42, 6)
+52.9s 51 Epoch 2/2: train_prediction=0.00793201, train_aux=0.0207422, val_prediction=0.00384238, val_aux=0.0629449
+53.1s 52 SMOKE PASS: Stage1/Stage2 forward backward validation checkpoint resume; peak_GPU_GiB=0.907
+60.2s 53 已從模型輸入排除標籤／識別欄位：['SecuritiesCode', 'Date', 'Target']
+60.3s 54 專案位置：/kaggle/working
+60.3s 55 運算裝置：cuda:0
+60.3s 56 GPU: Tesla T4, torch=2.11.0+cu130, CUDA=13.0
+61.0s 57 CSV SHA256: bf774a86f834e5338bba74f2356ebb750f93a1cc4e89b064ee07251e8ed851db
+69.3s 58 讀入 2,332,531 列，輸入特徵數 = 6
+69.3s 59 特徵順序：['Open', 'High', 'Low', 'Close', 'Volume', 'AdjustmentFactor']
+73.1s 60 
+73.1s 61 開跑前檢查：
+73.1s 62 lookback  split validation_start  fit_dates  validation_dates  test_dates  minimum_test_stocks
+73.1s 63 42      1       2017-07-05         82                22         148                 1840
+73.1s 64 42      2       2017-12-27        201                51         148                 1857
+73.1s 65 42      3       2018-06-22        319                81         143                 1868
+73.1s 66 42      4       2018-12-07        434               109         145                 1890
+73.2s 67 42      5       2019-06-07        550               138         147                 1926
+73.2s 68 42      6       2019-11-28        667               168         106                 1930
+73.2s 69 結果資料夾：/kaggle/working/prism_runs/20261103_060521_779995
+75.3s 70 
+75.3s 71 lookback_42_split_01: inner validation from 2017-07-05, outer test from 2017-08-09
+76.5s 72 Stage_1 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+81.8s 73 Epoch 1/50: train_prediction=0.0154087, train_aux=5.63356, val_prediction=0.000367181, val_aux=5.23473
+81.8s 74 Stage_1 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+86.4s 75 Epoch 2/50: train_prediction=0.00274422, train_aux=5.23279, val_prediction=0.000380276, val_aux=5.226
+86.4s 76 Stage_1 epoch=3 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+90.8s 77 Epoch 3/50: train_prediction=0.00128708, train_aux=5.22462, val_prediction=0.000371453, val_aux=5.21854
+90.8s 78 Stage_1 epoch=4 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+95.3s 79 Epoch 4/50: train_prediction=0.000868726, train_aux=5.21699, val_prediction=0.000367183, val_aux=5.21131
+95.4s 80 Stage_1 epoch=5 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+99.9s 81 Epoch 5/50: train_prediction=0.00067856, train_aux=5.20952, val_prediction=0.000371175, val_aux=5.20415
+100.0s 82 Stage_1 epoch=6 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+104.3s 83 Epoch 6/50: train_prediction=0.000589655, train_aux=5.20213, val_prediction=0.000368043, val_aux=5.197
+104.4s 84 Stage_1 epoch=7 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+108.9s 85 Epoch 7/50: train_prediction=0.000548014, train_aux=5.19477, val_prediction=0.000370089, val_aux=5.18985
+109.0s 86 Stage_1 epoch=8 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+113.3s 87 Epoch 8/50: train_prediction=0.00051744, train_aux=5.18741, val_prediction=0.000369974, val_aux=5.18266
+113.4s 88 Stage_1 epoch=9 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+117.9s 89 Epoch 9/50: train_prediction=0.000492628, train_aux=5.18005, val_prediction=0.000377345, val_aux=5.17544
+117.9s 90 Stage_1 epoch=10 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+122.6s 91 Epoch 10/50: train_prediction=0.000475313, train_aux=5.17267, val_prediction=0.000374329, val_aux=5.1682
+122.7s 92 Stage_1 epoch=11 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+127.0s 93 Epoch 11/50: train_prediction=0.000463407, train_aux=5.16528, val_prediction=0.000372049, val_aux=5.1609
+127.0s 94 Early stopping: validation did not improve enough for 10 epochs
+127.1s 95 Stage_2 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+137.6s 96 Epoch 1/50: train_prediction=0.00184537, train_aux=0.0203271, val_prediction=0.000354248, val_aux=0.08
+137.7s 97 Stage_2 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+148.1s 98 Epoch 2/50: train_prediction=0.000533871, train_aux=0.0200375, val_prediction=0.00035976, val_aux=0.08
+148.2s 99 Stage_2 epoch=3 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+158.7s 100 Epoch 3/50: train_prediction=0.000504747, train_aux=0.0200389, val_prediction=0.000352585, val_aux=0.08
+158.8s 101 Stage_2 epoch=4 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+169.5s 102 Epoch 4/50: train_prediction=0.00048468, train_aux=0.02004, val_prediction=0.000347561, val_aux=0.08
+169.6s 103 Stage_2 epoch=5 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+180.2s 104 Epoch 5/50: train_prediction=0.000470003, train_aux=0.02004, val_prediction=0.000349114, val_aux=0.08
+180.3s 105 Stage_2 epoch=6 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+191.1s 106 Epoch 6/50: train_prediction=0.000461957, train_aux=0.0200395, val_prediction=0.000348072, val_aux=0.08
+191.2s 107 Stage_2 epoch=7 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+202.0s 108 Epoch 7/50: train_prediction=0.000453788, train_aux=0.0200411, val_prediction=0.000347378, val_aux=0.08
+202.1s 109 Stage_2 epoch=8 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+212.7s 110 Epoch 8/50: train_prediction=0.000448994, train_aux=0.0200365, val_prediction=0.000347472, val_aux=0.08
+212.8s 111 Stage_2 epoch=9 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+223.5s 112 Epoch 9/50: train_prediction=0.00044825, train_aux=0.0200403, val_prediction=0.000345141, val_aux=0.08
+223.6s 113 Stage_2 epoch=10 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+234.4s 114 Epoch 10/50: train_prediction=0.000442818, train_aux=0.0200452, val_prediction=0.000346456, val_aux=0.08
+234.5s 115 Stage_2 epoch=11 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+245.1s 116 Epoch 11/50: train_prediction=0.00043927, train_aux=0.020044, val_prediction=0.000348213, val_aux=0.08
+245.2s 117 Early stopping: validation did not improve enough for 10 epochs
+258.2s 118 =============================== Evaluation ===============================
+258.2s 119 Long: 200 stocks | Weight: 50.00%
+258.2s 120 Short: 200 stocks | Weight: -50.00%
+258.2s 121 Gross exposure: 100.00%
+258.2s 122 Net exposure: 0.00%
+258.2s 123 Sharpe: 0.18768984079360962
+258.2s 124 Rank IC: -0.005543396812280322
+258.2s 125 Earnings: 6.158351421356201%
+258.2s 126 ==========================================================================
+258.4s 127 
+258.4s 128 lookback_42_split_02: inner validation from 2017-12-27, outer test from 2018-03-17
+258.5s 129 Stage_1 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+270.1s 130 Epoch 1/50: train_prediction=0.00692943, train_aux=5.51576, val_prediction=0.000608199, val_aux=5.26464
+270.1s 131 Stage_1 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+281.9s 132 Epoch 2/50: train_prediction=0.000992935, train_aux=5.23761, val_prediction=0.000592898, val_aux=5.22041
+282.0s 133 Stage_1 epoch=3 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+293.6s 134 Epoch 3/50: train_prediction=0.000517116, train_aux=5.20226, val_prediction=0.000595697, val_aux=5.19129
+293.6s 135 Stage_1 epoch=4 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+305.4s 136 Epoch 4/50: train_prediction=0.00044772, train_aux=5.18275, val_prediction=0.00059507, val_aux=5.173
+305.4s 137 Stage_1 epoch=5 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+317.0s 138 Epoch 5/50: train_prediction=0.000426531, train_aux=5.16419, val_prediction=0.000597085, val_aux=5.15478
+317.0s 139 Stage_1 epoch=6 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+328.8s 140 Epoch 6/50: train_prediction=0.000416306, train_aux=5.14571, val_prediction=0.000597545, val_aux=5.13633
+328.9s 141 Stage_1 epoch=7 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+340.6s 142 Epoch 7/50: train_prediction=0.000411811, train_aux=5.1271, val_prediction=0.000597834, val_aux=5.11765
+340.6s 143 Stage_1 epoch=8 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+352.5s 144 Epoch 8/50: train_prediction=0.000408731, train_aux=5.10831, val_prediction=0.000597643, val_aux=5.09878
+352.6s 145 Stage_1 epoch=9 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+364.3s 146 Epoch 9/50: train_prediction=0.000406713, train_aux=5.08935, val_prediction=0.000596845, val_aux=5.0798
+364.3s 147 Stage_1 epoch=10 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+376.1s 148 Epoch 10/50: train_prediction=0.000406046, train_aux=5.07028, val_prediction=0.000596151, val_aux=5.06075
+376.1s 149 Stage_1 epoch=11 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+387.7s 150 Epoch 11/50: train_prediction=0.000404288, train_aux=5.05114, val_prediction=0.000594375, val_aux=5.04162
+387.8s 151 Stage_1 epoch=12 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+399.8s 152 Epoch 12/50: train_prediction=0.000402976, train_aux=5.032, val_prediction=0.000592714, val_aux=5.0225
+399.9s 153 Early stopping: validation did not improve enough for 10 epochs
+399.9s 154 Stage_2 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+426.2s 155 Epoch 1/50: train_prediction=0.00188915, train_aux=0.0202455, val_prediction=0.000603516, val_aux=0.08
+426.3s 156 Stage_2 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+452.8s 157 Epoch 2/50: train_prediction=0.000537963, train_aux=0.0200394, val_prediction=0.000597319, val_aux=0.08
+452.9s 158 Stage_2 epoch=3 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+479.5s 159 Epoch 3/50: train_prediction=0.00050827, train_aux=0.0200414, val_prediction=0.000593008, val_aux=0.08
+479.6s 160 Stage_2 epoch=4 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+506.3s 161 Epoch 4/50: train_prediction=0.000492522, train_aux=0.0200413, val_prediction=0.000592894, val_aux=0.08
+506.4s 162 Stage_2 epoch=5 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+532.9s 163 Epoch 5/50: train_prediction=0.000483287, train_aux=0.0200436, val_prediction=0.000593665, val_aux=0.08
+533.0s 164 Stage_2 epoch=6 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+559.6s 165 Epoch 6/50: train_prediction=0.000473491, train_aux=0.020041, val_prediction=0.000595178, val_aux=0.08
+559.6s 166 Stage_2 epoch=7 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+586.2s 167 Epoch 7/50: train_prediction=0.000467952, train_aux=0.0200431, val_prediction=0.000595385, val_aux=0.08
+586.2s 168 Stage_2 epoch=8 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+612.8s 169 Epoch 8/50: train_prediction=0.000465858, train_aux=0.0200445, val_prediction=0.00059444, val_aux=0.08
+612.9s 170 Stage_2 epoch=9 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+639.3s 171 Epoch 9/50: train_prediction=0.000461495, train_aux=0.020042, val_prediction=0.000594168, val_aux=0.08
+639.4s 172 Stage_2 epoch=10 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+666.2s 173 Epoch 10/50: train_prediction=0.000457207, train_aux=0.0200436, val_prediction=0.000592549, val_aux=0.08
+666.3s 174 Stage_2 epoch=11 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+693.1s 175 Epoch 11/50: train_prediction=0.000454162, train_aux=0.0200427, val_prediction=0.000597857, val_aux=0.08
+693.2s 176 Stage_2 epoch=12 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+719.6s 177 Epoch 12/50: train_prediction=0.000453517, train_aux=0.0200393, val_prediction=0.000594372, val_aux=0.08
+719.7s 178 Stage_2 epoch=13 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+746.2s 179 Epoch 13/50: train_prediction=0.000451329, train_aux=0.0200408, val_prediction=0.000596979, val_aux=0.08
+746.3s 180 Early stopping: validation did not improve enough for 10 epochs
+758.2s 181 =============================== Evaluation ===============================
+758.2s 182 Long: 200 stocks | Weight: 50.00%
+758.2s 183 Short: 200 stocks | Weight: -50.00%
+758.2s 184 Gross exposure: 100.00%
+758.2s 185 Net exposure: 0.00%
+758.2s 186 Sharpe: 0.011466111987829208
+758.2s 187 Rank IC: 0.0036333318390147713
+758.2s 188 Earnings: 0.39176541566848755%
+758.2s 189 ==========================================================================
+758.5s 190 
+758.5s 191 lookback_42_split_03: inner validation from 2018-06-22, outer test from 2018-10-23
+758.5s 192 Stage_1 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+777.6s 193 Epoch 1/50: train_prediction=0.00793809, train_aux=5.43298, val_prediction=0.00060858, val_aux=5.24717
+777.6s 194 Stage_1 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+796.6s 195 Epoch 2/50: train_prediction=0.000974672, train_aux=5.23619, val_prediction=0.000590732, val_aux=5.22456
+796.6s 196 Stage_1 epoch=3 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+815.7s 197 Epoch 3/50: train_prediction=0.00069053, train_aux=5.21553, val_prediction=0.000593871, val_aux=5.20562
+815.7s 198 Stage_1 epoch=4 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+834.7s 199 Epoch 4/50: train_prediction=0.000604601, train_aux=5.19605, val_prediction=0.000596787, val_aux=5.18588
+834.7s 200 Stage_1 epoch=5 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+853.8s 201 Epoch 5/50: train_prediction=0.000558939, train_aux=5.17472, val_prediction=0.000610679, val_aux=5.16437
+853.8s 202 Stage_1 epoch=6 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+872.8s 203 Epoch 6/50: train_prediction=0.000535606, train_aux=5.15265, val_prediction=0.000670144, val_aux=5.1411
+872.9s 204 Stage_1 epoch=7 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+892.1s 205 Epoch 7/50: train_prediction=0.00055267, train_aux=5.11706, val_prediction=0.000691005, val_aux=5.09834
+892.2s 206 Stage_1 epoch=8 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+911.3s 207 Epoch 8/50: train_prediction=0.000527559, train_aux=5.07834, val_prediction=0.00067151, val_aux=5.06265
+911.3s 208 Stage_1 epoch=9 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+930.6s 209 Epoch 9/50: train_prediction=0.000511419, train_aux=5.04421, val_prediction=0.000648236, val_aux=5.02965
+930.6s 210 Stage_1 epoch=10 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+949.9s 211 Epoch 10/50: train_prediction=0.000500621, train_aux=5.0122, val_prediction=0.000628922, val_aux=4.99829
+949.9s 212 Stage_1 epoch=11 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+969.0s 213 Epoch 11/50: train_prediction=0.000494552, train_aux=4.98154, val_prediction=0.000608462, val_aux=4.96807
+969.1s 214 Stage_1 epoch=12 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+988.4s 215 Epoch 12/50: train_prediction=0.000487807, train_aux=4.95191, val_prediction=0.000586723, val_aux=4.93875
+988.4s 216 Early stopping: validation did not improve enough for 10 epochs
+988.5s 217 Stage_2 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1031.1s 218 Epoch 1/50: train_prediction=0.000680908, train_aux=0.0201854, val_prediction=0.000505347, val_aux=0.08
+1031.2s 219 Stage_2 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1074.1s 220 Epoch 2/50: train_prediction=0.000466769, train_aux=0.0200396, val_prediction=0.000505782, val_aux=0.08
+1074.1s 221 Stage_2 epoch=3 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1116.7s 222 Epoch 3/50: train_prediction=0.000458743, train_aux=0.020043, val_prediction=0.000505445, val_aux=0.08
+1116.8s 223 Stage_2 epoch=4 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1159.4s 224 Epoch 4/50: train_prediction=0.000454535, train_aux=0.0200441, val_prediction=0.000505537, val_aux=0.08
+1159.4s 225 Stage_2 epoch=5 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1202.1s 226 Epoch 5/50: train_prediction=0.000450585, train_aux=0.0200433, val_prediction=0.000505288, val_aux=0.08
+1202.2s 227 Stage_2 epoch=6 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1245.0s 228 Epoch 6/50: train_prediction=0.000448334, train_aux=0.0200402, val_prediction=0.000505603, val_aux=0.08
+1245.1s 229 Stage_2 epoch=7 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1287.9s 230 Epoch 7/50: train_prediction=0.000446259, train_aux=0.0200408, val_prediction=0.000505371, val_aux=0.08
+1288.0s 231 Stage_2 epoch=8 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1330.6s 232 Epoch 8/50: train_prediction=0.000444552, train_aux=0.0200423, val_prediction=0.000505304, val_aux=0.08
+1330.7s 233 Stage_2 epoch=9 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1373.5s 234 Epoch 9/50: train_prediction=0.000442635, train_aux=0.020041, val_prediction=0.000505708, val_aux=0.08
+1373.6s 235 Stage_2 epoch=10 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1416.6s 236 Epoch 10/50: train_prediction=0.00044109, train_aux=0.0200429, val_prediction=0.000505642, val_aux=0.08
+1416.6s 237 Stage_2 epoch=11 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1459.3s 238 Epoch 11/50: train_prediction=0.000439907, train_aux=0.0200424, val_prediction=0.000506848, val_aux=0.08
+1459.4s 239 Early stopping: validation did not improve enough for 10 epochs
+1471.1s 240 =============================== Evaluation ===============================
+1471.1s 241 Long: 200 stocks | Weight: 50.00%
+1471.1s 242 Short: 200 stocks | Weight: -50.00%
+1471.1s 243 Gross exposure: 100.00%
+1471.1s 244 Net exposure: 0.00%
+1471.1s 245 Sharpe: 0.12292735278606415
+1471.1s 246 Rank IC: 0.005809960897209602
+1471.1s 247 Earnings: 2.7808446884155273%
+1471.1s 248 ==========================================================================
+1471.5s 249 
+1471.5s 250 lookback_42_split_04: inner validation from 2018-12-07, outer test from 2019-05-31
+1471.5s 251 Stage_1 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1497.7s 252 Epoch 1/50: train_prediction=0.00353523, train_aux=5.36167, val_prediction=0.00070212, val_aux=5.22841
+1497.8s 253 Stage_1 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1523.9s 254 Epoch 2/50: train_prediction=0.00081002, train_aux=5.21812, val_prediction=0.00073519, val_aux=5.20201
+1523.9s 255 Stage_1 epoch=3 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1550.1s 256 Epoch 3/50: train_prediction=0.000656968, train_aux=5.19078, val_prediction=0.000766125, val_aux=5.17595
+1550.2s 257 Stage_1 epoch=4 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1576.0s 258 Epoch 4/50: train_prediction=0.000618946, train_aux=5.16283, val_prediction=0.000767642, val_aux=5.14754
+1576.0s 259 Stage_1 epoch=5 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1602.3s 260 Epoch 5/50: train_prediction=0.000598378, train_aux=5.13292, val_prediction=0.000806917, val_aux=5.11759
+1602.3s 261 Stage_1 epoch=6 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1628.7s 262 Epoch 6/50: train_prediction=0.000593155, train_aux=5.10094, val_prediction=0.000800722, val_aux=5.08546
+1628.7s 263 Stage_1 epoch=7 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1654.8s 264 Epoch 7/50: train_prediction=0.000585956, train_aux=5.06747, val_prediction=0.000796796, val_aux=5.05171
+1654.9s 265 Stage_1 epoch=8 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1680.9s 266 Epoch 8/50: train_prediction=0.000580332, train_aux=5.03279, val_prediction=0.000802324, val_aux=5.01733
+1680.9s 267 Stage_1 epoch=9 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1707.3s 268 Epoch 9/50: train_prediction=0.000577304, train_aux=4.9976, val_prediction=0.000790059, val_aux=4.98205
+1707.3s 269 Stage_1 epoch=10 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1733.7s 270 Epoch 10/50: train_prediction=0.000573185, train_aux=4.96207, val_prediction=0.000779868, val_aux=4.94669
+1733.7s 271 Stage_1 epoch=11 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1759.7s 272 Epoch 11/50: train_prediction=0.000568619, train_aux=4.92656, val_prediction=0.000764569, val_aux=4.9115
+1759.7s 273 Early stopping: validation did not improve enough for 10 epochs
+1759.7s 274 Stage_2 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1818.4s 275 Epoch 1/50: train_prediction=0.000804537, train_aux=0.0201187, val_prediction=0.000643709, val_aux=0.0642393
+1818.5s 276 Stage_2 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1877.3s 277 Epoch 2/50: train_prediction=0.00056322, train_aux=0.0200387, val_prediction=0.000641146, val_aux=0.0483998
+1877.3s 278 Stage_2 epoch=3 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1935.9s 279 Epoch 3/50: train_prediction=0.000547329, train_aux=0.0200386, val_prediction=0.000645237, val_aux=0.0642482
+1936.0s 280 Stage_2 epoch=4 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+1994.7s 281 Epoch 4/50: train_prediction=0.00053769, train_aux=0.0200407, val_prediction=0.000643491, val_aux=0.0641826
+1994.8s 282 Stage_2 epoch=5 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2053.3s 283 Epoch 5/50: train_prediction=0.00053226, train_aux=0.0200397, val_prediction=0.000648189, val_aux=0.0641752
+2053.4s 284 Stage_2 epoch=6 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2112.2s 285 Epoch 6/50: train_prediction=0.000526239, train_aux=0.0200399, val_prediction=0.000648083, val_aux=0.0643349
+2112.3s 286 Stage_2 epoch=7 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2171.0s 287 Epoch 7/50: train_prediction=0.000522521, train_aux=0.0200412, val_prediction=0.000645673, val_aux=0.0483998
+2171.1s 288 Stage_2 epoch=8 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2229.8s 289 Epoch 8/50: train_prediction=0.000518581, train_aux=0.0200425, val_prediction=0.000648343, val_aux=0.0483998
+2229.9s 290 Stage_2 epoch=9 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2288.3s 291 Epoch 9/50: train_prediction=0.000514573, train_aux=0.0200385, val_prediction=0.000649913, val_aux=0.0483998
+2288.4s 292 Stage_2 epoch=10 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2346.0s 293 Epoch 10/50: train_prediction=0.000511936, train_aux=0.0200377, val_prediction=0.00065266, val_aux=0.0641299
+2346.1s 294 Stage_2 epoch=11 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2404.1s 295 Epoch 11/50: train_prediction=0.000509338, train_aux=0.0200399, val_prediction=0.000651447, val_aux=0.0641373
+2404.2s 296 Early stopping: validation did not improve enough for 10 epochs
+2415.9s 297 =============================== Evaluation ===============================
+2415.9s 298 Long: 200 stocks | Weight: 50.00%
+2415.9s 299 Short: 200 stocks | Weight: -50.00%
+2415.9s 300 Gross exposure: 100.00%
+2415.9s 301 Net exposure: 0.00%
+2415.9s 302 Sharpe: 0.10682456940412521
+2415.9s 303 Rank IC: 0.009179010033322358
+2415.9s 304 Earnings: 3.78178071975708%
+2415.9s 305 ==========================================================================
+2416.4s 306 
+2416.4s 307 lookback_42_split_05: inner validation from 2019-06-07, outer test from 2020-01-06
+2416.4s 308 Stage_1 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2448.7s 309 Epoch 1/50: train_prediction=0.00321861, train_aux=5.34927, val_prediction=0.000417776, val_aux=5.21364
+2448.8s 310 Stage_1 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2481.7s 311 Epoch 2/50: train_prediction=0.000696189, train_aux=5.1866, val_prediction=0.000477763, val_aux=5.15897
+2481.7s 312 Stage_1 epoch=3 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2514.9s 313 Epoch 3/50: train_prediction=0.000628695, train_aux=5.13353, val_prediction=0.00046864, val_aux=5.10796
+2515.0s 314 Stage_1 epoch=4 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2548.6s 315 Epoch 4/50: train_prediction=0.000611648, train_aux=5.08256, val_prediction=0.000457707, val_aux=5.05724
+2548.6s 316 Stage_1 epoch=5 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2581.5s 317 Epoch 5/50: train_prediction=0.000601732, train_aux=5.0317, val_prediction=0.000445102, val_aux=5.00652
+2581.5s 318 Stage_1 epoch=6 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2614.1s 319 Epoch 6/50: train_prediction=0.000595472, train_aux=4.98118, val_prediction=0.000434046, val_aux=4.95638
+2614.1s 320 Stage_1 epoch=7 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2646.9s 321 Epoch 7/50: train_prediction=0.000589169, train_aux=4.93168, val_prediction=0.000419708, val_aux=4.9076
+2646.9s 322 Stage_1 epoch=8 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2680.4s 323 Epoch 8/50: train_prediction=0.000583902, train_aux=4.88388, val_prediction=0.000409711, val_aux=4.86082
+2680.5s 324 Stage_1 epoch=9 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2713.6s 325 Epoch 9/50: train_prediction=0.000580174, train_aux=4.83831, val_prediction=0.000400967, val_aux=4.81643
+2713.6s 326 Stage_1 epoch=10 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2746.5s 327 Epoch 10/50: train_prediction=0.000575853, train_aux=4.79519, val_prediction=0.000395215, val_aux=4.77455
+2746.5s 328 Stage_1 epoch=11 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2779.5s 329 Epoch 11/50: train_prediction=0.000572286, train_aux=4.75464, val_prediction=0.000392666, val_aux=4.73524
+2779.6s 330 Stage_1 epoch=12 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2812.6s 331 Epoch 12/50: train_prediction=0.000568812, train_aux=4.7166, val_prediction=0.000391394, val_aux=4.69843
+2812.6s 332 Stage_1 epoch=13 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2845.9s 333 Epoch 13/50: train_prediction=0.000565737, train_aux=4.681, val_prediction=0.000390812, val_aux=4.66399
+2846.0s 334 Stage_1 epoch=14 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2878.8s 335 Epoch 14/50: train_prediction=0.000562164, train_aux=4.64771, val_prediction=0.000390335, val_aux=4.63181
+2878.9s 336 Stage_1 epoch=15 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2912.4s 337 Epoch 15/50: train_prediction=0.000559128, train_aux=4.61657, val_prediction=0.000389838, val_aux=4.60172
+2912.5s 338 Stage_1 epoch=16 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2946.2s 339 Epoch 16/50: train_prediction=0.00055587, train_aux=4.58747, val_prediction=0.000389441, val_aux=4.57358
+2946.2s 340 Stage_1 epoch=17 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+2979.3s 341 Epoch 17/50: train_prediction=0.000553025, train_aux=4.56026, val_prediction=0.000389291, val_aux=4.54729
+2979.4s 342 Stage_1 epoch=18 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3012.8s 343 Epoch 18/50: train_prediction=0.000550088, train_aux=4.53483, val_prediction=0.000389328, val_aux=4.5227
+3012.9s 344 Stage_1 epoch=19 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3046.2s 345 Epoch 19/50: train_prediction=0.000547649, train_aux=4.51106, val_prediction=0.000389438, val_aux=4.49973
+3046.2s 346 Stage_1 epoch=20 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3079.7s 347 Epoch 20/50: train_prediction=0.000545514, train_aux=4.48885, val_prediction=0.000389555, val_aux=4.47826
+3079.7s 348 Stage_1 epoch=21 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3113.0s 349 Epoch 21/50: train_prediction=0.00054355, train_aux=4.46811, val_prediction=0.000389612, val_aux=4.45822
+3113.0s 350 Stage_1 epoch=22 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3146.5s 351 Epoch 22/50: train_prediction=0.000542079, train_aux=4.44874, val_prediction=0.000389711, val_aux=4.43951
+3146.6s 352 Stage_1 epoch=23 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3179.9s 353 Epoch 23/50: train_prediction=0.000540314, train_aux=4.43067, val_prediction=0.000389625, val_aux=4.42208
+3179.9s 354 Early stopping: validation did not improve enough for 10 epochs
+3179.9s 355 Stage_2 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3254.8s 356 Epoch 1/50: train_prediction=0.00125342, train_aux=0.0202974, val_prediction=0.000391572, val_aux=0.08
+3254.9s 357 Stage_2 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3330.1s 358 Epoch 2/50: train_prediction=0.000653554, train_aux=0.0200376, val_prediction=0.000391087, val_aux=0.08
+3330.3s 359 Stage_2 epoch=3 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3406.0s 360 Epoch 3/50: train_prediction=0.000633552, train_aux=0.0200397, val_prediction=0.000389287, val_aux=0.08
+3406.1s 361 Stage_2 epoch=4 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3481.7s 362 Epoch 4/50: train_prediction=0.000620774, train_aux=0.0200408, val_prediction=0.000390709, val_aux=0.08
+3481.8s 363 Stage_2 epoch=5 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3557.4s 364 Epoch 5/50: train_prediction=0.00061086, train_aux=0.0200391, val_prediction=0.000389437, val_aux=0.08
+3557.4s 365 Stage_2 epoch=6 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3632.9s 366 Epoch 6/50: train_prediction=0.000603277, train_aux=0.0200407, val_prediction=0.000389367, val_aux=0.08
+3633.0s 367 Stage_2 epoch=7 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3708.7s 368 Epoch 7/50: train_prediction=0.000595807, train_aux=0.0200404, val_prediction=0.000391983, val_aux=0.08
+3708.8s 369 Stage_2 epoch=8 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3784.4s 370 Epoch 8/50: train_prediction=0.000591035, train_aux=0.0200395, val_prediction=0.000390042, val_aux=0.08
+3784.4s 371 Stage_2 epoch=9 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3859.7s 372 Epoch 9/50: train_prediction=0.000585363, train_aux=0.020042, val_prediction=0.000389951, val_aux=0.08
+3859.8s 373 Stage_2 epoch=10 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+3935.3s 374 Epoch 10/50: train_prediction=0.000582116, train_aux=0.0200401, val_prediction=0.000389735, val_aux=0.08
+3935.4s 375 Stage_2 epoch=11 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4010.8s 376 Epoch 11/50: train_prediction=0.000577572, train_aux=0.0200387, val_prediction=0.000389509, val_aux=0.08
+4010.9s 377 Early stopping: validation did not improve enough for 10 epochs
+4023.3s 378 =============================== Evaluation ===============================
+4023.3s 379 Long: 200 stocks | Weight: 50.00%
+4023.3s 380 Short: 200 stocks | Weight: -50.00%
+4023.3s 381 Gross exposure: 100.00%
+4023.3s 382 Net exposure: 0.00%
+4023.3s 383 Sharpe: 0.047269612550735474
+4023.3s 384 Rank IC: -0.010030078852595553
+4023.3s 385 Earnings: 3.1587400436401367%
+4023.3s 386 ==========================================================================
+4023.8s 387 
+4023.8s 388 lookback_42_split_06: inner validation from 2019-11-28, outer test from 2020-08-13
+4023.8s 389 Stage_1 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4065.9s 390 Epoch 1/50: train_prediction=0.00237324, train_aux=5.32299, val_prediction=0.000948879, val_aux=5.21052
+4065.9s 391 Stage_1 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4107.8s 392 Epoch 2/50: train_prediction=0.000627038, train_aux=5.18474, val_prediction=0.000963655, val_aux=5.15705
+4107.8s 393 Stage_1 epoch=3 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4149.7s 394 Epoch 3/50: train_prediction=0.000582144, train_aux=5.1158, val_prediction=0.000935273, val_aux=5.08066
+4149.7s 395 Stage_1 epoch=4 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4192.8s 396 Epoch 4/50: train_prediction=0.000553578, train_aux=5.04749, val_prediction=0.00094338, val_aux=5.01655
+4192.8s 397 Stage_1 epoch=5 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4238.6s 398 Epoch 5/50: train_prediction=0.000542972, train_aux=4.98439, val_prediction=0.000942824, val_aux=4.9544
+4238.7s 399 Stage_1 epoch=6 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4283.6s 400 Epoch 6/50: train_prediction=0.000536379, train_aux=4.92327, val_prediction=0.000936772, val_aux=4.89445
+4283.7s 401 Stage_1 epoch=7 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4328.9s 402 Epoch 7/50: train_prediction=0.00053052, train_aux=4.86493, val_prediction=0.000931729, val_aux=4.83767
+4329.0s 403 Stage_1 epoch=8 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4374.7s 404 Epoch 8/50: train_prediction=0.000524181, train_aux=4.81012, val_prediction=0.000931493, val_aux=4.78458
+4374.7s 405 Stage_1 epoch=9 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4419.7s 406 Epoch 9/50: train_prediction=0.000518202, train_aux=4.75919, val_prediction=0.000933633, val_aux=4.73546
+4419.7s 407 Stage_1 epoch=10 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4464.5s 408 Epoch 10/50: train_prediction=0.000512853, train_aux=4.71223, val_prediction=0.000934347, val_aux=4.69032
+4464.6s 409 Stage_1 epoch=11 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4508.9s 410 Epoch 11/50: train_prediction=0.000508248, train_aux=4.66909, val_prediction=0.000932468, val_aux=4.6489
+4509.0s 411 Stage_1 epoch=12 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4552.8s 412 Epoch 12/50: train_prediction=0.000504669, train_aux=4.6295, val_prediction=0.000931071, val_aux=4.61094
+4552.8s 413 Stage_1 epoch=13 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4596.7s 414 Epoch 13/50: train_prediction=0.000501287, train_aux=4.59318, val_prediction=0.00093245, val_aux=4.57613
+4596.8s 415 Early stopping: validation did not improve enough for 10 epochs
+4596.8s 416 Stage_2 epoch=1 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4689.7s 417 Epoch 1/50: train_prediction=0.000530608, train_aux=0.0200437, val_prediction=0.000935443, val_aux=0.08
+4689.8s 418 Stage_2 epoch=2 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4782.7s 419 Epoch 2/50: train_prediction=0.000500464, train_aux=0.0200399, val_prediction=0.000936072, val_aux=0.08
+4782.7s 420 Stage_2 epoch=3 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4875.0s 421 Epoch 3/50: train_prediction=0.000495575, train_aux=0.0200421, val_prediction=0.000934155, val_aux=0.08
+4875.1s 422 Stage_2 epoch=4 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+4967.3s 423 Epoch 4/50: train_prediction=0.000492939, train_aux=0.0200395, val_prediction=0.000933813, val_aux=0.08
+4967.4s 424 Stage_2 epoch=5 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+5059.5s 425 Epoch 5/50: train_prediction=0.000491351, train_aux=0.0200409, val_prediction=0.000937796, val_aux=0.08
+5059.6s 426 Stage_2 epoch=6 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+5151.2s 427 Epoch 6/50: train_prediction=0.000490231, train_aux=0.0200394, val_prediction=0.000935436, val_aux=0.08
+5151.2s 428 Stage_2 epoch=7 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+5243.3s 429 Epoch 7/50: train_prediction=0.000489266, train_aux=0.0200396, val_prediction=0.000935532, val_aux=0.08
+5243.4s 430 Stage_2 epoch=8 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+5335.9s 431 Epoch 8/50: train_prediction=0.000488561, train_aux=0.0200396, val_prediction=0.00093782, val_aux=0.08
+5335.9s 432 Stage_2 epoch=9 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+5428.8s 433 Epoch 9/50: train_prediction=0.000487932, train_aux=0.0200376, val_prediction=0.000938934, val_aux=0.08
+5428.9s 434 Stage_2 epoch=10 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+5521.6s 435 Epoch 10/50: train_prediction=0.000487303, train_aux=0.0200383, val_prediction=0.000937607, val_aux=0.08
+5521.7s 436 Stage_2 epoch=11 model=cuda:0 x=cuda:0 y=cuda:0 shape=(1821, 42, 6)
+5614.3s 437 Epoch 11/50: train_prediction=0.000487078, train_aux=0.0200392, val_prediction=0.000939959, val_aux=0.08
+5614.3s 438 Early stopping: validation did not improve enough for 10 epochs
+5623.5s 439 /usr/local/lib/python3.13/dist-packages/pandas/core/nanops.py:1632: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+5623.5s 440 return spearmanr(a, b)[0]
+5623.6s 441 =============================== Evaluation ===============================
+5623.6s 442 Long: 200 stocks | Weight: 50.00%
+5623.6s 443 Short: 200 stocks | Weight: -50.00%
+5623.6s 444 Gross exposure: 100.00%
+5623.6s 445 Net exposure: 0.00%
+5623.6s 446 Sharpe: 0.18993578851222992
+5623.6s 447 Rank IC: -0.006716752175837951
+5623.6s 448 Earnings: 4.478850364685059%
+5623.6s 449 ==========================================================================
+5636.7s 450 /usr/local/lib/python3.13/dist-packages/pandas/core/nanops.py:1632: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+5636.7s 451 return spearmanr(a, b)[0]
+5636.8s 452 =============================== Evaluation ===============================
+5636.8s 453 Long: 200 stocks | Weight: 50.00%
+5636.8s 454 Short: 200 stocks | Weight: -50.00%
+5636.8s 455 Gross exposure: 100.00%
+5636.8s 456 Net exposure: 0.00%
+5636.8s 457 Sharpe: 0.0905131995677948
+5636.8s 458 Rank IC: -0.0003595566061065999
+5636.8s 459 Earnings: 20.75033187866211%
+5636.8s 460 ==========================================================================
+5636.9s 461 訓練與回測完成：/kaggle/working/prism_runs/20261103_060521_779995
+5641.4s 462 /usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+5641.4s 463 cells[i][c] = re.sub('\\\\\|', '|', cell)
+5641.6s 464 /usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+5641.6s 465 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+5642.4s 466 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+5642.5s 467 [NbConvertApp] Writing 152517 bytes to __notebook__.ipynb
+5645.0s 468 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+5645.7s 469 [NbConvertApp] Writing 665379 bytes to __results__.html
