@@ -8,9 +8,9 @@ This is the combined index for research questions, hypotheses, findings, validat
 
 Slides 1-2 cover the simplified diffusion architecture and 17-fold results. The reported +17.52% additive return before costs accompanies a near-zero mean fold Rank IC (0.00147), with gains concentrated in two folds. Slide 3 contains the author's reflection on forecasting a single return target, the weak and unstable predictive results, implementation choices, and next experiments.
 
-## Earlier model research log
+## Cross-model research log
 
-**[JPX Model Research Log](reflections_1.pdf)** is a one-page record of three experiments: removing ReLU from Ensemble, removing ReLU and pooling from CNN-LSTM, and adding CNN before Ensemble. It preserves the author's hypotheses, findings, proposed validation criteria, and research priorities. The original English PDF is unchanged.
+**[JPX Model Research Log](CROSS_MODEL/reflections_1.pdf)** is a one-page record of three experiments: removing ReLU from Ensemble, removing ReLU and pooling from CNN-LSTM, and adding CNN before Ensemble. It preserves the author's hypotheses, findings, proposed validation criteria, and research priorities. The original English PDF is unchanged.
 
 ## Modified PRISM (2026-11-03)
 
