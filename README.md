@@ -1,112 +1,55 @@
 # JPX Equity Prediction
 
-## Start here: reflections
+A personal quantitative-finance research project using PyTorch to predict JPX stock targets and evaluate daily long/short rankings.
 
-**The reflections are the main reading in this repository.** They record the research questions, hypotheses, interpretation of results, unresolved issues, and next steps.
+## Research results and reflections
 
-- **[Read the latest reflection: TimeGrad architecture, results and reflection](result/TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pdf)** - three slides covering the simplified diffusion model, results and next experiments; the reflection is on slide 3.
-- [Earlier reflection: JPX Model Research Log](Reflections/reflections_1.pdf) - three experiments covering ReLU removal, CNN-LSTM, and CNN-Ensemble.
-- [Browse all reflections](Reflections/README.md) - latest reflection first, followed by the earlier CNN-LSTM updates.
+Start with the **[results and research index](result/README.md)**. It brings the research questions, hypotheses, reflections, experiment reports, figures, and supporting evidence together in one place.
 
-## Results reports - supporting reading
+The latest report is **[TimeGrad: architecture, results and reflection](result/TimeGrad/2026-11-14/README.md)**. Earlier Ensemble, CNN-LSTM, CNN-Ensemble, and modified PRISM research is organized in the same index. Reports describe their recorded experiments; the current source is a later snapshot and does not automatically reproduce those historical results.
 
-Read the [results index](result/README.md) after the reflections for the detailed experiment reports, tables, figures, and limitations.
+## Current source - 2026-11-15
 
-| Model family | English reports |
+The ten Python modules in `codes/` are synchronized with the author's latest supplied files from 2026-11-15. Their timestamped upload names are restored to the module names used by Python imports, including the previously missing `config.py`.
+
+| File | Purpose |
 | --- | --- |
-| Ensemble | [Original evaluation](result/ENSEMBLE/JPX_ENSEMBLE_Report_EN.pdf) · [No-ReLU study](result/ENSEMBLE/JPX_No_ReLU_Full_Study_EN.pdf) · [Long/short and tail-ranking study](result/ENSEMBLE/JPX_ENSEMBLE_Long_Short_Tail_Study_EN.pdf) |
-| CNN-LSTM | [Original results](result/CNN_LSTM/CNN_LSTM_Results_EN.pdf) · [42-observation ReLU/pooling ablation](result/CNN_LSTM/JPX_CNN_LSTM_42Day_No_ReLU_No_Pooling_Report_EN.pdf) |
-| CNN-Ensemble | [Training and backtest analysis, 2026-10-19](result/CNN_ENSEMBLE/JPX_CNN_Ensemble_Training_Analysis_20261019_EN.pdf) |
-| TimeGrad | [Architecture, results and reflection (2026-11-14)](result/TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pdf) · [Editable PowerPoint](result/TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pptx) · [Report guide](result/TimeGrad/2026-11-14/README.md) |
+| [main.py](codes/main.py) | Calls `model_5()`, the TimeGrad experiment; also contains a CNN-LSTM checkpoint-loading helper |
+| [config.py](codes/config.py) | Data paths, input columns, lookback, and long/short stock counts |
+| [JPX_deep_learning_models.py](codes/JPX_deep_learning_models.py) | Shared preprocessing, expanding-window evaluation, and experiment entry points |
+| [models.py](codes/models.py) | CNN-LSTM, Ensemble, MASTER, and TimeGrad implementations |
+| [deep_learning.py](codes/deep_learning.py) | Tensor conversion, regular and daily loaders, training, inference, and model saving/loading |
+| [data_loader.py](codes/data_loader.py) and [data_processor.py](codes/data_processor.py) | CSV loading, corporate-action adjustment, and date selection |
+| [features.py](codes/features.py) | Row validation, training-period normalization, and per-security sequences |
+| [evaluation.py](codes/evaluation.py) | Ranking, portfolio weights, daily returns, Sharpe, and Rank IC |
+| [utils.py](codes/utils.py) | Date splits, validation history, device selection, and runtime reporting |
 
-## Modified PRISM research (2026-11-03)
+### Default experiment
 
-[Report, source evidence and AI-use disclosure](result/PRISM/2026-11-03/README.md) · [English PDF](result/PRISM/2026-11-03/PRISM_Research_Report_20261103_EN.pdf)
+- TimeGrad via `model_5()`, with a 21-observation lookback and six inputs: Open, High, Low, Close, Volume, and ExpectedDividend.
+- Expanding windows over 2017-01-01 to 2021-07-01, with 90-calendar-day validation blocks.
+- Training-period normalization reused for validation; earlier observations provide validation input history, and the final two distinct training dates are excluded from fitting.
+- Daily batches, MSE loss, Adam with learning rate `1e-5`, up to 50 epochs, and training-loss early stopping with patience 10.
+- Three long and three short stocks (`N_LONG = N_SHORT = 3`); capital shares follow the stock-count ratio.
+- CUDA when available, otherwise Apple MPS, otherwise CPU.
 
-The six-fold, 220-calendar-day run reports +20.7503% Earnings but near-zero Rank IC. The prior eight-fold run reports -5.7801%; differing test periods prevent a controlled improvement claim. Constant-input warnings remain unresolved. The included AI-assisted source is a **reference snapshot, not the exact executed Kaggle script**. Existing CNN pipelines are unchanged.
+The model and optimizer continue across folds. After the split loop, the source saves the final TimeGrad model to `checkpoints/TimeGrad`, relative to the working directory. Repeating a run uses the same checkpoint filename.
 
-## Project and code
+## Run
 
-A personal quantitative-finance learning project using a **PyTorch CNN-LSTM** to predict JPX stock targets. The current implementation includes corporate-action adjustment, training-period normalization, per-security rolling windows, expanding-window training and validation, and daily ranking diagnostics.
-
-**Updated 2026-10-16.** The repository now includes a configurable data path, per-epoch training progress, and a final checkpoint with experiment metadata. These changes were checked with small tests; they do not establish predictive performance or reproduce a full-data backtest. Earlier snapshots and reports remain available in Git history and the repository.
-
-## Original CNN-LSTM baseline
-
-**Published 2026-10-17.** The frozen source commit `b3cd1bfd617251c7eebc42c588e4067a09af1fe3` completed all 8 folds, 20 epochs per fold, batch size 64 and lookback 42. Model and Adam state continued across folds.
-
-Read the [English results PDF](result/CNN_LSTM/CNN_LSTM_Results_EN.pdf) for the original metrics and their limitations. Supporting data and reproducibility notes are in [details](result/CNN_LSTM/details/); the [final model checkpoint and loading guide](result/CNN_LSTM/details/model/) are included. These are historical backtest results, not a submitted Kaggle leaderboard score.
-
-## Explore the project
-
-| Component | Purpose |
-| --- | --- |
-| [Entry point](codes/main.py) | Runs `model_2()` with an optional CSV path; includes a checkpoint-loading helper |
-| [Experiment pipeline](codes/JPX_deep_learning_models.py) | Data preparation, expanding windows, training, validation, and saving |
-| [CNN-LSTM model](codes/models.py) | Convolution, pooling, three-layer LSTM, and regression head |
-| [Training utilities](codes/deep_learning.py) | Tensor conversion, loaders, training, inference, and checkpoint I/O |
-| [Data loader](codes/data_loader.py) and [processor](codes/data_processor.py) | CSV loading, corporate-action adjustment, and date selection |
-| [Features](codes/features.py) | Row validation, normalization, and per-security sequences |
-| [Evaluation](codes/evaluation.py) | Daily ranking, spread returns, Sharpe, and Rank IC |
-| [Utilities](codes/utils.py) | Split dates, validation history, and runtime reporting |
-| [Earlier reflection: model research log](Reflections/reflections_1.pdf) | Questions, hypotheses, findings, and next steps across three experiments |
-| [Reflection: 2026-10-16](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026_10_16.pdf) | Code corrections, runtime investigation, and next steps |
-| [Reflection: 2026-10-13](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026-10-13.pdf) | Earlier daily update |
-| [Reflection: 2026-10-11](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026-10-11.pdf) | Earlier daily update |
-
-## Current default pipeline
-
-`main.py` calls `model_2()`, which uses:
-
-- A 42-row lookback and six inputs: Open, High, Low, Close, Volume, and ExpectedDividend.
-- Expanding training periods and validation blocks defined with `gap=180` calendar days.
-- Normalization statistics calculated from the training period and reused for validation.
-- Up to 41 preceding rows per security appended to validation as input history.
-- Removal of the final two distinct training dates from fitting to address forward-looking target overlap.
-- CNN kernel size 3, 64 output channels, and LSTM hidden size 100.
-- L1 loss, Adam, batch size 64, and 20 epochs per split.
-- Per-epoch progress, including the average training loss.
-- Apple MPS when available, otherwise CPU. CUDA is not selected by the current source.
-
-The model and optimizer are initialized before the split loop and retained across splits. This is continued training on expanding data, rather than an independent model fitted from scratch for each split. The older `model_1()` remains in the source as a separate in-sample experiment.
-
-The default date range produces eight complete validation blocks. Validation ends on June 8, 2021; the final partial block before July 1 is not included. The lookback counts valid rows per security, so missing observations can make a window span more than 42 trading days.
-
-Only after all eight splits finish successfully, the final model is saved once as a uniquely named `.pt` file in the repository's `checkpoints/` directory. The file includes normalization statistics, feature columns, model configuration, and dates taken from the actual training and validation periods. `train_start` and `train_end` are inclusive training-input dates after target purging; metadata separately records the scaler-fitting range and validation boundaries. Repeated completed runs produce separate files. There are no intermediate checkpoints or automatic resume support.
-
-## Run locally
-
-1. Obtain `stock_prices.csv` from the [JPX competition data page](https://www.kaggle.com/competitions/jpx-tokyo-stock-exchange-prediction/data). See [data setup](data/README.md).
-2. Install the dependencies in [requirements.txt](requirements.txt). Those pins record the initial publication environment; a fresh installation has not been verified by this update.
-3. Place the file at `data/stock_prices.csv` in this repository, or use the `--data` option to point to another local file.
+1. Obtain `stock_prices.csv` from the [JPX competition data page](https://www.kaggle.com/competitions/jpx-tokyo-stock-exchange-prediction/data).
+2. Install the dependencies in [requirements.txt](requirements.txt). Its version pins describe the earlier publication environment; a fresh installation was not tested for this source update.
+3. Check `DATA_PATH` in [codes/config.py](codes/config.py). The supplied source first checks its Kaggle dataset path, then falls back to the author's local desktop path. Set this value to your CSV location when using a different environment. See [data setup](data/README.md).
 4. From the repository root, run:
 
    ```bash
    python codes/main.py
    ```
 
-   To use a CSV stored elsewhere:
-
-   ```bash
-   python codes/main.py --data /path/to/stock_prices.csv
-   ```
-
-The default CSV path and checkpoint directory are resolved from the repository location. Full-data execution materializes rolling windows in memory and can take several hours. It does not save individual prediction rows. The final checkpoint supports later inference through `use_loaded_model()`; it is not a resumable training snapshot.
+The supplied entry point does not implement a `--data` argument. Full-data training can take substantial time and memory. Raw CSVs and generated checkpoints are excluded from Git; the published historical CNN-LSTM checkpoint is retained under `result/`.
 
 ## Verification and history
 
-Run the current small regression checks from the repository root:
+This source sync passed Python syntax checks and imports for all ten modules. No full training run or backtest was performed for this update.
 
-```bash
-python -m unittest discover -s tests -v
-```
-
-The checks in [tests/test_pipeline.py](tests/test_pipeline.py) use small inputs and temporary files. They do not require the competition CSV or rerun the full training experiment.
-
-The [2026-10-16 sync record](docs/SYNC_2026-10-16.md) and [file manifest](docs/source_manifest_2026-10-16.json) document the earlier, unmodified source upload. Their byte comparisons and syntax checks apply to [that snapshot](https://github.com/Kevin-Shih-Kai-Jen/jpx-equity-prediction/tree/5c6657ef1d39d604f2a2de23a2ca99e6d87b2944), before the current code changes. No full backtest was rerun for that 2026-10-16 source-sync record; the separately completed experiment is linked above.
-
-The [initial publication record](docs/PUBLICATION.md), [original manifest](docs/source_manifest.json), [synthetic test output](docs/test_output.txt), and [historical debugging notes](https://github.com/Kevin-Shih-Kai-Jen/jpx-equity-prediction/blob/5c6657ef1d39d604f2a2de23a2ca99e6d87b2944/codes/JPX_debug_notes.md) describe the **2026-10-11 snapshot**. The obsolete test and debugging-note files have been removed from `codes/`; the [original test file](https://github.com/Kevin-Shih-Kai-Jen/jpx-equity-prediction/blob/5c6657ef1d39d604f2a2de23a2ca99e6d87b2944/codes/test_jpx_debug.py) remains available in Git history. Its recorded 27 passing tests must not be interpreted as a result for the current code.
-
-The three earlier CNN-LSTM reflection PDFs are retained. Duplicate copies were removed after confirming matching SHA-256 hashes. The [previous October 13 upload record and generation files](Reflections/CNN-LSTM%20model/2026-10-13/) are preserved. Reflection documents are research notes, not newly reproduced performance evidence.
-
-Raw competition CSVs, the entire `checkpoints/` directory, Python caches, and macOS metadata are excluded from Git. The single published final checkpoint under `result/CNN_LSTM/details/model/` is an explicit exception to the model-file ignore rule. The original desktop source and data remain unchanged.
+Research notes formerly stored separately are now in `result/`, with duplicate index descriptions consolidated. Distinct historical PDFs and their supporting files are preserved. Earlier source versions, removed tests, and publication records remain available in Git history.

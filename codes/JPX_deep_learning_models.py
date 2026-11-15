@@ -3,26 +3,67 @@ from torch import nn
 import pandas as pd
 from pathlib import Path
 
-import deep_learning
-import models
-import features
-import evaluation
+import deep_learning, models, features, evaluation, data_processor, utils, config
 from data_loader import main_loader
-import data_processor
-import utils
 
-COL_NAMES = ["SecuritiesCode", "Date", "Open", "High", "Low", "Close", "Volume", "AdjustmentFactor", "Target"]
-FEAUTRES = ["Open", "High", "Low", "Close", "Volume", "ExpectedDividend"]
-TIME_SPAN = [42]
-DEFAULT_DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "stock_prices.csv"
+
 
     
 def common_process(
     train_and_val: list[str],
-    col_names: list[str],
-    data_path: str | Path = DEFAULT_DATA_PATH,
+    df: pd.DataFrame
 ):
-    df = main_loader(data_path, show_basic_data=False)
+    # Get train date and evaluation date
+    train_start, train_end, val_start, val_end = train_and_val
+    train_df = data_processor.get_time_for_specific_period(df, train_start, train_end)
+    val_df = data_processor.get_time_for_specific_period(df, val_start, val_end)
+    
+    # Calculate mean and std with training data
+    train_df, mean, std = features.normalize_data(
+        train_df,
+        config.FEAUTRES
+    )
+    
+    # Use the same mean and std for validation data
+    val_df, _, _ = features.normalize_data(
+        val_df,
+        config.FEAUTRES,
+        std=std,
+        mean=mean
+    )
+    
+    device = utils.get_device()
+    print(f"Using device: {device}", flush=True)
+
+    print("Stage 4: Normalized", flush=True)
+    
+    return train_df, val_df, device, mean, std
+
+
+def more_common_process(
+    model,
+    loss_fn,
+    optimizer,
+    epochs: int,
+    col_names: list[str],
+    model_name: str,
+    split_gap: int | None,
+    device: str="cpu",
+    time_span: int | None=None,
+    daily_batch=False
+):
+    # None keeps model_1's original in-sample evaluation.
+    if split_gap is None:
+        splits = [["2017-01-01", "2021-07-01", "2017-01-01", "2021-07-01"]]
+    else:
+        splits = utils.create_start_end_date(
+            start_time="2017-01-01",
+            end_time="2021-07-01",
+            gap=split_gap,
+            mode="expanding_window"
+        )
+    
+    df = main_loader(config.DATA_PATH, show_basic_data=False)
     
     df["ExpectedDividend"] = df["ExpectedDividend"].fillna(0)
     print("Stage 1: Loaded", flush=True)
@@ -36,116 +77,60 @@ def common_process(
     df = df.loc[valid_index].copy()
 
     print("Stage 3: Prices adjusted", flush=True)
-    
-    # Get train date and evaluation date
-    train_start, train_end, val_start, val_end = train_and_val
-    train_df = data_processor.get_time_for_specific_period(df, train_start, train_end)
-    val_df = data_processor.get_time_for_specific_period(df, val_start, val_end)
-    
-    # Calculate mean and std with training data
-    train_df, mean, std = features.normalize_data(
-        train_df,
-        FEAUTRES
-    )
-    
-    # Use the same mean and std for validation data
-    val_df, _, _ = features.normalize_data(
-        val_df,
-        FEAUTRES,
-        std=std,
-        mean=mean
-    )
-    
-    device = torch.device(
-        "mps" if torch.backends.mps.is_available() else "cpu"
-    )
+                
+    time_spans = config.TIME_SPAN if time_span is None else [time_span]
 
-    print("Stage 4: Normalized", flush=True)
-    
-    return train_df, val_df, device, mean, std
-
-
-@utils.print_running_time
-def model_1(data_path: str | Path = DEFAULT_DATA_PATH):
-    df, _, device, _, _ = common_process(["2017-01-01", "2021-07-01","2017-01-01", "2021-07-01"], COL_NAMES, data_path)
-    
-    for time in TIME_SPAN:
-        X, y = features.create_time_sequence(df, time_sequence=time, col_names=FEAUTRES)
-
-        print("Stage 5: Created time sequence", flush=True)
-        data_loader = deep_learning.make_loader(X, y)
-        print("Stage 6: Data loaded", flush=True)
-        model = models.CNN_LSTM(
-            num_features=len(FEAUTRES),
-            cnn_out_channels=64,
-            kernel_size=time,
-            hidden_size=100
-        )
-        loss_fn = nn.L1Loss()
-        optimizer = torch.optim.Adam(model.parameters())
-        
-        train_avg_loss = deep_learning.train(model, data_loader, loss_fn, optimizer, epochs=1, device=device)
-        print(f"CNN-LSTM {time} time span training average loss: {train_avg_loss}")
-        eval_avg_loss, all_predictions = deep_learning.evaluation(model, data_loader, loss_fn, device)
-        print(f"CNN-LSTM {time} time span evaluation average loss: {eval_avg_loss}")
-
-        eval_results = evaluation.overall_performance(df, all_predictions, time)
-    
-    evaluation.zero_baseline(y)
-    
-    
-@utils.print_running_time
-def model_2(data_path: str | Path = DEFAULT_DATA_PATH):
-    #================================ Expanding window ================================#
-    # Half of the year for validation
-    splits = utils.create_start_end_date(
-        start_time="2017-01-01",
-        end_time="2021-07-01",
-        gap=180,
-        mode="expanding_window"
-    )
-    
-    for time in TIME_SPAN:
+    for time in time_spans:
         # Record all validations results
         total_earnings, track_all_predictions = 0, []
         
-        model = models.CNN_LSTM(
-            num_features=len(FEAUTRES),
-            cnn_out_channels=64,
-            kernel_size=3,
-            hidden_size=100
-        )
-        loss_fn = nn.L1Loss()
-        optimizer = torch.optim.Adam(model.parameters())
-        
-        for fold_index, train_and_val in enumerate(splits, start=1):
-            print(f"Fold {fold_index}/{len(splits)}: {train_and_val}", flush=True)
-            train_df, val_df, device, mean, std = common_process(train_and_val, COL_NAMES, data_path)
-            scaler_fit_start = train_df["Date"].min()
-            scaler_fit_end = train_df["Date"].max()
-            val_df = utils.compensate_val_lost_time(train_df, val_df, time)
+        for train_and_val in splits:
+            train_df, val_df, device, mean, std = common_process(train_and_val, df)
+            if split_gap is not None:
+                val_df = utils.compensate_val_lost_time(train_df, val_df, time)
+
+                # Remove the last two training dates to avoid target leakage.
+                cutoff = train_df["Date"].drop_duplicates().sort_values().iloc[-2]
+                train_df = train_df.loc[train_df["Date"] < cutoff]
             
-            # Since the last train target uses eval's first day and second day close price to calculate the target
-            # We have to abandon it to avoid using seen values
-            cutoff = train_df["Date"].drop_duplicates().sort_values().iloc[-2]
-            train_df = train_df.loc[train_df["Date"] < cutoff]
-            
-            X_train, y_train = features.create_time_sequence(train_df, time_sequence=time, col_names=FEAUTRES)
-            X_val, y_val = features.create_time_sequence(val_df, time_sequence=time, col_names=FEAUTRES)
+            X_train, y_train, train_dates = features.create_time_sequence(train_df, time_sequence=time, col_names=col_names, return_dates=True)
+            if split_gap is not None:
+                X_val, y_val, val_dates = features.create_time_sequence(val_df, time_sequence=time, col_names=col_names, return_dates=True)
 
             print("Stage 5: Created time sequence", flush=True)
             
-            train_data_loader = deep_learning.make_loader(X_train, y_train)
-            val_data_loader = deep_learning.make_loader(X_val, y_val)
+            train_data_loader = deep_learning.make_loader(
+                X_train, 
+                y_train,
+                dates = train_dates if daily_batch else None
+            )
+            if split_gap is None:
+                # model_1 evaluates on the same samples it trained on.
+                val_data_loader = train_data_loader
+            else:
+                val_data_loader = deep_learning.make_loader(
+                    X_val, 
+                    y_val,
+                    dates = val_dates if daily_batch else None
+                )
 
             print("Stage 6: Data loaded", flush=True)
             
-            train_avg_loss = deep_learning.train(model, train_data_loader, loss_fn, optimizer, epochs=20, device=device)
-            print(f"CNN-LSTM {time} time span training average loss: {train_avg_loss}")
+            train_avg_loss = deep_learning.train(model, train_data_loader, loss_fn, optimizer, epochs=epochs, device=device)
+            print(f"{model_name} {time} time span training average loss: {train_avg_loss}")
             eval_avg_loss, all_predictions = deep_learning.evaluation(model, val_data_loader, loss_fn, device)
-            print(f"CNN-LSTM {time} time span evaluation average loss: {eval_avg_loss}")
+            print(f"{model_name} {time} time span evaluation average loss: {eval_avg_loss}")
 
-            eval_results = evaluation.overall_performance(val_df, all_predictions, time)
+            eval_results = evaluation.overall_performance(
+                val_df,
+                all_predictions,
+                time,
+                n_long=config.N_LONG,
+                n_short=config.N_SHORT,
+            )
+
+            if split_gap is None:
+                evaluation.zero_baseline(y_train)
 
             # Will use matplotlib to draw the graph in the future
             total_earnings += eval_results["earnings"]
@@ -154,31 +139,147 @@ def model_2(data_path: str | Path = DEFAULT_DATA_PATH):
         print(f"Total earnings (sum of daily returns): {total_earnings:.2%}")
         print(track_all_predictions)
         
-        checkpoint_path = deep_learning.save_model(
+        if split_gap is not None:
+            deep_learning.save_model(
+                model=model,
+                model_name=model_name,
+                mean=mean,
+                std=std,
+                train_start=train_and_val[0],
+                train_end=train_and_val[1],
+                feature_columns=col_names,
+            )
+
+
+@utils.print_running_time
+def model_1():
+    device = utils.get_device()
+
+    for time in config.TIME_SPAN:
+        model = models.CNN_LSTM(
+            num_features=len(config.FEAUTRES),
+            cnn_out_channels=64,
+            kernel_size=time,
+            hidden_size=100
+        ).to(device)
+
+        loss_fn = nn.L1Loss()
+        optimizer = torch.optim.Adam(model.parameters())
+
+        more_common_process(
             model=model,
-            model_name='CNN_LSTM',
-            mean=mean,
-            std=std,
-            train_start=pd.Timestamp(train_df["Date"].min()).strftime("%Y-%m-%d"),
-            train_end=pd.Timestamp(train_df["Date"].max()).strftime("%Y-%m-%d"),
-            feature_columns=FEAUTRES,
-            metadata={
-                "fold": fold_index,
-                "total_folds": len(splits),
-                "epochs_per_fold": 20,
-                "lookback": time,
-                "model_config": {
-                    "num_features": len(FEAUTRES),
-                    "cnn_out_channels": 64,
-                    "kernel_size": 3,
-                    "hidden_size": 100,
-                },
-                "train_date_bounds": "inclusive input-data dates after target purging",
-                "split_train_end_exclusive": pd.Timestamp(train_and_val[1]).strftime("%Y-%m-%d"),
-                "validation_start_inclusive": pd.Timestamp(train_and_val[2]).strftime("%Y-%m-%d"),
-                "validation_end_exclusive": pd.Timestamp(train_and_val[3]).strftime("%Y-%m-%d"),
-                "scaler_fit_start_inclusive": pd.Timestamp(scaler_fit_start).strftime("%Y-%m-%d"),
-                "scaler_fit_end_inclusive": pd.Timestamp(scaler_fit_end).strftime("%Y-%m-%d"),
-            },
+            loss_fn=loss_fn,
+            optimizer=optimizer,
+            epochs=50,
+            col_names=config.FEAUTRES,
+            model_name="CNN_LSTM_model_1",
+            split_gap=None,
+            device=device,
+            time_span=time
         )
-    return checkpoint_path
+
+
+@utils.print_running_time
+def model_2():
+    device = utils.get_device()
+
+    for time in config.TIME_SPAN:
+        model = models.CNN_LSTM(
+            num_features=len(config.FEAUTRES),
+            cnn_out_channels=64,
+            kernel_size=3,
+            hidden_size=100
+        ).to(device)
+
+        loss_fn = nn.L1Loss()
+        optimizer = torch.optim.Adam(model.parameters())
+
+        more_common_process(
+            model=model,
+            loss_fn=loss_fn,
+            optimizer=optimizer,
+            epochs=50,
+            col_names=config.FEAUTRES,
+            model_name="CNN_LSTM",
+            split_gap=180,
+            device=device,
+            time_span=time
+        )
+
+
+@utils.print_running_time
+def model_3():
+    model = models.ENSEMBLE(
+        num_features=len(config.FEAUTRES),
+        device=utils.get_device()
+    )
+    
+    loss_fn = nn.HuberLoss()
+    optimizer = torch.optim.Adam(model.parameters())
+    
+    
+    more_common_process(
+        model=model,
+        loss_fn=loss_fn,
+        optimizer=optimizer,
+        epochs=50,
+        col_names=config.FEAUTRES,
+        model_name="ENSEMBLE",
+        split_gap=90
+    )
+
+        
+
+def model_4():
+    model = models.MASTER(
+        gating_input_dim=len(config.FEAUTRES) * 2,
+        gating_output_dim=len(config.FEAUTRES),
+        beta=5.0,
+        hidden_dim=128,
+        intra_nhead=4,
+        inter_nhead=2,
+        dim_feedforward=256,
+        activation_function="relu"
+    ).to(utils.get_device())
+
+    loss_fn = nn.MSELoss()
+
+    optimizer = torch.optim.Adam(
+        model.parameters(),
+        lr=1e-5
+    )
+    
+    more_common_process(
+        model=model,
+        loss_fn=loss_fn,
+        optimizer=optimizer,
+        epochs=50,
+        col_names=config.FEAUTRES,
+        model_name="MASTER",
+        split_gap=90,
+        daily_batch=True
+    )
+
+
+def model_5():
+    model = models.TimeGrad(
+        num_features=len(config.FEAUTRES)
+    ).to(utils.get_device())
+    
+    loss_fn = nn.MSELoss()
+    
+    optimizer = torch.optim.Adam(
+        model.parameters(),
+        lr=1e-5
+    )
+    
+    more_common_process(
+        model=model,
+        loss_fn=loss_fn,
+        optimizer=optimizer,
+        epochs=50,
+        col_names=config.FEAUTRES,
+        model_name="TimeGrad",
+        split_gap=90,
+        daily_batch=True
+    )

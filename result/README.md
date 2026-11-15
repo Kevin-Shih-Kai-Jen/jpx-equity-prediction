@@ -1,6 +1,22 @@
-# Results reports - supporting reading
+# Results and research reflections
 
-**Start with the [reflections](../Reflections/README.md).** The reflections explain the research questions and decisions; these reports provide the detailed results and supporting analysis.
+This is the combined index for research questions, hypotheses, findings, validation plans, experiment reports, and supporting evidence. Start with the latest reflection, then follow the relevant model family's reports for detail.
+
+## Latest: simplified TimeGrad (2026-11-14)
+
+**[Architecture, results and reflection - PDF](TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pdf)** · [Editable PowerPoint](TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pptx) · [Report guide](TimeGrad/2026-11-14/README.md)
+
+Slides 1-2 cover the simplified diffusion architecture and 17-fold results. The reported +17.52% additive return before costs accompanies a near-zero mean fold Rank IC (0.00147), with gains concentrated in two folds. Slide 3 contains the author's reflection on forecasting a single return target, the weak and unstable predictive results, implementation choices, and next experiments.
+
+## Earlier model research log
+
+**[JPX Model Research Log](reflections_1.pdf)** is a one-page record of three experiments: removing ReLU from Ensemble, removing ReLU and pooling from CNN-LSTM, and adding CNN before Ensemble. It preserves the author's hypotheses, findings, proposed validation criteria, and research priorities. The original English PDF is unchanged.
+
+## Modified PRISM (2026-11-03)
+
+[Report, source evidence, and AI-use disclosure](PRISM/2026-11-03/README.md) · [English PDF](PRISM/2026-11-03/PRISM_Research_Report_20261103_EN.pdf) · [Chinese PDF](PRISM/2026-11-03/PRISM_Research_Report_20261103_ZH.pdf)
+
+The six-fold, 220-calendar-day run reports +20.7503% Earnings and near-zero Rank IC, compared with -5.7801% in the prior eight-fold summary. Different test periods prevent a controlled improvement claim. Constant-input warnings remain unresolved. The included AI-assisted source is a reference snapshot; the exact Kaggle executable and daily predictions were not supplied.
 
 ## Ensemble
 
@@ -15,26 +31,26 @@ Read these in order:
 1. [Original CNN-LSTM results](CNN_LSTM/CNN_LSTM_Results_EN.pdf)
 2. [42-observation ReLU/pooling ablation](CNN_LSTM/JPX_CNN_LSTM_42Day_No_ReLU_No_Pooling_Report_EN.pdf) - English translation of the supplied Chinese report.
 
-The original baseline's [metrics, figures, and reproduction notes](CNN_LSTM/details/) and [final checkpoint](CNN_LSTM/details/model/) remain available.
+The original baseline used frozen source commit `b3cd1bfd617251c7eebc42c588e4067a09af1fe3`, eight folds, 20 epochs per fold, batch size 64, and lookback 42, with model and Adam state continuing across folds. Its [metrics, figures, and reproduction notes](CNN_LSTM/details/) and [final checkpoint](CNN_LSTM/details/model/) remain available. These historical backtest results are not a submitted Kaggle leaderboard score.
+
+### Earlier CNN-LSTM updates
+
+| Date | Research note |
+| --- | --- |
+| 2026-10-16 | [Code corrections, runtime investigation, and next steps](CNN_LSTM/CNN_LSTM_Daily_Update_2026_10_16.pdf) |
+| 2026-10-13 | [In-sample evaluation and validation plans](CNN_LSTM/CNN_LSTM_Daily_Update_2026-10-13.pdf) |
+| 2026-10-11 | [Reference architecture, preliminary results, and diagnostic next steps](CNN_LSTM/CNN_LSTM_Daily_Update_2026-10-11.pdf) |
+
+The October 13 [reported metrics, PDF generator, and historical upload record](CNN_LSTM/2026-10-13/) are retained. Paths in that historical upload record refer to the original artifact commit.
 
 ## CNN-Ensemble
 
 [Training and backtest analysis, 2026-10-19](CNN_ENSEMBLE/JPX_CNN_Ensemble_Training_Analysis_20261019_EN.pdf) - English translation of the supplied Chinese report.
 
-## Publication notes
+## Archive notes
 
-The 2026-10-21 upload adds five results reports and one reflection. The two Chinese reports were translated into English; the four supplied English PDFs were preserved unchanged. This upload organizes existing research and does not add a training run.
+The 2026-10-21 publication added five results reports and one reflection: two Chinese reports were translated into English, and four supplied English PDFs were preserved unchanged. The reports retain their original results and interpretations.
 
-The reports and reflections preserve their original content, reported results, and interpretations. See the [publication manifest](../docs/publication_2026-10-21.json) for file provenance and checksums.
+The 2026-11-15 reorganization combines the former reflection index with this results index. PDF file hashes and extracted text were compared; the historical documents are distinct and are retained once at their canonical paths. Reorganizing these files and synchronizing the current source did not rerun any experiment. Earlier publication manifests remain in Git history.
 
-[Back to the reflections](../Reflections/README.md) · [Back to the repository](../README.md)
-
-## Modified PRISM (2026-11-03)
-
-[Five-page English report and evidence](PRISM/2026-11-03/README.md): six-fold 220-day result alongside the earlier eight-fold summary, architecture changes, AI assistance, and unresolved evaluation diagnostics. Exact Kaggle executable and daily predictions are not yet supplied.
-
-## Simplified TimeGrad (2026-11-14)
-
-[Three-slide report and reflection](TimeGrad/2026-11-14/README.md) · [PDF](TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pdf) · [Editable PowerPoint](TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pptx)
-
-Architecture, 17-fold results, and the author's reflection. The reported +17.52% additive return before costs accompanies a near-zero mean fold Rank IC (0.00147); gains concentrate in two folds. Slide 3 explains the implementation choices, limitations, and next experiments.
+[Back to the repository](../README.md)
