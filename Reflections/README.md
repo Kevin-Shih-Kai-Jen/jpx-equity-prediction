@@ -2,7 +2,13 @@
 
 The reflections are the main reading in this repository. Start with the latest research log, then use the results reports for the supporting experiment details.
 
-## Latest reflection
+## Latest reflection: TimeGrad (2026-11-14)
+
+**[TimeGrad: architecture, results and reflection](../result/TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pdf)** · [Editable PowerPoint](../result/TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pptx)
+
+Slide 3 contains the author's reflection on simplifying diffusion forecasting to a single return target, the weak and unstable predictive results, and the next experiments. Slides 1–2 provide the architecture and results. [Report guide](../result/TimeGrad/2026-11-14/README.md).
+
+## Earlier model research log
 
 **[Reflections 1: JPX Model Research Log](reflections_1.pdf)**
 

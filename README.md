@@ -4,7 +4,8 @@
 
 **The reflections are the main reading in this repository.** They record the research questions, hypotheses, interpretation of results, unresolved issues, and next steps.
 
-- **[Read the latest reflection: JPX Model Research Log](Reflections/reflections_1.pdf)** - three experiments covering ReLU removal, CNN-LSTM, and CNN-Ensemble.
+- **[Read the latest reflection: TimeGrad architecture, results and reflection](result/TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pdf)** - three slides covering the simplified diffusion model, results and next experiments; the reflection is on slide 3.
+- [Earlier reflection: JPX Model Research Log](Reflections/reflections_1.pdf) - three experiments covering ReLU removal, CNN-LSTM, and CNN-Ensemble.
 - [Browse all reflections](Reflections/README.md) - latest reflection first, followed by the earlier CNN-LSTM updates.
 
 ## Results reports - supporting reading
@@ -16,6 +17,7 @@ Read the [results index](result/README.md) after the reflections for the detaile
 | Ensemble | [Original evaluation](result/ENSEMBLE/JPX_ENSEMBLE_Report_EN.pdf) · [No-ReLU study](result/ENSEMBLE/JPX_No_ReLU_Full_Study_EN.pdf) · [Long/short and tail-ranking study](result/ENSEMBLE/JPX_ENSEMBLE_Long_Short_Tail_Study_EN.pdf) |
 | CNN-LSTM | [Original results](result/CNN_LSTM/CNN_LSTM_Results_EN.pdf) · [42-observation ReLU/pooling ablation](result/CNN_LSTM/JPX_CNN_LSTM_42Day_No_ReLU_No_Pooling_Report_EN.pdf) |
 | CNN-Ensemble | [Training and backtest analysis, 2026-10-19](result/CNN_ENSEMBLE/JPX_CNN_Ensemble_Training_Analysis_20261019_EN.pdf) |
+| TimeGrad | [Architecture, results and reflection (2026-11-14)](result/TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pdf) · [Editable PowerPoint](result/TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pptx) · [Report guide](result/TimeGrad/2026-11-14/README.md) |
 
 ## Modified PRISM research (2026-11-03)
 
@@ -47,7 +49,7 @@ Read the [English results PDF](result/CNN_LSTM/CNN_LSTM_Results_EN.pdf) for the 
 | [Features](codes/features.py) | Row validation, normalization, and per-security sequences |
 | [Evaluation](codes/evaluation.py) | Daily ranking, spread returns, Sharpe, and Rank IC |
 | [Utilities](codes/utils.py) | Split dates, validation history, and runtime reporting |
-| [Latest reflection: model research log](Reflections/reflections_1.pdf) | Questions, hypotheses, findings, and next steps across three experiments |
+| [Earlier reflection: model research log](Reflections/reflections_1.pdf) | Questions, hypotheses, findings, and next steps across three experiments |
 | [Reflection: 2026-10-16](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026_10_16.pdf) | Code corrections, runtime investigation, and next steps |
 | [Reflection: 2026-10-13](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026-10-13.pdf) | Earlier daily update |
 | [Reflection: 2026-10-11](Reflections/CNN-LSTM%20model/CNN_LSTM_Daily_Update_2026-10-11.pdf) | Earlier daily update |

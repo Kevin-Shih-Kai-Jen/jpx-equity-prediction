@@ -32,3 +32,9 @@ The reports and reflections preserve their original content, reported results, a
 ## Modified PRISM (2026-11-03)
 
 [Five-page English report and evidence](PRISM/2026-11-03/README.md): six-fold 220-day result alongside the earlier eight-fold summary, architecture changes, AI assistance, and unresolved evaluation diagnostics. Exact Kaggle executable and daily predictions are not yet supplied.
+
+## Simplified TimeGrad (2026-11-14)
+
+[Three-slide report and reflection](TimeGrad/2026-11-14/README.md) · [PDF](TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pdf) · [Editable PowerPoint](TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pptx)
+
+Architecture, 17-fold results, and the author's reflection. The reported +17.52% additive return before costs accompanies a near-zero mean fold Rank IC (0.00147); gains concentrate in two folds. Slide 3 explains the implementation choices, limitations, and next experiments.

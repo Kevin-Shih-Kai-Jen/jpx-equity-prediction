@@ -1,0 +1,389 @@
+%PDF-1.3
+%‚„œ”
+1 0 obj
+<<
+/Producer (pypdf)
+/Title (TimeGrad\072 Architecture\054 Results and Reflection)
+/Subject (Three\055page research presentation)
+/Author (JPX Research)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 3
+/Kids [ 4 0 R 8 0 R 12 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 5 0 R
+/F2 6 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 960 540 ]
+/Parent 2 0 R
+/Contents 7 0 R
+>>
+endobj
+5 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+>>
+endobj
+6 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+>>
+endobj
+7 0 obj
+<<
+/Length 3830
+>>
+stream
+q
+0.75 0 0 0.75 0 0 cm
+0.97255 0.98039 0.97647 rg
+0 0 1280 720 re f
+BT /F2 42 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 639.78 Tm (Simplified TimeGrad architecture) Tj ET
+BT /F1 24 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 587.16 Tm (A single-horizon return model built for the existing JPX pipeline) Tj ET
+0.91765 0.95294 0.9451 rg
+0.79608 0.84706 0.85098 RG 1 w
+58 430 280 82 re B
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 72 477.98 Tm (History: 21 observations) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 72 452.02000000000004 Tm (OHLCV + dividend) Tj ET
+0.91765 0.95294 0.9451 rg
+0.79608 0.84706 0.85098 RG 1 w
+390 430 260 82 re B
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 404 477.98 Tm (LSTM encoder) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 404 452.02000000000004 Tm (40-dimensional context) Tj ET
+0.91765 0.95294 0.9451 rg
+0.79608 0.84706 0.85098 RG 1 w
+58 308 280 82 re B
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 72 355.98 Tm (Target + Gaussian noise) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 72 330.02000000000004 Tm (Random diffusion step) Tj ET
+0.91765 0.95294 0.9451 rg
+0.79608 0.84706 0.85098 RG 1 w
+58 186 280 82 re B
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 72 233.98 Tm (Diffusion step index) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 72 208.01999999999998 Tm (1 to 100) Tj ET
+0.91765 0.95294 0.9451 rg
+0.79608 0.84706 0.85098 RG 1 w
+390 186 260 82 re B
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 404 233.98 Tm (Linear step embedding) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 404 208.01999999999998 Tm (32 dimensions) Tj ET
+0.91765 0.95294 0.9451 rg
+0.79608 0.84706 0.85098 RG 1 w
+750 288 250 112 re B
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 764 365.98 Tm (MLP denoiser) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 764 340.02000000000004 Tm (73 / 64 / 64 / 1) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 764 314.06 Tm (SiLU activations) Tj ET
+0.91765 0.95294 0.9451 rg
+0.79608 0.84706 0.85098 RG 1 w
+1060 308 160 82 re B
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 1074 355.98 Tm (Predicted) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 1074 330.02000000000004 Tm (noise) Tj ET
+0.02353 0.49412 0.46667 RG 2 w
+338 471 m
+390 471 l
+S
+0.02353 0.49412 0.46667 rg
+390 471 m 381.0 474.5 l 381.0 467.5 l h f
+0.02353 0.49412 0.46667 RG 2 w
+650 471 m
+875 471 l
+875 400 l
+S
+0.02353 0.49412 0.46667 rg
+875 400 m 878.5 409.0 l 871.5 409.0 l h f
+0.02353 0.49412 0.46667 RG 2 w
+338 349 m
+750 349 l
+S
+0.02353 0.49412 0.46667 rg
+750 349 m 741.0 352.5 l 741.0 345.5 l h f
+0.02353 0.49412 0.46667 RG 2 w
+338 227 m
+390 227 l
+S
+0.02353 0.49412 0.46667 rg
+390 227 m 381.0 230.5 l 381.0 223.5 l h f
+0.02353 0.49412 0.46667 RG 2 w
+650 227 m
+875 227 l
+875 288 l
+S
+0.02353 0.49412 0.46667 rg
+875 288 m 871.5 279.0 l 878.5 279.0 l h f
+0.02353 0.49412 0.46667 RG 2 w
+1000 349 m
+1060 349 l
+S
+0.02353 0.49412 0.46667 rg
+1060 349 m 1051.0 352.5 l 1051.0 345.5 l h f
+BT /F2 23 Tf 0.02353 0.49412 0.46667 rg 1 0 0 1 58 544.07 Tm (TRAINING / predict the noise added to the target) Tj ET
+BT /F2 21 Tf 0.02353 0.49412 0.46667 rg 1 0 0 1 1035 270.89 Tm (Loss: noise MSE) Tj ET
+BT /F2 23 Tf 0.02353 0.49412 0.46667 rg 1 0 0 1 58 122.07 Tm (INFERENCE) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 250 122.98 Tm (Gaussian noise passes through 100 reverse steps to produce one return sample per stock.) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 250 84.98 Tm (Daily ranking selects 3 long and 3 short positions, with 50% exposure on each side.) Tj ET
+BT /F1 13 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 32.17 Tm (Source: saved TimeGrad notebook and training log. Adam 1e-5; up to 50 epochs per fold; weights carry across folds.) Tj ET
+BT /F2 14 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 1210 31.259999999999998 Tm (01) Tj ET
+Q
+endstream
+endobj
+8 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 9 0 R
+/F2 10 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 960 540 ]
+/Parent 2 0 R
+/Contents 11 0 R
+>>
+endobj
+9 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+>>
+endobj
+10 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+>>
+endobj
+11 0 obj
+<<
+/Length 6052
+>>
+stream
+q
+0.75 0 0 0.75 0 0 cm
+0.97255 0.98039 0.97647 rg
+0 0 1280 720 re f
+BT /F2 42 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 639.78 Tm (Positive returns, weak and uneven signal) Tj ET
+BT /F1 24 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 587.16 Tm (17 expanding folds spanning April 2017 to June 2021) Tj ET
+BT /F2 51 Tf 0.02353 0.49412 0.46667 rg 1 0 0 1 58 503.59 Tm (+17.52%) Tj ET
+BT /F1 21 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 465.89 Tm (Additive return before costs) Tj ET
+BT /F2 51 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 465 503.59 Tm (0.00147) Tj ET
+BT /F1 21 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 465 465.89 Tm (Mean fold Rank IC) Tj ET
+BT /F2 51 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 900 503.59 Tm (10 / 17) Tj ET
+BT /F1 21 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 900 465.89 Tm (Folds with positive returns) Tj ET
+BT /F2 26 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 852 396.34 Tm (Gains concentrate in two) Tj ET
+BT /F2 26 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 852 365.65999999999997 Tm (folds) Tj ET
+BT /F2 35 Tf 0.02353 0.49412 0.46667 rg 1 0 0 1 852 311.15 Tm (+27.10 pp) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 852 276.98 Tm (Folds 13 and 15 combined) Tj ET
+BT /F2 35 Tf 0.72157 0.32549 0.27059 rg 1 0 0 1 852 214.15 Tm (-9.58 pp) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 852 179.98 Tm (The other 15 folds combined) Tj ET
+BT /F2 23 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 85.07 Tm (Noise MSE settles near 0.017, but low denoising loss does not establish useful stock rankings.) Tj ET
+BT /F1 13 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 32.17 Tm (Source: jpx-timegrad-gpu.log. Additive, not compounded or annualized. IC is the equal-weight mean of fold means. Costs excluded.) Tj ET
+BT /F2 23 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 329.0 402.07 Tm (Return by fold \(%\)) Tj ET
+0.79608 0.84706 0.85098 RG 1 w
+112 154.0 m
+782 154.0 l
+S
+BT /F1 15 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 149.35 Tm (-15%) Tj ET
+0.79608 0.84706 0.85098 RG 1 w
+112 192.16666666666663 m
+782 192.16666666666663 l
+S
+BT /F1 15 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 187.51666666666662 Tm (-10%) Tj ET
+0.79608 0.84706 0.85098 RG 1 w
+112 230.33333333333331 m
+782 230.33333333333331 l
+S
+BT /F1 15 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 225.6833333333333 Tm (-5%) Tj ET
+0.79608 0.84706 0.85098 RG 1 w
+112 268.5 m
+782 268.5 l
+S
+BT /F1 15 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 263.85 Tm (0%) Tj ET
+0.79608 0.84706 0.85098 RG 1 w
+112 306.6666666666667 m
+782 306.6666666666667 l
+S
+BT /F1 15 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 302.0166666666667 Tm (5%) Tj ET
+0.79608 0.84706 0.85098 RG 1 w
+112 344.8333333333333 m
+782 344.8333333333333 l
+S
+BT /F1 15 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 340.18333333333334 Tm (10%) Tj ET
+0.79608 0.84706 0.85098 RG 1 w
+112 383.0 m
+782 383.0 l
+S
+BT /F1 15 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 378.35 Tm (15%) Tj ET
+0.72157 0.32549 0.27059 rg
+119.09411764705884 204.97819156648666 25.22352941176471 63.52180843351334 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 127.20588235294119 129.44 Tm (1) Tj ET
+0.02353 0.49412 0.46667 rg
+158.50588235294117 268.5 25.22352941176471 18.140846967386665 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 166.61764705882354 129.44 Tm (2) Tj ET
+0.72157 0.32549 0.27059 rg
+197.91764705882352 260.5572114867633 25.22352941176471 7.942788513236678 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 206.02941176470588 129.44 Tm (3) Tj ET
+0.72157 0.32549 0.27059 rg
+237.32941176470587 189.2092610356367 25.22352941176471 79.2907389643633 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 245.44117647058823 129.44 Tm (4) Tj ET
+0.02353 0.49412 0.46667 rg
+276.74117647058824 268.5 25.22352941176471 64.79041506429996 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 284.8529411764706 129.44 Tm (5) Tj ET
+0.02353 0.49412 0.46667 rg
+316.15294117647056 268.5 25.22352941176471 47.25268147795998 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 324.2647058823529 129.44 Tm (6) Tj ET
+0.72157 0.32549 0.27059 rg
+355.56470588235294 203.79636640548335 25.22352941176471 64.70363359451665 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 363.6764705882353 129.44 Tm (7) Tj ET
+0.02353 0.49412 0.46667 rg
+394.9764705882353 268.5 25.22352941176471 7.044061418370006 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 403.0882352941177 129.44 Tm (8) Tj ET
+0.72157 0.32549 0.27059 rg
+434.38823529411764 233.45788483616002 25.22352941176471 35.04211516383998 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 442.5 129.44 Tm (9) Tj ET
+0.02353 0.49412 0.46667 rg
+473.8 268.5 25.22352941176471 14.953632596903333 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 477.4117647058824 129.44 Tm (10) Tj ET
+0.02353 0.49412 0.46667 rg
+513.2117647058824 268.5 25.22352941176471 20.702847655356663 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 516.8313419117648 129.44 Tm (11) Tj ET
+0.72157 0.32549 0.27059 rg
+552.6235294117647 247.69500157802668 25.22352941176471 20.804998421973323 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 556.2352941176471 129.44 Tm (12) Tj ET
+0.02353 0.49412 0.46667 rg
+592.0352941176471 268.5 25.22352941176471 105.29239212667665 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 595.6470588235295 129.44 Tm (13) Tj ET
+0.72157 0.32549 0.27059 rg
+631.4470588235295 231.87170796392002 25.22352941176471 36.62829203607998 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 635.0588235294118 129.44 Tm (14) Tj ET
+0.02353 0.49412 0.46667 rg
+670.8588235294118 268.5 25.22352941176471 101.60247983930333 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 674.4705882352941 129.44 Tm (15) Tj ET
+0.02353 0.49412 0.46667 rg
+710.2705882352941 268.5 25.22352941176471 43.74299306841999 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 713.8823529411765 129.44 Tm (16) Tj ET
+0.02353 0.49412 0.46667 rg
+749.6823529411765 268.5 25.22352941176471 18.177964409486663 re f
+BT /F1 16 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 753.2941176470589 129.44 Tm (17) Tj ET
+BT /F2 14 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 1210 31.259999999999998 Tm (02) Tj ET
+Q
+endstream
+endobj
+12 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 13 0 R
+/F2 14 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 960 540 ]
+/Parent 2 0 R
+/Contents 15 0 R
+>>
+endobj
+13 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+>>
+endobj
+14 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+>>
+endobj
+15 0 obj
+<<
+/Length 3099
+>>
+stream
+q
+0.75 0 0 0.75 0 0 cm
+0.97255 0.98039 0.97647 rg
+0 0 1280 720 re f
+BT /F2 42 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 639.78 Tm (Reflection and next experiments) Tj ET
+BT /F1 24 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 587.16 Tm (The implementation works. Stable predictive value remains unproven.) Tj ET
+BT /F2 23 Tf 0.02353 0.49412 0.46667 rg 1 0 0 1 58 535.07 Tm (REFLECTION) Tj ET
+BT /F1 24 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 487.16 Tm (This project helped me understand forward noising, noise prediction) Tj ET
+BT /F1 24 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 458.84000000000003 Tm (and reverse sampling. I simplified TimeGrad to predict one return) Tj ET
+BT /F1 24 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 430.52000000000004 Tm (target per stock so it would fit my existing JPX pipeline.) Tj ET
+BT /F1 24 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 350.16 Tm (Replacing the original CNN denoiser with an MLP made) Tj ET
+BT /F1 24 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 321.84000000000003 Tm (implementation easier, but may have reduced capacity. The weak,) Tj ET
+BT /F1 24 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 293.52000000000004 Tm (unstable results do not establish the cause. Late training loss) Tj ET
+BT /F1 24 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 265.20000000000005 Tm (plateaus, so more epochs alone may be insufficient.) Tj ET
+BT /F1 24 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 188.16 Tm (Next, I want to study DDPM image-generation foundations and jointly) Tj ET
+BT /F1 24 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 159.84 Tm (model open, high, low, close and volume. Diffusion may help model) Tj ET
+BT /F1 24 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 131.51999999999998 Tm (uncertainty and dependencies. Simpler models may suit this scalar) Tj ET
+BT /F1 24 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 58 103.2 Tm (task better. Accuracy and speed advantages still need testing.) Tj ET
+BT /F2 23 Tf 0.02353 0.49412 0.46667 rg 1 0 0 1 875 535.07 Tm (NEXT EXPERIMENTS) Tj ET
+BT /F2 26 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 875 478.34 Tm (01 Sampling and baselines) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 875 418.98 Tm (Compare 1, 16 and 64 samples.) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 875 393.02000000000004 Tm (Add zero and LSTM baselines.) Tj ET
+BT /F2 26 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 875 320.34 Tm (02 Denoiser capacity) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 875 276.98 Tm (Test the original 8-block,) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 875 251.02 Tm (8-channel CNN design.) Tj ET
+BT /F2 26 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 875 174.34 Tm (03 Joint OHLCV forecasts) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 875 130.98 Tm (Assess forecast quality,) Tj ET
+BT /F1 22 Tf 0.0902 0.16863 0.22745 rg 1 0 0 1 875 105.02 Tm (uncertainty and runtime.) Tj ET
+BT /F1 13 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 58 32.17 Tm (Reading: Rasul et al., TimeGrad \(ICML 2021\), Figure 2. Ho et al., DDPM \(2020\), arXiv:2006.11239.) Tj ET
+BT /F2 14 Tf 0.33333 0.41176 0.45882 rg 1 0 0 1 1210 31.259999999999998 Tm (03) Tj ET
+Q
+endstream
+endobj
+xref
+0 16
+0000000000 65535 f 
+0000000015 00000 n 
+0000000186 00000 n 
+0000000258 00000 n 
+0000000307 00000 n 
+0000000449 00000 n 
+0000000546 00000 n 
+0000000648 00000 n 
+0000004530 00000 n 
+0000004674 00000 n 
+0000004771 00000 n 
+0000004874 00000 n 
+0000010979 00000 n 
+0000011125 00000 n 
+0000011223 00000 n 
+0000011326 00000 n 
+trailer
+<<
+/Size 16
+/Root 3 0 R
+/Info 1 0 R
+>>
+startxref
+14478
+%%EOF
