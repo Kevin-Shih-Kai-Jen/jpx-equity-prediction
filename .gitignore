@@ -1,22 +1,57 @@
-# Local competition data and generated model artifacts
+# Local competition data (keep only the setup guide in data/)
 /data/*
-/checkpoints/
 !/data/README.md
+stock_prices.csv
+stock_price_final.csv
+secondary_stock_prices.csv
+financials.csv
+trades.csv
+options.csv
+stock_list.csv
+
+# Generated checkpoints and model arrays, regardless of working directory
+checkpoints/
 *.pt
 *.pth
 *.ckpt
 *.pkl
+*.joblib
+*.safetensors
+*.npy
 *.npz
+
+# Published final CNN-LSTM checkpoint
+!/result/CNN_LSTM/details/model/CNN_LSTM_final.pt
+
+# Generated reports, temporary files, and local training logs
+output/
+outputs/
+tmp/
+temp/
+/logs/
+/runs/
+/wandb/
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Research logs intentionally published alongside results
+!/result/**/*.log
 
 # Python environments and caches
 .venv/
 venv/
+env/
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 .ipynb_checkpoints/
+.cache/
 
 # Credentials and machine-specific files
 .env
@@ -26,9 +61,7 @@ kaggle.json
 *.pem
 *.key
 .DS_Store
+._*
 Thumbs.db
 .idea/
 .vscode/
-
-# Published final CNN-LSTM checkpoint (explicitly approved)
-!/result/CNN_LSTM/details/model/CNN_LSTM_final.pt

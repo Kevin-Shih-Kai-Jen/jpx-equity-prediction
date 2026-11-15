@@ -4,7 +4,7 @@ the model's true performance.
 
 functions:
 1. rank each stocks every day 
-2. pick the first 200 and last 200
+2. pick configurable top and bottom counts (default: 200 each)
 3. Use the given "Target" to calculate daily sharpe
 4. calculate rank IC (Based on "Target")
 5. Calculate the overall sharpe and rank IC (Average of given time span)
@@ -18,6 +18,7 @@ import pandas as pd
 import numpy as np
 import torch
 from collections.abc import Callable
+from numbers import Integral
 
 
 def get_eval_df(
@@ -52,34 +53,57 @@ def rank(
 
 
 def calculate_weights(
-    df: pd.DataFrame
+    df: pd.DataFrame,
+    n_long: int = 200,
+    n_short: int = 200,
 ) -> pd.DataFrame:
+    """Select each day's top/bottom stocks and allocate gross exposure of 1.
+
+    Long budget = n_long / (n_long + n_short).
+    Short budget = n_short / (n_long + n_short), assigned negative weights.
+    Within each side, preserve the original linear 2-to-1 rank weighting.
+    A count of zero disables that side; both counts cannot be zero.
     """
-    The formula of weights:
-    raw_weights = np.linspace(2, 1, 200)
-    weights = 0.5 * raw_weights / raw_weights.sum()
-    
-    200 for long, 200 for short
-    """
+    for name, count in (("n_long", n_long), ("n_short", n_short)):
+        if isinstance(count, bool) or not isinstance(count, Integral):
+            raise TypeError(f"{name} must be a non-negative integer")
+        if count < 0:
+            raise ValueError(f"{name} must be a non-negative integer")
+
+    # Normalize NumPy integer inputs before adding or slicing.
+    n_long, n_short = int(n_long), int(n_short)
+    total_count = n_long + n_short
+    if total_count == 0:
+        raise ValueError("At least one of n_long or n_short must be positive")
+    if len(df) < total_count:
+        raise ValueError(
+            f"Need at least {total_count} stocks per day "
+            f"({n_long} long + {n_short} short); got {len(df)}"
+        )
+
+    df = df.copy()
     if "Prediction_rank" not in df:
         df = rank(df, "Prediction")
-    
-    # 1. 1 ~ 200     
+
+    # Keep the original ordering, including its handling of tied predictions.
     df = df.sort_values("Prediction_rank")
-    
-    if len(df) < 400:
-        raise ValueError("At least required 400 stocks")
-    
-    raw_weights = np.linspace(2, 1, 200)
-    weights = 0.5 * raw_weights / raw_weights.sum()
-    
     weight_column = np.zeros(len(df))
-    weight_column[:200] = weights
-    weight_column[-200:] = -weights[::-1]
-    
+
+    if n_long > 0:
+        raw_long = np.linspace(2, 1, n_long)
+        long_budget = n_long / total_count
+        weight_column[:n_long] = long_budget * raw_long / raw_long.sum()
+
+    if n_short > 0:
+        raw_short = np.linspace(2, 1, n_short)
+        short_budget = n_short / total_count
+        short_weights = short_budget * raw_short / raw_short.sum()
+        # The lowest predicted stock receives the largest short weight.
+        weight_column[-n_short:] = -short_weights[::-1]
+
     df["Weight"] = weight_column
     return df
-    
+
 
 def daily_earning(
     df: pd.DataFrame,
@@ -135,7 +159,10 @@ def calculate_rank_IC(
 def overall_performance(
     df: pd.DataFrame,
     all_predictions: np.ndarray,
-    time: int = 1
+    time: int = 1,
+    *,
+    n_long: int = 200,
+    n_short: int = 200,
 ) -> dict[str: float]:
     """
     Calculate indicies like sharpe, rank IC...... and
@@ -153,7 +180,9 @@ def overall_performance(
     weighted_days = []
     
     for _, daily_df in eval_df.groupby("Date"):
-        weighted_df = calculate_weights(daily_df)
+        weighted_df = calculate_weights(
+            daily_df, n_long=n_long, n_short=n_short
+        )
         weighted_days.append(weighted_df)
     
     eval_df = pd.concat(weighted_days, ignore_index=True)
@@ -161,8 +190,19 @@ def overall_performance(
     earnings = daily_earning(eval_df).sum()
     sharpe = calculate_sharpe(eval_df)
     rank_IC = calculate_rank_IC(eval_df)
+    # Target portfolio exposure, with short positions carrying negative weights.
+    long_count, short_count = int(n_long), int(n_short)
+    total_count = long_count + short_count
+    long_exposure = long_count / total_count
+    short_exposure = -short_count / total_count
+    # Calculate directly from counts so equal sides display exactly 0.00%.
+    net_exposure = (long_count - short_count) / total_count
     print("=============================== Evaluation =============================== ")
-    print(f"Sharpe: {sharpe} \nRank IC: {rank_IC}\nEarnings: {earnings}")
+    print(f"Long: {long_count} stocks | Weight: {long_exposure:.2%}")
+    print(f"Short: {short_count} stocks | Weight: {short_exposure:.2%}")
+    print(f"Gross exposure: {long_exposure - short_exposure:.2%}")
+    print(f"Net exposure: {net_exposure:.2%}")
+    print(f"Sharpe: {sharpe} \nRank IC: {rank_IC}\nEarnings: {earnings * 100}%")
     print("========================================================================== ")
     
     return {

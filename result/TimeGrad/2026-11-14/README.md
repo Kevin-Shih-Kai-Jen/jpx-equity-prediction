@@ -21,4 +21,4 @@ The documents summarize the saved TimeGrad notebook and `jpx-timegrad-gpu.log`. 
 
 The reflection was edited with AI assistance from the author's supplied text. Possible explanations for weak performance remain hypotheses: more epochs, a larger denoiser, or more forecast targets are proposed experiments, not established fixes. Accuracy and runtime advantages over simpler models still require comparison.
 
-[Results index](../../README.md) · [Reflections index](../../../Reflections/README.md) · [Repository home](../../../README.md)
+[Results and reflections index](../../README.md) · [Repository home](../../../README.md)

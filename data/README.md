@@ -1,26 +1,31 @@
 # Data setup
 
-The experiment entry point reads `stock_prices.csv` from the [JPX Tokyo Stock Exchange Prediction competition](https://www.kaggle.com/competitions/jpx-tokyo-stock-exchange-prediction/data).
+The experiment entry point reads `stock_prices.csv` from the [JPX Tokyo Stock Exchange Prediction competition](https://www.kaggle.com/competitions/jpx-tokyo-stock-exchange-prediction/data). Download it through your own account as required by the provider and use it under the applicable terms.
 
-Download the competition data through your own account as required by the provider and use it under the applicable terms. The default path is `data/stock_prices.csv`, resolved from the repository location. Place the CSV here, then run from the repository root:
+The current source selects its CSV through `DATA_PATH` in [codes/config.py](../codes/config.py):
+
+1. `/kaggle/input/datasets/aiaila101/stock-price/stock_prices.csv`, if that file exists.
+2. Otherwise, `/Users/coolguy/Desktop/JPX/data/stock_prices.csv`, the author's supplied local path.
+
+For another location, change `DATA_PATH` to your actual CSV path. For example, to use this repository's `data/stock_prices.csv`, set:
+
+```python
+DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "stock_prices.csv"
+```
+
+Then run from the repository root:
 
 ```bash
 python codes/main.py
 ```
 
-To keep the CSV in another local directory, pass its path without editing the source:
+The supplied entry point does not parse a `--data` argument.
 
-```bash
-python codes/main.py --data /path/to/stock_prices.csv
-```
-
-The current pipeline uses these columns:
+The pipeline uses these columns:
 
 ```text
 SecuritiesCode, Date, Open, High, Low, Close, Volume,
 AdjustmentFactor, ExpectedDividend, Target
 ```
 
-The supplied working folder also contains `financials.csv`, `trades.csv`, `secondary_stock_prices.csv`, `options.csv`, and `stock_list.csv`; the current entry point does not load them. No raw CSV is redistributed in this repository. The original local data files were not changed or removed during publication.
-
-Files in this directory, except this guide, are ignored by Git. Synthetic tests can run without downloading market data.
+No raw CSV is redistributed in this repository. Files in this directory, except this guide, are ignored by Git. The current entry point does not load `financials.csv`, `trades.csv`, `secondary_stock_prices.csv`, `options.csv`, or `stock_list.csv`.

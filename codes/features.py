@@ -77,8 +77,13 @@ def normalize_data(
 def create_time_sequence(
     df: pd.DataFrame | pd.Series,
     time_sequence: int = 1,
-    col_names: list[str] = []
-) -> tuple[list[list[float | int]], list[list[float | int]]]:
+    col_names: list[str] = [],
+    return_dates: bool=False
+) -> (
+    tuple[list[np.ndarray], list[float]]
+    | tuple[list[np.ndarray], list[float], list[pd.Timestamp]]
+):
+    
     if isinstance(time_sequence, bool) or not isinstance(time_sequence, (int, np.integer)) or time_sequence <= 0:
         raise ValueError("time_sequence must be a positive integer")
 
@@ -93,7 +98,7 @@ def create_time_sequence(
         raise ValueError(f"No {missing} in df")
         
     
-    X, y = [], []
+    X, y, dates = [], [], []
     
     
     df = df.sort_values(["SecuritiesCode", "Date"])
@@ -112,7 +117,10 @@ def create_time_sequence(
         for i in range(len(stock) - time_sequence + 1):
             X.append(X_np[i:i + time_sequence])
             y.append(y_np[i + time_sequence - 1])
+            dates.append(stock["Date"].iloc[i + time_sequence - 1])
     
+    if return_dates:
+        return X, y, dates
     return X, y
         
-        
+

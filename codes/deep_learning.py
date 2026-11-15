@@ -4,8 +4,6 @@ from torch.utils.data import TensorDataset, DataLoader
 import pandas as pd
 import numpy as np
 from pathlib import Path
-from datetime import datetime
-from uuid import uuid4
 
 
 
@@ -23,7 +21,15 @@ def make_it_tensor(
     return torch.from_numpy(array.astype(np.float32))
     
 
-def make_loader(X, y, batch_size=64, shuffle=False):
+def make_loader(X, y, batch_size=64, shuffle=False, dates=None):
+    if dates is not None:
+        if shuffle:
+            raise ValueError(
+                "Daily loader currently requires shuffle=False"
+            )
+        return make_daily_loader(X, y, dates)
+    
+    
     # DataFrame -> Numpy -> Tensor (DataFrame cannot change to Tensor directly)
     X = make_it_tensor(X)
     y = make_it_tensor(y)
@@ -41,56 +47,116 @@ def make_loader(X, y, batch_size=64, shuffle=False):
     return DataLoader(
         dataset=dataset,
         batch_size=batch_size,
-        shuffle=shuffle
+        shuffle=shuffle,
+        pin_memory=torch.cuda.is_available() # Make the data in the CPU memory that is faster to move data to GPU
+    )
+    
+
+def make_daily_loader(X, y, dates):
+    X = make_it_tensor(X)
+    y = make_it_tensor(y)
+    
+    if y.ndim == 1:
+        y = y.unsqueeze(-1) # Make it (N, 1)
+    
+    if y.ndim != 2 or y.shape[1] != 1:
+        raise ValueError("Stage_1 requires y.shape == (N, 1)")
+    
+    if not len(X) == len(y) == len(dates):
+        raise ValueError("X, y, dates must have same shape")
+    
+    dates_groups = {}
+    
+    for i, date in enumerate(dates):
+        date = pd.Timestamp(date)
+        dates_groups.setdefault(date, []).append(i)
+        
+    batches = [
+        dates_groups[date]
+        for date in sorted(dates_groups)
+    ]
+    
+    dataset = TensorDataset(X, y)
+    
+    loader = DataLoader(
+        dataset=dataset,
+        batch_sampler=batches
+    )
+    
+    # Record how data's orders are changed.
+    # In evaluation batches, the order will be restored again
+    loader.changed_data_orders = torch.tensor(
+        [i for batch_indicies in batches for i in batch_indicies],
+        dtype=torch.long
     )
 
+    return loader
 
-def train(model, data_loader, loss_fn, optimizer, epochs=1, device="cpu"):
+def train(
+    model, 
+    data_loader, 
+    loss_fn, 
+    optimizer, 
+    epochs=1, 
+    device="cpu",
+    patience: int=10,
+    min_change: float=0.00001
+):
     if isinstance(epochs, bool) or not isinstance(epochs, (int, np.integer)) or epochs <= 0:
         raise ValueError("epochs must be a positive integer")
 
-    model.train()
     model = model.to(device)
+    model.train()
     
     total_loss = 0.0
     total_sample = 0
+    best_loss = float("inf")
+    count = 0
     
     for epoch in range(epochs):
         epoch_loss = 0.0
-        epoch_samples = 0
+        epoch_sample = 0
+
         for X_batch, y_batch in data_loader:
-            X_batch = X_batch.to(device)
-            y_batch = y_batch.to(device)
+            X_batch = X_batch.to(device, non_blocking=True)
+            y_batch = y_batch.to(device, non_blocking=True)
             
             optimizer.zero_grad()
             
-            prediction = model(X_batch)
-            
-            loss = loss_fn(prediction, y_batch)
-            
+            prediction, loss = model(X_batch, loss_fn, y_batch)
+           
             loss.backward()
             
             optimizer.step()
             
             batch_size = X_batch.shape[0]
-            batch_loss = loss.item() * batch_size
-            total_loss += batch_loss
+            
+            total_loss += loss.item() * batch_size
             total_sample += batch_size
-            epoch_loss += batch_loss
-            epoch_samples += batch_size
 
-        if epoch_samples:
-            print(
-                f"Epoch {epoch + 1}/{epochs} - training average loss: "
-                f"{epoch_loss / epoch_samples:.6f}",
-                flush=True,
-            )
+            epoch_loss += loss.item() * batch_size
+            epoch_sample += batch_size
         
+        if epoch_sample == 0:
+            raise ValueError("Missing data (sample) for training")
+        
+        avg_loss = epoch_loss / epoch_sample
+
+        # Patience
+        if best_loss - avg_loss > min_change:
+            best_loss = avg_loss
+            count = 0
+        else:
+            count += 1
+        
+        if count >= patience:
+            print(f"The model has not improved for {patience} epochs, so we stop training")
+            break
+    
     if total_sample == 0:
         raise ValueError("Missing data (sample) for training")
     
-    return total_loss / total_sample 
-
+    return total_loss / total_sample
 
 def evaluation(
     model: nn.Module, 
@@ -109,10 +175,10 @@ def evaluation(
     
     with torch.no_grad():
         for X_batch, y_batch in data_loader:
-            X_batch = X_batch.to(device)
-            y_batch = y_batch.to(device)
+            X_batch = X_batch.to(device, non_blocking=True)
+            y_batch = y_batch.to(device, non_blocking=True)
             
-            predictions = model(X_batch)
+            predictions = model(X_batch, None, None)
             
             # reshape(-1) is a wild card that flattens multi dimension 
             # inputs into 1 dimension
@@ -130,9 +196,13 @@ def evaluation(
     
     all_predictions = torch.cat(eval_predictions).numpy()
     
+    # Daily bases -> Stock Bases
+    # To match get_eval_df(all_pred) which is stock bases sorting
+    if hasattr(data_loader, "changed_data_orders"):
+        order = torch.argsort(data_loader.changed_data_orders)
+        all_predictions = all_predictions[order]
+    
     return total_loss / total_sample, all_predictions
-
-
 
 
 def save_model(
@@ -143,24 +213,8 @@ def save_model(
     train_start,
     train_end,
     feature_columns,
-    *,
-    checkpoint_dir: str | Path | None = None,
-    metadata: dict | None = None,
 ):
-    """Save the supplied final model without overwriting an earlier run.
-
-    Metadata should contain plain Python values so the checkpoint remains
-    compatible with the default weights-only loader.
-    """
-    checkpoint_dir = (
-        Path(checkpoint_dir)
-        if checkpoint_dir is not None
-        else Path(__file__).resolve().parent.parent / "checkpoints"
-    )
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-    model_path = checkpoint_dir / (
-        f"{Path(model_name).stem}_{timestamp}_{uuid4().hex[:8]}.pt"
-    )
+    model_path = Path("checkpoints") / model_name
     model_path.parent.mkdir(parents=True, exist_ok=True)
 
     torch.save(
@@ -171,7 +225,6 @@ def save_model(
             "feature_columns": list(feature_columns),
             "train_start": train_start,
             "train_end": train_end,
-            "metadata": dict(metadata) if metadata is not None else {},
         },
         model_path,
     )
@@ -212,3 +265,4 @@ def load_model(
         checkpoint["train_start"],
         checkpoint["train_end"],
     )
+    
