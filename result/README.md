@@ -2,7 +2,13 @@
 
 This is the combined index for research questions, hypotheses, findings, validation plans, experiment reports, and supporting evidence. Start with the latest reflection, then follow the relevant model family's reports for detail.
 
-## Latest: simplified TimeGrad (2026-11-14)
+## Latest: MASTER (2026-11-15)
+
+**[Learning, results and performance reflection - PDF](MASTER/MASTER_Research_Reflection_20261115.pdf)**
+
+This three-page report covers the author's understanding of attention, the 17-fold results from the recorded MASTER GPU run, and the revised performance reflection. The original portfolio returned +60.12% gross additive return with an unannualized Sharpe of 0.03381; long-200/short-200 returned +24.99% with a Sharpe of 0.06698. Profits were concentrated in folds 14-17 in the original configuration, and the evidence remains insufficient to establish stable predictive performance across market regimes. Returns are before costs and are not compounded; no experiment was rerun for this report.
+
+## Simplified TimeGrad (2026-11-14)
 
 **[Architecture, results and reflection - PDF](TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pdf)** · [Editable PowerPoint](TimeGrad/2026-11-14/TimeGrad_Architecture_Results_Reflection.pptx) · [Report guide](TimeGrad/2026-11-14/README.md)
 

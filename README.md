@@ -6,7 +6,7 @@ A personal quantitative-finance research project using PyTorch to predict JPX st
 
 Start with the **[results and research index](result/README.md)**. It brings the research questions, hypotheses, reflections, experiment reports, figures, and supporting evidence together in one place.
 
-The latest report is **[TimeGrad: architecture, results and reflection](result/TimeGrad/2026-11-14/README.md)**. Earlier Ensemble, CNN-LSTM, CNN-Ensemble, and modified PRISM research is organized in the same index. Reports describe their recorded experiments; the current source is a later snapshot and does not automatically reproduce those historical results.
+The latest report is **[MASTER: learning, results and performance reflection](result/MASTER/MASTER_Research_Reflection_20261115.pdf)**. Earlier TimeGrad, Ensemble, CNN-LSTM, CNN-Ensemble, and modified PRISM research is organized in the same index. Reports describe their recorded experiments; the current source is a later snapshot and does not automatically reproduce those historical results.
 
 ## Current source - 2026-11-15
 
