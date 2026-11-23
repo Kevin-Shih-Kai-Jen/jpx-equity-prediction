@@ -7,9 +7,8 @@ This folder preserves the author's traditional ordinary least squares (OLS) expe
 - `fetch_topix.py`: loads the configured TOPIX CSV, validates it, and aligns index returns with the JPX target horizon.
 - `pipeline.py`: estimates per-stock OLS parameters, ranks stocks by average residuals, and evaluates daily long/short portfolios.
 - `__init__.py`: package marker.
-- [JPX research 02: from stock-selection signals to optimal holdings](JPX研究02：從選股到最佳持倉.png): the supplied research diagram. Its signal calibration, HMM risk model, transaction costs, and portfolio optimization describe a broader research design; those components are not implemented by this OLS pipeline.
 
-The Python files and diagram are copied unchanged from the supplied folder. The required [TOPIX validator](../AI_written/topix_validator.py) and `TOPIX_PATH` in [config.py](../config.py) are also included from the author's local source.
+The Python files are copied unchanged from the supplied folder. The required [TOPIX validator](../AI_written/topix_validator.py) and `TOPIX_PATH` in [config.py](../config.py) are also included from the author's local source.
 
 ## Implemented method
 

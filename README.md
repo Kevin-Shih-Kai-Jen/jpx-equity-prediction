@@ -4,7 +4,7 @@ A personal quantitative-finance research project using PyTorch models and a trad
 
 ## OLS baseline - 2026-11-23
 
-The new [mathematical approach](codes/mathematical_approach/) preserves the author's OLS residual-momentum experiment: estimate market alpha/beta over 70 observations, then rank stocks by their mean residual over the following 20 observations. The author's assessment is that this simple version has little predictive power; it is retained as a comparison baseline. The folder includes the original source, its research diagram, setup instructions, and a label-availability limitation. The diagram's HMM and portfolio-optimization design is not implemented in this pipeline. No full-data backtest was rerun for this upload.
+The new [mathematical approach](codes/mathematical_approach/) preserves the author's OLS residual-momentum experiment: estimate market alpha/beta over 70 observations, then rank stocks by their mean residual over the following 20 observations. The author's assessment is that this simple version has little predictive power; it is retained as a comparison baseline. The folder includes the original source, setup instructions, and a label-availability limitation. No full-data backtest was rerun for this upload.
 
 ## Research results and reflections
 
