@@ -1,0 +1,5 @@
+SecuritiesCode,AnnounceDate,StockExDate,CashExDate,CashDividend,StockDividend,Source
+3625,NA,2018-07-13,2018-07-13,1.0,0.0,FinMind TaiwanStockDividend
+3625,NA,NA,2019-07-05,1.0,0.0,FinMind TaiwanStockDividend
+3625,NA,NA,2020-07-23,0.5,0.0,FinMind TaiwanStockDividend
+3625,NA,2022-03-16,NA,0.0,0.0,FinMind TaiwanStockDividend

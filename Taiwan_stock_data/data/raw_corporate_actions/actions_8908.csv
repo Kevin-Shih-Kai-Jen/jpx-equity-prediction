@@ -1,0 +1,20 @@
+SecuritiesCode,AnnounceDate,StockExDate,CashExDate,CashDividend,StockDividend,Source
+8908,NA,2017-08-29,2017-08-29,0.6,0.6,FinMind TaiwanStockDividend
+8908,NA,NA,2018-06-22,0.78,0.0,FinMind TaiwanStockDividend
+8908,NA,2018-08-23,NA,0.0,0.78,FinMind TaiwanStockDividend
+8908,NA,NA,2019-06-24,0.9,0.0,FinMind TaiwanStockDividend
+8908,NA,2019-08-29,NA,0.0,0.9,FinMind TaiwanStockDividend
+8908,NA,NA,2020-03-31,0.9,0.0,FinMind TaiwanStockDividend
+8908,NA,2020-08-31,NA,0.0,1.1,FinMind TaiwanStockDividend
+8908,NA,NA,2021-04-07,0.4,0.0,FinMind TaiwanStockDividend
+8908,NA,2021-09-02,NA,0.0,1.2,FinMind TaiwanStockDividend
+8908,NA,NA,2022-04-07,0.4,0.0,FinMind TaiwanStockDividend
+8908,NA,2022-09-07,NA,0.0,1.5,FinMind TaiwanStockDividend
+8908,NA,NA,2023-03-24,0.8,0.0,FinMind TaiwanStockDividend
+8908,NA,2023-09-14,NA,0.0,1.0,FinMind TaiwanStockDividend
+8908,NA,NA,2024-03-28,0.8,0.0,FinMind TaiwanStockDividend
+8908,NA,2024-09-05,NA,0.0,0.8,FinMind TaiwanStockDividend
+8908,NA,NA,2025-03-31,1.3,0.0,FinMind TaiwanStockDividend
+8908,NA,2025-09-09,NA,0.0,0.3006698,FinMind TaiwanStockDividend
+8908,NA,NA,2026-03-26,1.5,0.0,FinMind TaiwanStockDividend
+8908,NA,2026-09-03,NA,0.0,0.3043406,FinMind TaiwanStockDividend

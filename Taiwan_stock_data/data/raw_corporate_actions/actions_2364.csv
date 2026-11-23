@@ -1,0 +1,6 @@
+SecuritiesCode,AnnounceDate,StockExDate,CashExDate,CashDividend,StockDividend,Source
+2364,NA,NA,2022-09-06,1.0,0.0,FinMind TaiwanStockDividend
+2364,NA,2023-10-16,NA,0.0,2.5,FinMind TaiwanStockDividend
+2364,NA,2024-08-29,NA,0.0,3.0,FinMind TaiwanStockDividend
+2364,NA,2025-08-28,NA,0.0,3.0,FinMind TaiwanStockDividend
+2364,NA,2026-08-28,2026-08-28,2.0,1.0,FinMind TaiwanStockDividend
