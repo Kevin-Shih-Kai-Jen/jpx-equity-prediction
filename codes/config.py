@@ -13,3 +13,4 @@ DATA_PATH = (
     if KAGGLE_DATA_PATH.is_file()
     else Path("/Users/coolguy/Desktop/JPX/data/stock_prices.csv")
 )
+TOPIX_PATH = Path("/Users/coolguy/Desktop/JPX/data/TOPIX_daily.csv")
