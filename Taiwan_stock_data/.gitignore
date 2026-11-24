@@ -1,3 +1,12 @@
 ﻿stock_price_full.csv
 stock_price_final.csv
 finmind_token.txt
+
+# FinMind 原始報價快取（約 300 MB，可用 03_full_market_pipeline.py 重新產生）
+data/raw_finmind_prices/
+
+# 檢查／清洗過程的輸出
+check_issues.csv
+data/price_anomalies.csv
+
+__pycache__/

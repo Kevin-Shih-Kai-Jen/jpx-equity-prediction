@@ -4,35 +4,10 @@ import requests
 import pandas as pd
 from tqdm import tqdm
 
+from finmind_auth import auth_headers, check_finmind_token, load_finmind_token
+
 class QuotaExceededError(Exception):
     pass
-
-def load_finmind_token():
-    """優先讀取 finmind_token.txt，若無再讀環境變數 FINMIND_TOKEN"""
-    token_file = "finmind_token.txt"
-    if os.path.exists(token_file):
-        with open(token_file, "r", encoding="utf-8") as f:
-            token = f.read().strip()
-            if token:
-                return token
-    return os.getenv("FINMIND_TOKEN", "").strip()
-
-def check_finmind_token(token):
-    """啟動前確認 Token 有效，並印出帳號目前使用次數"""
-    if not token:
-        print("❌ 錯誤：找不到 Token！請建立 finmind_token.txt 並貼上你的 FinMind Token。")
-        return False
-
-    url = "https://api.web.finmindtrade.com/v2/user_info"
-    headers = {"Authorization": f"Bearer {token}"}
-    try:
-        resp = requests.get(url, headers=headers, timeout=10)
-        info = resp.json()
-        print(f"✅ Token 驗證成功！目前帳號額度：{info.get('user_count')} / {info.get('api_request_limit')}")
-        return True
-    except Exception as e:
-        print(f"⚠️ 無法查詢帳號額度（將繼續嘗試抓取）：{e}")
-        return True
 
 def get_numeric_col(df, col_name):
     if col_name not in df.columns:
@@ -48,7 +23,7 @@ def get_clean_date_col(df, col_name):
 
 def fetch_finmind_dividend(stock_id, start_date="2017-01-01", token=""):
     url = "https://api.finmindtrade.com/api/v4/data"
-    headers = {"Authorization": f"Bearer {token}"} if token else {}
+    headers = auth_headers(token)
     params = {
         "dataset": "TaiwanStockDividend",
         "data_id": str(stock_id),

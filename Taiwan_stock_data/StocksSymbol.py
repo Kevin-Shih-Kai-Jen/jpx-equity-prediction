@@ -1,16 +1,29 @@
 import os
-import requests
+import sys
+
 import pandas as pd
+import requests
+
+from finmind_auth import auth_headers, check_finmind_token, load_finmind_token
+
+for _s in (sys.stdout, sys.stderr):  # Windows cp950 主控台／輸出導向檔案時印 emoji 不會當掉
+    try:
+        _s.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
+# stock_list.csv 固定存在本檔所在資料夾，不受執行時所在目錄影響
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 def get_taiwan_stock_list():
     print("正在取得台股全市場股票代碼表...")
     url = "https://api.finmindtrade.com/api/v4/data"
     parameter = {"dataset": "TaiwanStockInfo"}
-    token = os.getenv("FINMIND_TOKEN", "")
-    if token:
-        parameter["token"] = token
+    token = load_finmind_token()
+    if not check_finmind_token(token):
+        return
 
-    response = requests.get(url, params=parameter, timeout=15)
+    response = requests.get(url, headers=auth_headers(token), params=parameter, timeout=15)
     response.raise_for_status()
     data = response.json()
 

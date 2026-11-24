@@ -95,6 +95,41 @@ def validate_final_dataset(df):
         print(extreme_targets[["Date", "SecuritiesCode", "Close", "AdjustmentFactor", "Target"]].head(5).to_string(index=False))
     print("=" * 60)
 
+def align_events_to_trading_days(events, df_price, max_days=14):
+    """
+    把除權事件對到「該股在除權日當天或之後的第一筆報價」。
+    events 需有 SecuritiesCode, Date, StockDividend；回傳同欄位，Date 為實際套用因子的交易日。
+    超過 max_days 天都找不到報價（例：長期停牌、區間外）的事件會被捨棄並印出。
+    """
+    min_d, max_d = df_price["Date"].min(), df_price["Date"].max()
+    ev = events[(events["Date"] >= min_d) & (events["Date"] <= max_d)].copy()
+    ev["_d"] = pd.to_datetime(ev["Date"])
+    ev = ev.sort_values("_d")
+
+    rows = df_price[["SecuritiesCode", "Date"]].drop_duplicates().rename(columns={"Date": "TradeDate"})
+    rows["_d"] = pd.to_datetime(rows["TradeDate"])
+    rows = rows.sort_values("_d")
+
+    m = pd.merge_asof(ev, rows, on="_d", by="SecuritiesCode",
+                      direction="forward", tolerance=pd.Timedelta(days=max_days))
+    exact = int((m["TradeDate"] == m["Date"]).sum())
+    shifted = m[m["TradeDate"].notna() & (m["TradeDate"] != m["Date"])]
+    dropped = m[m["TradeDate"].isna()]
+    print(f"除權事件比對：區間內共 {len(m)} 筆，除權日當天對上 {exact} 筆，"
+          f"順延到下一個交易日 {len(shifted)} 筆，{max_days} 天內找不到報價 {len(dropped)} 筆")
+    if not shifted.empty:
+        print("    順延明細（前 10 筆）：" + "、".join(
+            f"{r.SecuritiesCode} {r.Date}→{r.TradeDate}" for r in shifted.head(10).itertuples()))
+    if not dropped.empty:
+        print("    找不到報價（前 10 筆）：" + "、".join(
+            f"{r.SecuritiesCode} {r.Date}" for r in dropped.head(10).itertuples()))
+
+    m = m.dropna(subset=["TradeDate"])
+    # 兩個事件順延到同一天時，股票股利加總（與同日多筆事件的處理一致）
+    return (m.groupby(["SecuritiesCode", "TradeDate"], as_index=False)["StockDividend"].sum()
+             .rename(columns={"TradeDate": "Date"}))
+
+
 def merge_adjustment_factors():
     print("正在讀取全市場報價資料 (stock_price_full.csv)...")
     df_price = pd.read_csv("stock_price_full.csv", dtype={"SecuritiesCode": str})
@@ -115,19 +150,9 @@ def merge_adjustment_factors():
         .rename(columns={"StockExDate": "Date"})
     )
 
-    # 檢查除權事件命中率（限資料時間範圍內）
-    min_d, max_d = df_price["Date"].min(), df_price["Date"].max()
-    in_range_splits = df_splits[(df_splits["Date"] >= min_d) & (df_splits["Date"] <= max_d)]
-    matched_check = pd.merge(
-        in_range_splits[["SecuritiesCode", "Date"]],
-        df_price[["SecuritiesCode", "Date"]].drop_duplicates(),
-        on=["SecuritiesCode", "Date"],
-        how="left",
-        indicator=True
-    )
-    unmatched = matched_check[matched_check["_merge"] == "left_only"]
-    print(f"除權事件比對：區間內共 {len(in_range_splits)} 筆，成功對上報價 {len(in_range_splits) - len(unmatched)} 筆，"
-          f"未對上 {len(unmatched)} 筆")
+    # 除權日遇到休市（颱風假等）或該股當天沒有資料時，順延到該股下一個有資料的交易日，
+    # 否則因子會整筆遺失（例：3293 鈊象 2024-07-24 颱風休市，配股 10 元沒被調整）
+    df_splits = align_events_to_trading_days(df_splits, df_price)
 
     print("開始合併 AdjustmentFactor...")
     merged_df = pd.merge(
