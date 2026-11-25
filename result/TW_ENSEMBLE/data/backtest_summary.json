@@ -1,0 +1,225 @@
+{
+  "status": "complete",
+  "completed_folds": 40,
+  "first_signal_date": "2017-04-05 00:00:00",
+  "last_signal_date": "2026-11-23 00:00:00",
+  "signal_dates": 2351,
+  "complete_dates": 2334,
+  "incomplete_dates": 17,
+  "prediction_rows": 3843443,
+  "labeled_prediction_rows": 3826654,
+  "mae": 0.01568938206073701,
+  "zero_baseline_mae": 0.015639970873500417,
+  "mean_daily_rank_ic": 0.001009488563762689,
+  "portfolios": {
+    "gross": {
+      "days": 2334,
+      "mean_daily": 0.00022317895054895108,
+      "additive_return": 0.5208996705812519,
+      "annualized_sharpe": 0.30048044672670654,
+      "positive_day_fraction": 0.49785775492716366,
+      "compounded_return": 0.43170311888040747,
+      "cagr_252": 0.03950674836464274,
+      "max_drawdown": -0.4000140884940885,
+      "min_daily": -0.05331425748205386,
+      "max_daily": 0.05034531679429447
+    },
+    "net_cost_scenario": {
+      "days": 2334,
+      "mean_daily": -0.0066917538058888365,
+      "additive_return": -15.618553382944544,
+      "annualized_sharpe": -9.028951289182535,
+      "positive_day_fraction": 0.24764353041988005,
+      "compounded_return": -0.999999867221679,
+      "cagr_252": -0.8190702951633443,
+      "max_drawdown": -0.9999998710940494,
+      "min_daily": -0.06021538442661001,
+      "max_daily": 0.043311626441056725
+    },
+    "long_only_gross": {
+      "days": 2334,
+      "mean_daily": 0.0010959869455927243,
+      "additive_return": 2.5580335310134186,
+      "annualized_sharpe": 0.6676187791598693,
+      "positive_day_fraction": 0.5141388174807198,
+      "compounded_return": 4.850835380634186,
+      "cagr_252": 0.2101406887532693,
+      "max_drawdown": -0.5739755141990333,
+      "min_daily": -0.09936664906985386,
+      "max_daily": 0.09931318179493369
+    },
+    "clipped_20pct_sensitivity": {
+      "days": 2334,
+      "mean_daily": 0.00022445667247791552,
+      "additive_return": 0.5238818735634548,
+      "annualized_sharpe": 0.3023286148577532,
+      "positive_day_fraction": 0.49785775492716366,
+      "compounded_return": 0.43618454990945965,
+      "cagr_252": 0.03985756906057314,
+      "max_drawdown": -0.3981360486649109,
+      "min_daily": -0.05331425748205386,
+      "max_daily": 0.05034531679429447
+    },
+    "equal_weight_available_labels": {
+      "days": 2334,
+      "mean_daily": 0.00038499934779282223,
+      "additive_return": 0.8985884777484471,
+      "annualized_sharpe": 0.5669587651906097,
+      "positive_day_fraction": 0.5989717223650386,
+      "compounded_return": 1.1409984283893202,
+      "cagr_252": 0.08566632376548466,
+      "max_drawdown": -0.32494030430827037,
+      "min_daily": -0.09677699805306518,
+      "max_daily": 0.09098360328804436
+    }
+  },
+  "selected_extreme_labels": 1,
+  "conclusions": {
+    "all_validation": {
+      "first_signal_date": "2017-04-05 00:00:00",
+      "last_signal_date": "2026-11-23 00:00:00",
+      "complete_dates": 2334,
+      "incomplete_dates": 17,
+      "portfolios": {
+        "gross": {
+          "days": 2334,
+          "mean_daily": 0.00022317895054895108,
+          "additive_return": 0.5208996705812519,
+          "annualized_sharpe": 0.30048044672670654,
+          "positive_day_fraction": 0.49785775492716366,
+          "compounded_return": 0.43170311888040747,
+          "cagr_252": 0.03950674836464274,
+          "max_drawdown": -0.4000140884940885,
+          "min_daily": -0.05331425748205386,
+          "max_daily": 0.05034531679429447
+        },
+        "net_cost_scenario": {
+          "days": 2334,
+          "mean_daily": -0.0066917538058888365,
+          "additive_return": -15.618553382944544,
+          "annualized_sharpe": -9.028951289182535,
+          "positive_day_fraction": 0.24764353041988005,
+          "compounded_return": -0.999999867221679,
+          "cagr_252": -0.8190702951633443,
+          "max_drawdown": -0.9999998710940494,
+          "min_daily": -0.06021538442661001,
+          "max_daily": 0.043311626441056725
+        },
+        "long_only_gross": {
+          "days": 2334,
+          "mean_daily": 0.0010959869455927243,
+          "additive_return": 2.5580335310134186,
+          "annualized_sharpe": 0.6676187791598693,
+          "positive_day_fraction": 0.5141388174807198,
+          "compounded_return": 4.850835380634186,
+          "cagr_252": 0.2101406887532693,
+          "max_drawdown": -0.5739755141990333,
+          "min_daily": -0.09936664906985386,
+          "max_daily": 0.09931318179493369
+        },
+        "clipped_20pct_sensitivity": {
+          "days": 2334,
+          "mean_daily": 0.00022445667247791552,
+          "additive_return": 0.5238818735634548,
+          "annualized_sharpe": 0.3023286148577532,
+          "positive_day_fraction": 0.49785775492716366,
+          "compounded_return": 0.43618454990945965,
+          "cagr_252": 0.03985756906057314,
+          "max_drawdown": -0.3981360486649109,
+          "min_daily": -0.05331425748205386,
+          "max_daily": 0.05034531679429447
+        },
+        "equal_weight_available_labels": {
+          "days": 2334,
+          "mean_daily": 0.00038499934779282223,
+          "additive_return": 0.8985884777484471,
+          "annualized_sharpe": 0.5669587651906097,
+          "positive_day_fraction": 0.5989717223650386,
+          "compounded_return": 1.1409984283893202,
+          "cagr_252": 0.08566632376548466,
+          "max_drawdown": -0.32494030430827037,
+          "min_daily": -0.09677699805306518,
+          "max_daily": 0.09098360328804436
+        }
+      },
+      "mean_daily_rank_ic": 0.001009488563762689,
+      "interpretation": "Taiwan labels are held out chronologically, but the fixed Japanese pretrained checkpoint contains training/validation information through 2021. Pre-July-2021 results are retrospective transfer diagnostics, not historically available-model performance."
+    },
+    "from_2021_H2": {
+      "cutoff": "2021-07-01",
+      "complete_dates": 1302,
+      "incomplete_dates": 10,
+      "portfolios": {
+        "gross": {
+          "days": 1302,
+          "mean_daily": 0.0003562435064146228,
+          "additive_return": 0.4638290453518389,
+          "annualized_sharpe": 0.45268684864645287,
+          "positive_day_fraction": 0.5023041474654378,
+          "compounded_return": 0.4366800339714958,
+          "cagr_252": 0.0726469076986207,
+          "max_drawdown": -0.3274160189266163,
+          "min_daily": -0.05331425748205386,
+          "max_daily": 0.05034531679429447
+        },
+        "net_cost_scenario": {
+          "days": 1302,
+          "mean_daily": -0.006558092940659636,
+          "additive_return": -8.538637008738846,
+          "annualized_sharpe": -8.353487981013988,
+          "positive_day_fraction": 0.26036866359447003,
+          "compounded_return": -0.9998281861859433,
+          "cagr_252": -0.8132323890010019,
+          "max_drawdown": -0.9998320305907131,
+          "min_daily": -0.06021538442661001,
+          "max_daily": 0.043311626441056725
+        },
+        "long_only_gross": {
+          "days": 1302,
+          "mean_daily": 0.0009218787037365884,
+          "additive_return": 1.2002860722650381,
+          "annualized_sharpe": 0.5148775159625995,
+          "positive_day_fraction": 0.5,
+          "compounded_return": 0.9650418378816195,
+          "cagr_252": 0.13967661997659397,
+          "max_drawdown": -0.5739755141990317,
+          "min_daily": -0.09936664906985386,
+          "max_daily": 0.09918867258252995
+        },
+        "clipped_20pct_sensitivity": {
+          "days": 1302,
+          "mean_daily": 0.0003585339848955775,
+          "additive_return": 0.46681124833404186,
+          "annualized_sharpe": 0.455906408005117,
+          "positive_day_fraction": 0.5023041474654378,
+          "compounded_return": 0.44117704344095277,
+          "cagr_252": 0.07329593449405003,
+          "max_drawdown": -0.32531073698465895,
+          "min_daily": -0.05331425748205386,
+          "max_daily": 0.05034531679429447
+        },
+        "equal_weight_available_labels": {
+          "days": 1302,
+          "mean_daily": 0.00024772552415827615,
+          "additive_return": 0.32253863245407555,
+          "annualized_sharpe": 0.3429840311456666,
+          "positive_day_fraction": 0.5913978494623656,
+          "compounded_return": 0.26623828311400266,
+          "cagr_252": 0.046746935272272694,
+          "max_drawdown": -0.30556396664862273,
+          "min_daily": -0.09677699805306518,
+          "max_daily": 0.09098360328804436
+        }
+      },
+      "mean_daily_rank_ic": 0.002086226203307251,
+      "mae": 0.016452402167094413,
+      "zero_baseline_mae": 0.016442543795058644,
+      "interpretation": "Exact signal-date slice from the same expanding-window run, after known Japanese pretraining/validation dates. Architecture and strategy still selected retrospectively; dataset limitations remain."
+    }
+  },
+  "interpretation": "Two conclusions: full historical validation and signal dates from 2021-07-01. Japanese pretrained checkpoint has later information than the early historical period.",
+  "cost_note": "Cost scenario only: commission 0.1425% each side, sell tax 0.3%, slippage 5bp each side, short borrow 3%/year. All daily tranches fully opened/closed; no turnover netting. Borrow and fills unverified.",
+  "missing_label_note": "Picks are chosen without target availability filtering. Entire days with unresolved selected labels are excluded and explicitly counted; reported Sharpe/CAGR are conditional on complete days.",
+  "dividend_note": "ExpectedDividend is entirely missing; price-return target excludes cash dividends.",
+  "anomaly_note": "Extreme source targets are retained in the main result. Clipping at +/-20% is a separately labeled sensitivity, not a data repair."
+}

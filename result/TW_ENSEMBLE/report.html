@@ -1,0 +1,1417 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TW_ENSEMBLE - Complete Backtest Analysis</title><style>body{margin:0;background:#f4f6f8;color:#172432;font:16px/1.75 system-ui,-apple-system,Arial,sans-serif}main{max-width:1200px;margin:36px auto;padding:0 28px}h1{font-size:40px;line-height:1.2;color:#176c80}h2{font-size:25px;margin:46px 0 18px;padding-top:24px;border-top:1px solid #ccd7df}p,li{max-width:1100px}.scroll{overflow:auto;max-height:820px;background:white;border:1px solid #dce3e9;border-radius:8px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:11px 12px;border-bottom:1px solid #dfe6ec;white-space:nowrap;text-align:left;font-variant-numeric:tabular-nums}th{background:#eaf1f5;position:sticky;top:0}tr:nth-child(even){background:#f9fbfc}img{width:100%;height:auto;background:white}a{color:#176c80}pre{overflow:auto;background:#e9eef2;padding:18px;border-radius:8px;font-size:13px}code{font-family:ui-monospace,monospace;font-size:.9em}@media(max-width:700px){main{padding:0 14px}h1{font-size:31px}h2{font-size:22px}body{font-size:15px}}@media print{body{background:white}main{margin:0;max-width:none}.scroll{max-height:none;overflow:visible}th{position:static}h2{break-after:avoid}img{break-inside:avoid}}</style></head><body><main><h1>TW_ENSEMBLE</h1>
+<p>Taiwan transfer learning: complete backtest analysis. Published 2026-11-25.</p>
+<p><a href="TW_ENSEMBLE_Backtest_Report_EN.pdf">English PDF</a> | <a href="report.html">HTML report</a> | <a href="data/fold_metrics.csv">Fold metrics</a> | <a href="model/TW_ENSEMBLE_final.pt">Final model</a></p>
+<h2>Executive conclusion</h2>
+<p>The recorded 3-long / 3-short strategy earns a positive gross compounded return, but it does not cover the assumed transaction costs. Only 19 of 40 folds have a positive gross return; none is positive in the cost scenario. Profits are concentrated in F34-F36, while most training windows retain their incoming weights.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Portfolio</th>
+<th>Days</th>
+<th>Compounded return</th>
+<th>Annualized return</th>
+<th>Sharpe</th>
+<th>Max drawdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full history</td>
+<td>Gross</td>
+<td>2334</td>
+<td>+43.17%</td>
+<td>+3.95%</td>
+<td>0.300</td>
+<td>-40.00%</td>
+</tr>
+<tr>
+<td>Full history</td>
+<td>Cost scenario</td>
+<td>2334</td>
+<td>-99.999987%</td>
+<td>-81.91%</td>
+<td>-9.029</td>
+<td>-100.00%</td>
+</tr>
+<tr>
+<td>From 2021-07-01</td>
+<td>Gross</td>
+<td>1302</td>
+<td>+43.67%</td>
+<td>+7.26%</td>
+<td>0.453</td>
+<td>-32.74%</td>
+</tr>
+<tr>
+<td>From 2021-07-01</td>
+<td>Cost scenario</td>
+<td>1302</td>
+<td>-99.982819%</td>
+<td>-81.32%</td>
+<td>-8.353</td>
+<td>-99.98%</td>
+</tr>
+</tbody>
+</table></div>
+<p>Full-history scored signals run from 2017-04-05 through 2026-11-19, with returns realized through 2026-11-23. There are 2,334 complete dates and 17 excluded dates. The exact signal-date slice from 2021-07-01 contains 1,302 complete dates and 10 excluded dates.</p>
+<p>All annualized returns use 252 scored days per year. Days without complete selected-position labels are excluded, not assigned zero returns. These are research results conditional on complete-label dates, not a complete executable calendar-time NAV.</p>
+<p>The Japanese checkpoint used training/validation information through June 2021. The early period is a retrospective transfer diagnostic. The later slice avoids that known checkpoint timing mismatch, but model architecture and strategy choices were still made retrospectively.</p>
+<h2>Model, execution and expanding-window design</h2>
+<p>TW_ENSEMBLE is the Taiwan transfer run of the JPX no-ReLU ENSEMBLE architecture: GRU, RNN and LSTM final hidden states are averaged, followed by dropout and two linear layers (128 to 32 to 1), with no added ReLU between those dense layers. The exact source is included in source/models.py.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Recorded setting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Completed run</td>
+<td>Kaggle version 1; 40 / 40 folds; 2 x Tesla T4</td>
+</tr>
+<tr>
+<td>Completion time</td>
+<td>2026-11-25 16:08:36 Asia/Taipei (08:08:36 UTC)</td>
+</tr>
+<tr>
+<td>Observed run duration</td>
+<td>7,621.4 seconds, approximately 2 hours 7 minutes</td>
+</tr>
+<tr>
+<td>Lookback and features</td>
+<td>21 observations; Open, High, Low, Close, Volume, ExpectedDividend</td>
+</tr>
+<tr>
+<td>Architecture</td>
+<td>Hidden size 128; one recurrent layer per branch; dropout 0.2</td>
+</tr>
+<tr>
+<td>Preprocessing</td>
+<td>Original JPX scaler frozen; missing ExpectedDividend filled with zero</td>
+</tr>
+<tr>
+<td>Expanding training origin</td>
+<td>2017-01-03</td>
+</tr>
+<tr>
+<td>First outer test window</td>
+<td>Starts 2017-04-03; advances by 90 calendar days</td>
+</tr>
+<tr>
+<td>Inner early-stop validation</td>
+<td>30 calendar days immediately before each outer test start</td>
+</tr>
+<tr>
+<td>Label purging</td>
+<td>Training labels finish before inner validation; validation labels finish before outer test</td>
+</tr>
+<tr>
+<td>Optimizer and loss</td>
+<td>New Adam for Taiwan transfer; learning rate 0.001; Huber delta 1</td>
+</tr>
+<tr>
+<td>Batch and stopping</td>
+<td>Global batch 4,096; max 50 epochs; patience 10; min_delta 0.00001</td>
+</tr>
+<tr>
+<td>State carried between folds</td>
+<td>Best selected model and Adam optimizer state</td>
+</tr>
+<tr>
+<td>GPU execution</td>
+<td>DataParallel; float32 with TF32; gradient norm clip 1; shuffle=False</td>
+</tr>
+<tr>
+<td>Seed</td>
+<td>20261125</td>
+</tr>
+<tr>
+<td>Runtime</td>
+<td>Python 3.13.16; PyTorch 2.11.0+cu130; CUDA 13.0; NumPy 2.1.3; pandas 2.3.3</td>
+</tr>
+</tbody>
+</table></div>
+<p>This publication analyzes the completed run; it does not retrain, change hyperparameters or select a replacement model using the outer test returns. GPU kernels and parallel execution can prevent bitwise-identical results in a future rerun.</p>
+<h2>Data audit and evaluation coverage</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Audit item</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source rows / stock codes</td>
+<td>4,461,650 / 2,081</td>
+</tr>
+<tr>
+<td>Source date range</td>
+<td>2017-01-03 through 2026-11-23</td>
+</tr>
+<tr>
+<td>Source trading dates</td>
+<td>2,408</td>
+</tr>
+<tr>
+<td>Duplicate stock-date pairs</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Rows with missing OHLC</td>
+<td>142,163</td>
+</tr>
+<tr>
+<td>Missing targets</td>
+<td>221,032</td>
+</tr>
+<tr>
+<td>Comparable target checks</td>
+<td>4,240,618 matches; 0 mismatches</td>
+</tr>
+<tr>
+<td>Absolute target &gt; 20% / &gt; 50%</td>
+<td>422 / 192</td>
+</tr>
+<tr>
+<td>Prediction rows across outer folds</td>
+<td>3,843,443</td>
+</tr>
+<tr>
+<td>Full-history complete / excluded dates</td>
+<td>2,334 / 17</td>
+</tr>
+<tr>
+<td>From 2021-07-01 complete / excluded dates</td>
+<td>1,302 / 10</td>
+</tr>
+</tbody>
+</table></div>
+<p>Targets are computed within each stock as Close[t+2] / Close[t+1] / AdjustmentFactor[t+2] - 1. The supplied target was independently recomputed and matched on all 4,240,618 comparable rows. For scored positions, entry and exit labels must correspond to consecutive global trading dates.</p>
+<p>Selection happens before checking target availability. If any selected position has a missing or nonconsecutive label, the whole date is excluded. The strategy never substitutes a different stock because a selected target is missing.</p>
+<p>The dataset documentation explicitly states that its stock universe was obtained from the then-current listing universe. Delisted and otherwise removed companies are not fully represented, so survivorship bias remains. Cash dividends, capital reductions and stock splits are not fully adjusted by the supplied construction.</p>
+<p>Sources: <a href="https://github.com/Kevin-Shih-Kai-Jen/jpx-equity-prediction/tree/a79c2b2efe9a8472f52e61c94f062425e06a0c35/Taiwan_stock_data/dataset">pinned dataset files</a> and <a href="https://github.com/Kevin-Shih-Kai-Jen/jpx-equity-prediction/blob/a79c2b2efe9a8472f52e61c94f062425e06a0c35/Taiwan_stock_data/README.md">pinned dataset documentation</a>.</p>
+<h2>Portfolio construction and cost assumptions</h2>
+<ul>
+<li>After signal-day t close, rank predictions and buy the three highest-ranked stocks while shorting the three lowest-ranked stocks.</li>
+<li>Within each side, rank weights are proportional to 2 : 1.5 : 1. Long exposure is +0.5, short exposure is -0.5, and total absolute exposure is 1.</li>
+<li>The target-return proxy assumes entry at t+1 close and exit at t+2 close. Each daily tranche is fully opened and closed; no cross-day turnover netting is applied.</li>
+<li>Costs use opening and adjusted closing notionals. Sell-side tax is charged on sales, and borrow cost uses actual calendar holding days.</li>
+</ul>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Cost parameter</th>
+<th>Assumption</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Commission per side</td>
+<td>0.1425%</td>
+</tr>
+<tr>
+<td>Sell-side tax</td>
+<td>0.3%</td>
+</tr>
+<tr>
+<td>Slippage per side</td>
+<td>0.05% (5 bps)</td>
+</tr>
+<tr>
+<td>Annualized short borrow fee</td>
+<td>3%</td>
+</tr>
+<tr>
+<td>Average full-history daily cost</td>
+<td>0.6915%, approximately 69.15 bps</td>
+</tr>
+</tbody>
+</table></div>
+<p>These are scenario parameters, not verified account-specific fees or a fill simulation. Historical shortability, daily limit constraints and executable auction prices are not established by these data.</p>
+<p>Net scenario return on each scored date equals the gross portfolio return minus that date's modeled cost. The full-history average gross return is only 2.23 bps per day; from 2021-07-01 it is 3.56 bps per day. Both are far below the assumed average daily cost.</p>
+<h2>Equity curves and drawdown</h2>
+<p><img src="figures/equity_and_drawdown.png" alt="The two periods are independently rebased to initial capital 1. Red curves apply the stated cost scenario. Missing selected-label dates are excluded." /></p>
+<p>The two periods are independently rebased to initial capital 1. Red curves apply the stated cost scenario. Missing selected-label dates are excluded.</p>
+<h2>How often is a fold profitable?</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Statistic</th>
+<th>All 40 folds</th>
+<th>From 2021-07-01: 23 segments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Positive gross return</td>
+<td>19 / 40 (47.5%)</td>
+<td>11 / 23 (47.8%)</td>
+</tr>
+<tr>
+<td>Positive cost-scenario return</td>
+<td>0 / 40</td>
+<td>0 / 23</td>
+</tr>
+<tr>
+<td>Median fold gross compounded return</td>
+<td>-0.53%</td>
+<td>-0.45%</td>
+</tr>
+<tr>
+<td>Median fold gross annualized return</td>
+<td>-2.37%</td>
+<td>-2.01%</td>
+</tr>
+<tr>
+<td>Median fold gross Sharpe</td>
+<td>0.007</td>
+<td>0.070</td>
+</tr>
+<tr>
+<td>Folds with positive mean daily Rank IC</td>
+<td>24 / 40</td>
+<td>14 / 23</td>
+</tr>
+<tr>
+<td>Positive long-only gross fold return</td>
+<td>26 / 40</td>
+<td>13 / 23</td>
+</tr>
+<tr>
+<td>Daily gross positive-return frequency</td>
+<td>49.79%</td>
+<td>50.23%</td>
+</tr>
+</tbody>
+</table></div>
+<p>The later group includes only the portion of F18 from July 1 onward, all of F19-F39, and the short F40 tail. It is not a set of 23 full 90-day windows. All 23 segments are recomputed from daily returns after the exact cutoff.</p>
+<p>The longest gross winning streak is three folds, including F29-F31 and F34-F36. The longest gross losing streak is four folds, F23-F26. A profitable fold and an accepted training update measure different outcomes.</p>
+<h2>Annualized return in every fold</h2>
+<p><img src="figures/fold_returns.png" alt="The upper panel annualizes each fold separately; the lower panel shows its actual observed compounded return." /></p>
+<p>The upper panel annualizes each fold separately; the lower panel shows its actual observed compounded return.</p>
+<p>Annualized return = product(1 + daily return) ** (252 / scored days) - 1. Fold annualized returns cannot be averaged to obtain the full-history annualized return. F1-F39 have 53-65 scored dates each. F40 has only six: its -0.60% observed return becomes -22.43% when annualized. This is a conversion, not a forecast.</p>
+<h2>Best and worst folds; concentration of gains</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Fold</th>
+<th>Scored signal dates</th>
+<th>Days</th>
+<th>Gross return</th>
+<th>Annualized</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Best</td>
+<td>F35</td>
+<td>2025-08-19 to 2025-11-14</td>
+<td>60</td>
+<td>+31.54%</td>
+<td>+216.28%</td>
+</tr>
+<tr>
+<td>Best</td>
+<td>F36</td>
+<td>2025-11-17 to 2026-02-11</td>
+<td>61</td>
+<td>+28.56%</td>
+<td>+182.32%</td>
+</tr>
+<tr>
+<td>Best</td>
+<td>F34</td>
+<td>2025-05-21 to 2025-08-18</td>
+<td>60</td>
+<td>+15.47%</td>
+<td>+82.99%</td>
+</tr>
+<tr>
+<td>Worst</td>
+<td>F15</td>
+<td>2020-09-14 to 2020-12-11</td>
+<td>62</td>
+<td>-18.46%</td>
+<td>-56.37%</td>
+</tr>
+<tr>
+<td>Worst</td>
+<td>F32</td>
+<td>2024-11-22 to 2025-02-19</td>
+<td>56</td>
+<td>-16.88%</td>
+<td>-56.48%</td>
+</tr>
+<tr>
+<td>Worst</td>
+<td>F18</td>
+<td>2021-06-11 to 2021-09-08</td>
+<td>63</td>
+<td>-10.26%</td>
+<td>-35.13%</td>
+</tr>
+</tbody>
+</table></div>
+<p>F34-F36 together compound to +95.28% gross. Linking the remaining 37 folds produces -26.68%. These three folds were identified retrospectively as the best gross-return folds; this diagnostic does not imply that they could have been selected in advance.</p>
+<p>A fixed calendar split tells a similar story: before 2025 the gross compounded return is -13.52%, while from 2025 onward it is +65.55%. The positive full-history outcome is therefore not evidence of consistently profitable periods.</p>
+<p>F15 has the worst observed fold loss (-18.46%). F32 has the worst annualized fold return (-56.48%), because its effective observation length differs from F15.</p>
+<h2>Fold-level risk and ranking signal</h2>
+<p><img src="figures/fold_risk_and_ic.png" alt="Within-fold drawdown resets at the start of each fold. Full-path drawdown can be deeper across fold boundaries." /></p>
+<p>Within-fold drawdown resets at the start of each fold. Full-path drawdown can be deeper across fold boundaries.</p>
+<p>Rank IC is the daily Spearman correlation across eligible stocks with valid labels. Its coverage differs from the six selected positions and from the set of complete portfolio dates. F40 is especially short. Positive mean IC and positive top/bottom-tail portfolio returns need not coincide.</p>
+<h2>What actually changed during continuation training?</h2>
+<p>Every fold executed gradient training, but only F3 epoch 1 passed the fixed validation improvement threshold. In the other 39 folds, best_epoch = 0 means the incoming model was retained after training. From F3 onward, the selected weights did not change again. Sixteen parameter tensors in the final checkpoint differ from the original Japanese checkpoint.</p>
+<p>F3 itself earns -1.66% gross in its outer test window. F34-F36 do not select new weights. Their stronger returns therefore cannot be described as evidence that new updates in those windows improved the model.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Prediction metric</th>
+<th>Full history</th>
+<th>From 2021-07-01</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mean daily Rank IC</td>
+<td>0.001009</td>
+<td>0.002086</td>
+</tr>
+<tr>
+<td>Model MAE</td>
+<td>0.015689</td>
+<td>0.016452</td>
+</tr>
+<tr>
+<td>Zero-return baseline MAE</td>
+<td>0.015640</td>
+<td>0.016443</td>
+</tr>
+</tbody>
+</table></div>
+<p>Average rank correlations are close to zero, and MAE is slightly worse than predicting a zero return. These measures assess the broad prediction universe; they are distinct from tail-portfolio returns. This publication reports the original metrics without tuning on outer-test performance.</p>
+<h2>Calendar-year performance and long/short contributions</h2>
+<p><img src="figures/calendar_year_and_legs.png" alt="The top panel shows actual observed calendar-year returns. The lower panel sums weighted daily leg contributions; these sums are not compounded returns." /></p>
+<p>The top panel shows actual observed calendar-year returns. The lower panel sums weighted daily leg contributions; these sums are not compounded returns.</p>
+<h2>Annual results and the cost budget</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Scored days</th>
+<th>Gross return</th>
+<th>Cost-scenario return</th>
+<th>Gross Sharpe</th>
+<th>Within-year drawdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2017*</td>
+<td>189</td>
+<td>+2.85%</td>
+<td>-72.26%</td>
+<td>0.310</td>
+<td>-9.80%</td>
+</tr>
+<tr>
+<td>2018</td>
+<td>243</td>
+<td>+6.79%</td>
+<td>-80.16%</td>
+<td>0.486</td>
+<td>-12.74%</td>
+</tr>
+<tr>
+<td>2019</td>
+<td>240</td>
+<td>-7.85%</td>
+<td>-82.59%</td>
+<td>-0.586</td>
+<td>-11.50%</td>
+</tr>
+<tr>
+<td>2020</td>
+<td>244</td>
+<td>-12.32%</td>
+<td>-83.92%</td>
+<td>-0.638</td>
+<td>-21.87%</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>244</td>
+<td>-8.16%</td>
+<td>-83.14%</td>
+<td>-0.275</td>
+<td>-21.98%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td>243</td>
+<td>+5.52%</td>
+<td>-80.40%</td>
+<td>0.424</td>
+<td>-11.08%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>238</td>
+<td>-8.14%</td>
+<td>-82.40%</td>
+<td>-0.401</td>
+<td>-20.03%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>241</td>
+<td>+9.47%</td>
+<td>-79.43%</td>
+<td>0.618</td>
+<td>-16.99%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>240</td>
+<td>+35.77%</td>
+<td>-74.31%</td>
+<td>1.657</td>
+<td>-22.50%</td>
+</tr>
+<tr>
+<td>2026*</td>
+<td>212</td>
+<td>+21.93%</td>
+<td>-71.97%</td>
+<td>1.097</td>
+<td>-18.77%</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>2017 begins on April 5 and 2026 ends on November 19. Returns in this table are not annualized. Dates are assigned to years by signal date.</li>
+</ul>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Long bps/day</th>
+<th>Short bps/day</th>
+<th>Gross bps/day</th>
+<th>Cost bps/day</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full history</td>
+<td>+5.48</td>
+<td>-3.25</td>
+<td>+2.23</td>
+<td>+69.15</td>
+</tr>
+<tr>
+<td>From 2021-07-01</td>
+<td>+4.61</td>
+<td>-1.05</td>
+<td>+3.56</td>
+<td>+69.14</td>
+</tr>
+</tbody>
+</table></div>
+<p>One basis point (bps) equals 0.01%. The short leg has a negative average contribution over both periods. These are arithmetic contributions at long +0.5 / short -0.5 exposure, not standalone compounded performance.</p>
+<p>For a hypothetical identical cost deducted every scored day, the ex-post break-even charge is 1.54 bps/day over full history and 2.78 bps/day in the later slice. It is solved from product(1 + gross return - constant cost) = 1, not from arithmetic average return. It is not a live fee quote or a forward-looking cost allowance.</p>
+<h2>Other portfolios and extreme-label sensitivity</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Gross portfolio / sensitivity</th>
+<th>Compounded return</th>
+<th>Annualized</th>
+<th>Sharpe</th>
+<th>Max drawdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full history</td>
+<td>Top 3 long-only</td>
+<td>+485.08%</td>
+<td>+21.01%</td>
+<td>0.668</td>
+<td>-57.40%</td>
+</tr>
+<tr>
+<td>Full history</td>
+<td>Long/short, targets clipped +/-20%</td>
+<td>+43.62%</td>
+<td>+3.99%</td>
+<td>0.302</td>
+<td>-39.81%</td>
+</tr>
+<tr>
+<td>Full history</td>
+<td>Equal weight, available labels</td>
+<td>+114.10%</td>
+<td>+8.57%</td>
+<td>0.567</td>
+<td>-32.49%</td>
+</tr>
+<tr>
+<td>From 2021-07-01</td>
+<td>Top 3 long-only</td>
+<td>+96.50%</td>
+<td>+13.97%</td>
+<td>0.515</td>
+<td>-57.40%</td>
+</tr>
+<tr>
+<td>From 2021-07-01</td>
+<td>Long/short, targets clipped +/-20%</td>
+<td>+44.12%</td>
+<td>+7.33%</td>
+<td>0.456</td>
+<td>-32.53%</td>
+</tr>
+<tr>
+<td>From 2021-07-01</td>
+<td>Equal weight, available labels</td>
+<td>+26.62%</td>
+<td>+4.67%</td>
+<td>0.343</td>
+<td>-30.56%</td>
+</tr>
+</tbody>
+</table></div>
+<p>The long-only and equal-weight comparisons have different exposure and risk structures from the zero-net-exposure long/short strategy. All figures in this table are before costs; the equal-weight series covers the supplied available-label universe and is not a market index or a complete tradable benchmark.</p>
+<p>The source contains 422 targets with absolute returns over 20%, and 192 over 50%. One extreme label is selected by the strategy. Clipping individual targets at +/-20% is a sensitivity analysis, not a repair of the main data. It leaves the principal conclusion unchanged.</p>
+<h2>Within-fold equity paths: F01-F10</h2>
+<p><img src="figures/fold_equity_01_10.png" alt="All panels use the same axes. Each fold starts at 1. Blue is gross return; red applies the cost scenario. Gray F40 is the short terminal window." /></p>
+<p>All panels use the same axes. Each fold starts at 1. Blue is gross return; red applies the cost scenario. Gray F40 is the short terminal window.</p>
+<h2>Within-fold equity paths: F11-F20</h2>
+<p><img src="figures/fold_equity_11_20.png" alt="All panels use the same axes. Each fold starts at 1. Blue is gross return; red applies the cost scenario. Gray F40 is the short terminal window." /></p>
+<p>All panels use the same axes. Each fold starts at 1. Blue is gross return; red applies the cost scenario. Gray F40 is the short terminal window.</p>
+<h2>Within-fold equity paths: F21-F30</h2>
+<p><img src="figures/fold_equity_21_30.png" alt="All panels use the same axes. Each fold starts at 1. Blue is gross return; red applies the cost scenario. Gray F40 is the short terminal window." /></p>
+<p>All panels use the same axes. Each fold starts at 1. Blue is gross return; red applies the cost scenario. Gray F40 is the short terminal window.</p>
+<h2>Within-fold equity paths: F31-F40</h2>
+<p><img src="figures/fold_equity_31_40.png" alt="All panels use the same axes. Each fold starts at 1. Blue is gross return; red applies the cost scenario. Gray F40 is the short terminal window." /></p>
+<p>All panels use the same axes. Each fold starts at 1. Blue is gross return; red applies the cost scenario. Gray F40 is the short terminal window.</p>
+<h2>Complete fold detail: F01-F20</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Fold</th>
+<th>Scored signal dates</th>
+<th>Days</th>
+<th>Excluded</th>
+<th>Gross</th>
+<th>Gross ann.</th>
+<th>Net scenario</th>
+<th>Net ann.</th>
+<th>Sharpe</th>
+<th>Max DD</th>
+<th>Mean IC</th>
+<th>Best epoch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F01</td>
+<td>2017-04-05 to 2017-06-30</td>
+<td>61</td>
+<td>0</td>
+<td>+2.07%</td>
+<td>+8.84%</td>
+<td>-33.13%</td>
+<td>-81.03%</td>
+<td>0.590</td>
+<td>-8.58%</td>
+<td>-0.0114</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F02</td>
+<td>2017-07-03 to 2017-09-29</td>
+<td>65</td>
+<td>0</td>
+<td>+3.89%</td>
+<td>+15.94%</td>
+<td>-33.78%</td>
+<td>-79.76%</td>
+<td>1.378</td>
+<td>-2.89%</td>
+<td>0.0000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F03</td>
+<td>2017-09-30 to 2017-12-28</td>
+<td>62</td>
+<td>0</td>
+<td>-1.66%</td>
+<td>-6.58%</td>
+<td>-36.05%</td>
+<td>-83.75%</td>
+<td>-0.232</td>
+<td>-9.80%</td>
+<td>0.0046</td>
+<td>1</td>
+</tr>
+<tr>
+<td>F04</td>
+<td>2017-12-29 to 2018-03-28</td>
+<td>56</td>
+<td>0</td>
+<td>-8.07%</td>
+<td>-31.52%</td>
+<td>-37.68%</td>
+<td>-88.10%</td>
+<td>-2.867</td>
+<td>-8.53%</td>
+<td>0.0121</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F05</td>
+<td>2018-03-29 to 2018-06-26</td>
+<td>57</td>
+<td>3</td>
+<td>+6.24%</td>
+<td>+30.67%</td>
+<td>-28.45%</td>
+<td>-77.23%</td>
+<td>1.342</td>
+<td>-5.64%</td>
+<td>0.0155</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F06</td>
+<td>2018-06-27 to 2018-09-21</td>
+<td>63</td>
+<td>0</td>
+<td>-2.38%</td>
+<td>-9.19%</td>
+<td>-36.90%</td>
+<td>-84.15%</td>
+<td>-0.533</td>
+<td>-8.40%</td>
+<td>0.0045</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F07</td>
+<td>2018-09-25 to 2018-12-22</td>
+<td>63</td>
+<td>1</td>
+<td>+10.14%</td>
+<td>+47.15%</td>
+<td>-28.71%</td>
+<td>-74.17%</td>
+<td>2.361</td>
+<td>-5.73%</td>
+<td>0.0122</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F08</td>
+<td>2018-12-24 to 2019-03-22</td>
+<td>54</td>
+<td>0</td>
+<td>-6.73%</td>
+<td>-27.76%</td>
+<td>-35.94%</td>
+<td>-87.49%</td>
+<td>-2.772</td>
+<td>-9.37%</td>
+<td>-0.0155</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F09</td>
+<td>2019-03-25 to 2019-06-21</td>
+<td>59</td>
+<td>2</td>
+<td>+8.20%</td>
+<td>+40.01%</td>
+<td>-28.09%</td>
+<td>-75.55%</td>
+<td>2.253</td>
+<td>-3.50%</td>
+<td>-0.0012</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F10</td>
+<td>2019-06-24 to 2019-09-19</td>
+<td>62</td>
+<td>0</td>
+<td>-7.80%</td>
+<td>-28.11%</td>
+<td>-40.07%</td>
+<td>-87.52%</td>
+<td>-2.411</td>
+<td>-9.99%</td>
+<td>-0.0137</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F11</td>
+<td>2019-09-20 to 2019-12-18</td>
+<td>61</td>
+<td>0</td>
+<td>-1.70%</td>
+<td>-6.84%</td>
+<td>-35.63%</td>
+<td>-83.80%</td>
+<td>-0.527</td>
+<td>-5.28%</td>
+<td>0.0017</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F12</td>
+<td>2019-12-19 to 2020-03-17</td>
+<td>55</td>
+<td>0</td>
+<td>-2.00%</td>
+<td>-8.85%</td>
+<td>-33.04%</td>
+<td>-84.08%</td>
+<td>-0.561</td>
+<td>-7.42%</td>
+<td>0.0238</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F13</td>
+<td>2020-03-18 to 2020-06-15</td>
+<td>61</td>
+<td>0</td>
+<td>+4.22%</td>
+<td>+18.60%</td>
+<td>-31.85%</td>
+<td>-79.48%</td>
+<td>1.036</td>
+<td>-7.17%</td>
+<td>-0.0352</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F14</td>
+<td>2020-06-16 to 2020-09-11</td>
+<td>61</td>
+<td>1</td>
+<td>+7.92%</td>
+<td>+37.01%</td>
+<td>-29.31%</td>
+<td>-76.14%</td>
+<td>1.603</td>
+<td>-7.99%</td>
+<td>0.0049</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F15</td>
+<td>2020-09-14 to 2020-12-11</td>
+<td>62</td>
+<td>0</td>
+<td>-18.46%</td>
+<td>-56.37%</td>
+<td>-47.07%</td>
+<td>-92.47%</td>
+<td>-4.299</td>
+<td>-20.75%</td>
+<td>0.0027</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F16</td>
+<td>2020-12-14 to 2021-03-12</td>
+<td>56</td>
+<td>0</td>
+<td>-6.14%</td>
+<td>-24.82%</td>
+<td>-36.41%</td>
+<td>-86.96%</td>
+<td>-1.421</td>
+<td>-10.03%</td>
+<td>-0.0075</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F17</td>
+<td>2021-03-15 to 2021-06-10</td>
+<td>61</td>
+<td>0</td>
+<td>+3.12%</td>
+<td>+13.52%</td>
+<td>-32.58%</td>
+<td>-80.38%</td>
+<td>0.666</td>
+<td>-15.11%</td>
+<td>-0.0044</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F18</td>
+<td>2021-06-11 to 2021-09-08</td>
+<td>63</td>
+<td>0</td>
+<td>-10.26%</td>
+<td>-35.13%</td>
+<td>-42.04%</td>
+<td>-88.71%</td>
+<td>-1.483</td>
+<td>-21.55%</td>
+<td>0.0142</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F19</td>
+<td>2021-09-09 to 2021-12-07</td>
+<td>61</td>
+<td>0</td>
+<td>+6.93%</td>
+<td>+31.91%</td>
+<td>-29.97%</td>
+<td>-77.05%</td>
+<td>1.375</td>
+<td>-10.66%</td>
+<td>0.0016</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F20</td>
+<td>2021-12-08 to 2022-03-07</td>
+<td>55</td>
+<td>0</td>
+<td>-7.33%</td>
+<td>-29.45%</td>
+<td>-36.72%</td>
+<td>-87.71%</td>
+<td>-2.026</td>
+<td>-8.94%</td>
+<td>0.0230</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p>Net denotes the stated cost scenario. Sharpe and maximum drawdown are gross and reset by fold. Best epoch 0 means the incoming weights were retained, not that training was skipped. The exact later-period slice is in data/fold_metrics_from_2021_H2.csv.</p>
+<h2>Complete fold detail: F21-F40</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Fold</th>
+<th>Scored signal dates</th>
+<th>Days</th>
+<th>Excluded</th>
+<th>Gross</th>
+<th>Gross ann.</th>
+<th>Net scenario</th>
+<th>Net ann.</th>
+<th>Sharpe</th>
+<th>Max DD</th>
+<th>Mean IC</th>
+<th>Best epoch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F21</td>
+<td>2022-03-08 to 2022-06-02</td>
+<td>60</td>
+<td>0</td>
+<td>+3.76%</td>
+<td>+16.78%</td>
+<td>-31.58%</td>
+<td>-79.69%</td>
+<td>0.975</td>
+<td>-10.64%</td>
+<td>0.0024</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F22</td>
+<td>2022-06-06 to 2022-09-02</td>
+<td>65</td>
+<td>0</td>
+<td>+7.85%</td>
+<td>+34.05%</td>
+<td>-31.18%</td>
+<td>-76.51%</td>
+<td>1.926</td>
+<td>-6.44%</td>
+<td>0.0118</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F23</td>
+<td>2022-09-05 to 2022-12-02</td>
+<td>60</td>
+<td>3</td>
+<td>-0.66%</td>
+<td>-2.76%</td>
+<td>-34.44%</td>
+<td>-83.03%</td>
+<td>-0.098</td>
+<td>-6.10%</td>
+<td>-0.0166</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F24</td>
+<td>2022-12-05 to 2023-03-02</td>
+<td>53</td>
+<td>0</td>
+<td>-3.24%</td>
+<td>-14.50%</td>
+<td>-33.05%</td>
+<td>-85.16%</td>
+<td>-1.066</td>
+<td>-7.58%</td>
+<td>-0.0143</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F25</td>
+<td>2023-03-03 to 2023-05-31</td>
+<td>60</td>
+<td>0</td>
+<td>-2.70%</td>
+<td>-10.86%</td>
+<td>-35.85%</td>
+<td>-84.51%</td>
+<td>-0.811</td>
+<td>-5.29%</td>
+<td>-0.0012</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F26</td>
+<td>2023-06-01 to 2023-08-29</td>
+<td>60</td>
+<td>1</td>
+<td>-7.65%</td>
+<td>-28.43%</td>
+<td>-39.16%</td>
+<td>-87.59%</td>
+<td>-1.275</td>
+<td>-11.07%</td>
+<td>0.0011</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F27</td>
+<td>2023-08-30 to 2023-11-27</td>
+<td>61</td>
+<td>0</td>
+<td>+6.64%</td>
+<td>+30.43%</td>
+<td>-30.11%</td>
+<td>-77.24%</td>
+<td>1.459</td>
+<td>-6.30%</td>
+<td>-0.0115</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F28</td>
+<td>2023-11-28 to 2024-02-23</td>
+<td>56</td>
+<td>0</td>
+<td>-7.45%</td>
+<td>-29.43%</td>
+<td>-37.27%</td>
+<td>-87.74%</td>
+<td>-2.146</td>
+<td>-8.93%</td>
+<td>0.0106</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F29</td>
+<td>2024-02-26 to 2024-05-24</td>
+<td>61</td>
+<td>0</td>
+<td>+4.71%</td>
+<td>+20.95%</td>
+<td>-31.47%</td>
+<td>-79.01%</td>
+<td>1.115</td>
+<td>-9.67%</td>
+<td>0.0044</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F30</td>
+<td>2024-05-27 to 2024-08-23</td>
+<td>61</td>
+<td>1</td>
+<td>+11.24%</td>
+<td>+55.25%</td>
+<td>-27.07%</td>
+<td>-72.86%</td>
+<td>2.625</td>
+<td>-5.68%</td>
+<td>-0.0013</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F31</td>
+<td>2024-08-26 to 2024-11-21</td>
+<td>59</td>
+<td>0</td>
+<td>+5.15%</td>
+<td>+23.91%</td>
+<td>-30.16%</td>
+<td>-78.42%</td>
+<td>1.209</td>
+<td>-7.33%</td>
+<td>0.0075</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F32</td>
+<td>2024-11-22 to 2025-02-19</td>
+<td>56</td>
+<td>0</td>
+<td>-16.88%</td>
+<td>-56.48%</td>
+<td>-43.69%</td>
+<td>-92.46%</td>
+<td>-5.299</td>
+<td>-17.69%</td>
+<td>-0.0109</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F33</td>
+<td>2025-02-20 to 2025-05-20</td>
+<td>60</td>
+<td>0</td>
+<td>-8.00%</td>
+<td>-29.54%</td>
+<td>-39.32%</td>
+<td>-87.73%</td>
+<td>-1.738</td>
+<td>-12.79%</td>
+<td>0.0149</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F34</td>
+<td>2025-05-21 to 2025-08-18</td>
+<td>60</td>
+<td>3</td>
+<td>+15.47%</td>
+<td>+82.99%</td>
+<td>-23.79%</td>
+<td>-68.05%</td>
+<td>3.398</td>
+<td>-4.17%</td>
+<td>-0.0130</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F35</td>
+<td>2025-08-19 to 2025-11-14</td>
+<td>60</td>
+<td>0</td>
+<td>+31.54%</td>
+<td>+216.28%</td>
+<td>-13.19%</td>
+<td>-44.81%</td>
+<td>4.955</td>
+<td>-6.14%</td>
+<td>0.0080</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F36</td>
+<td>2025-11-17 to 2026-02-11</td>
+<td>61</td>
+<td>0</td>
+<td>+28.56%</td>
+<td>+182.32%</td>
+<td>-15.84%</td>
+<td>-50.95%</td>
+<td>4.488</td>
+<td>-5.91%</td>
+<td>-0.0155</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F37</td>
+<td>2026-02-23 to 2026-05-15</td>
+<td>56</td>
+<td>0</td>
+<td>-0.45%</td>
+<td>-2.01%</td>
+<td>-32.52%</td>
+<td>-82.96%</td>
+<td>0.070</td>
+<td>-18.77%</td>
+<td>-0.0223</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F38</td>
+<td>2026-05-18 to 2026-08-13</td>
+<td>62</td>
+<td>0</td>
+<td>+7.76%</td>
+<td>+35.51%</td>
+<td>-29.94%</td>
+<td>-76.46%</td>
+<td>1.393</td>
+<td>-7.87%</td>
+<td>0.0109</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F39</td>
+<td>2026-08-14 to 2026-11-11</td>
+<td>59</td>
+<td>0</td>
+<td>-0.65%</td>
+<td>-2.74%</td>
+<td>-33.95%</td>
+<td>-82.99%</td>
+<td>-0.057</td>
+<td>-7.98%</td>
+<td>0.0254</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F40</td>
+<td>2026-11-12 to 2026-11-19</td>
+<td>6</td>
+<td>2</td>
+<td>-0.60%</td>
+<td>-22.43%</td>
+<td>-4.58%</td>
+<td>-86.05%</td>
+<td>-0.932</td>
+<td>-3.51%</td>
+<td>0.1664</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p>Net denotes the stated cost scenario. Sharpe and maximum drawdown are gross and reset by fold. Best epoch 0 means the incoming weights were retained, not that training was skipped. The exact later-period slice is in data/fold_metrics_from_2021_H2.csv.</p>
+<h2>Selection concentration</h2>
+<p>The six positions on each of 2,334 scored dates produce 14,004 selected-position records and 391 distinct stock codes. The following table ranks stock-code / direction pairs by selected-day count.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Stock code</th>
+<th>Direction</th>
+<th>Selected days</th>
+<th>Share of all slots</th>
+<th>Arithmetic contribution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3481</td>
+<td>long</td>
+<td>579</td>
+<td>4.1%</td>
+<td>+25.53%</td>
+</tr>
+<tr>
+<td>3481</td>
+<td>short</td>
+<td>576</td>
+<td>4.1%</td>
+<td>+2.89%</td>
+</tr>
+<tr>
+<td>3008</td>
+<td>short</td>
+<td>520</td>
+<td>3.7%</td>
+<td>-4.85%</td>
+</tr>
+<tr>
+<td>2303</td>
+<td>short</td>
+<td>475</td>
+<td>3.4%</td>
+<td>-16.75%</td>
+</tr>
+<tr>
+<td>2409</td>
+<td>long</td>
+<td>473</td>
+<td>3.4%</td>
+<td>-3.39%</td>
+</tr>
+<tr>
+<td>2303</td>
+<td>long</td>
+<td>428</td>
+<td>3.1%</td>
+<td>+13.57%</td>
+</tr>
+<tr>
+<td>2409</td>
+<td>short</td>
+<td>419</td>
+<td>3.0%</td>
+<td>-11.45%</td>
+</tr>
+<tr>
+<td>2344</td>
+<td>long</td>
+<td>291</td>
+<td>2.1%</td>
+<td>+21.33%</td>
+</tr>
+<tr>
+<td>2888</td>
+<td>long</td>
+<td>272</td>
+<td>1.9%</td>
+<td>-1.46%</td>
+</tr>
+<tr>
+<td>2344</td>
+<td>short</td>
+<td>261</td>
+<td>1.9%</td>
+<td>+7.30%</td>
+</tr>
+</tbody>
+</table></div>
+<p>Arithmetic contribution is the sum of position weight times stock return over selected dates. It is not the stock's standalone compounded return or cash profit. Long and short appearances of the same code are separate rows. The complete selection table and daily positions are included.</p>
+<h2>Interpretation limits</h2>
+<ul>
+<li>Checkpoint timing: source Japanese training ended on 2021-03-08 and validation on 2021-06-08. Pre-July-2021 results do not establish performance of a model that was available at the historical signal time.</li>
+<li>Retrospective design: the architecture, strategy and dataset were selected after the historical periods. Even the later slice is not a fully prospective live test.</li>
+<li>Survivorship bias: the supplied dataset documentation states that the universe uses companies still listed at extraction time; historical delistings and removals are incomplete.</li>
+<li>Corporate actions and income: ExpectedDividend is entirely missing and filled with zero. The target excludes cash dividends and does not fully account for capital reductions, stock splits or all exceptional events.</li>
+<li>Execution and borrowing: historical short availability, borrow constraints, price-limit locks, auction fills and delisting cash flows are not verified.</li>
+<li>Missing labels: entire unresolved selected-position dates are excluded. Results are conditional on complete dates and can differ from a fully realized portfolio.</li>
+<li>Short windows: fold annualization and Sharpe are noisy. F40 contains only six scored days; partial calendar years and the partial F18 cutoff must not be treated as full windows.</li>
+<li>Concentration analysis: the best three folds were identified after observing results. Removing or keeping them is descriptive and is not an implementable selection rule.</li>
+<li>No tuning claim: no hyperparameters were changed or new models selected while writing this English analysis.</li>
+</ul>
+<h2>Verification and artifact provenance</h2>
+<ul>
+<li>All 40 outer test windows are disjoint; training and inner-validation label completion dates precede the next evaluation boundary.</li>
+<li>Daily selected-position returns and the stated cost formula were independently reconstructed. Rank selection was checked on 40 spread-out dates.</li>
+<li>Compounding all fold returns reproduces both original period totals. Complete and excluded date counts reconcile exactly.</li>
+<li>Long and short contributions sum to the daily gross portfolio return. Annualized and unannualized fold return signs agree.</li>
+<li>The training script, architecture source, source data archive and initial weights match the SHA-256 recorded by the completed Kaggle run.</li>
+<li>The final checkpoint hash is verified; 16 parameter tensors differ from the initial checkpoint.</li>
+</ul>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>SHA-256</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source data ZIP</td>
+<td>1669cff3363ee845eaab96fb2482e909719e8b042f622debc5d6ea900bbcc036</td>
+</tr>
+<tr>
+<td>Initial Japanese checkpoint</td>
+<td>0799f7efc93712944624417d2054a922e36849d5c57df754ddae559b8bd6ff0e</td>
+</tr>
+<tr>
+<td>Executed training script</td>
+<td>46748ac90eaa573f4aae5936aaa7a37589aa7fa7bdbcf659066b22d9bb25466d</td>
+</tr>
+<tr>
+<td>Architecture source</td>
+<td>dd13b52cbc51c0d153d65f9ba9a80069300906b7cfe394fa1e9cb2448d88ebb4</td>
+</tr>
+<tr>
+<td>Final Taiwan checkpoint</td>
+<td>ebf9141260d4a3cdbe547a943f394ced685fd897cf3da69ee587d91049a8ae86</td>
+</tr>
+<tr>
+<td>Original complete run export ZIP</td>
+<td>330c3ac26eb66d8d5d58639d6b9269bcc7fe3015b8988a9a45849ef0e8272d41</td>
+</tr>
+</tbody>
+</table></div>
+<p>The publication includes daily portfolio data, selected positions, daily IC, fold and annual metrics, epoch history, audit and configuration files, both initial and final checkpoints, and the exact training source. Per-stock prediction Parquet files, all intermediate fold checkpoints and the resume checkpoint are retained in the original Kaggle export, not duplicated in this analysis directory.</p>
+<p>The recorded <a href="https://www.kaggle.com/code/aiaila101/tw-ensemble-expanding-window-20261125?scriptVersionId=373806445">Kaggle run</a> is private and requires authorized account access. The <a href="https://www.kaggle.com/code/aiaila101/jpx-ensemble-norelu-top3-gap90">initial-model notebook</a> and pinned dataset links identify the inputs. This is not a Kaggle competition leaderboard result.</p>
+<h2>Files and reproduction</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>README.md</td>
+<td>Complete English report rendered directly by GitHub</td>
+</tr>
+<tr>
+<td>TW_ENSEMBLE_Backtest_Report_EN.pdf</td>
+<td>Portable English report</td>
+</tr>
+<tr>
+<td>report.html</td>
+<td>English HTML report; keep the figures directory alongside it</td>
+</tr>
+<tr>
+<td>figures/</td>
+<td>English PNG and SVG figures</td>
+</tr>
+<tr>
+<td>data/</td>
+<td>Daily, fold, yearly, selection, audit and provenance tables</td>
+</tr>
+<tr>
+<td>model/</td>
+<td>Original Japanese checkpoint and final Taiwan checkpoint</td>
+</tr>
+<tr>
+<td>source/train_tw.py; source/models.py</td>
+<td>Exact source executed on Kaggle</td>
+</tr>
+<tr>
+<td>source/TW_ENSEMBLE_Kaggle.ipynb</td>
+<td>Prepared Kaggle notebook</td>
+</tr>
+<tr>
+<td>source/build_analysis.py; source/build_pdf.py</td>
+<td>Rebuild English report and figures without retraining</td>
+</tr>
+<tr>
+<td>source/verify_results.py</td>
+<td>Recheck published calculations, provenance and model differences</td>
+</tr>
+<tr>
+<td>manifest.json</td>
+<td>Publication file sizes and SHA-256 checksums</td>
+</tr>
+</tbody>
+</table></div>
+<p>From this result directory, install analysis dependencies and rebuild the English outputs:</p>
+<pre><code class="language-bash">python -m pip install -r source/requirements-analysis.txt
+python source/verify_results.py
+python source/build_analysis.py
+python source/build_pdf.py
+</code></pre>
+<p>To rerun training separately, install compatible GPU dependencies, reassemble the pinned dataset ZIP, and choose a fresh output directory:</p>
+<pre><code class="language-bash">python -m pip install -r source/requirements-training.txt
+python source/train_tw.py --data /path/to/stock_price_final.zip \
+  --weights model/JPX_ENSEMBLE_initial.pt --output /path/to/new_run
+</code></pre>
+<p>The archived final checkpoint contains model_state_dict, scaler and config. Load it with torch.load(..., weights_only=True), instantiate ENSEMBLE(6, 128, 1), and load model_state_dict strictly. Preserve the frozen scaler and original feature construction for inference; this checkpoint does not by itself supply a live execution system.</p>
+</main></body></html>

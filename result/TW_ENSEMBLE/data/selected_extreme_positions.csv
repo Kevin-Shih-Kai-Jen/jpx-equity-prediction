@@ -1,0 +1,2 @@
+Date,SecuritiesCode,Target,LabelEnd,LabelEntry,LabelConsecutive,Prediction,fold,Weight,Side,CompleteDay
+2023-06-30,2609,-0.2178932178932178,2023-07-04,2023-07-03,True,0.0018662103,26,0.1666666666666666,long,True

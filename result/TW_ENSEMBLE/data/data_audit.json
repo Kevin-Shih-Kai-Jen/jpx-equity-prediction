@@ -1,0 +1,29 @@
+{
+  "rows": 4461650,
+  "stocks": 2081,
+  "trading_dates": 2408,
+  "first_date": "2017-01-03 00:00:00",
+  "last_date": "2026-11-23 00:00:00",
+  "duplicate_stock_dates": 0,
+  "source_data_sha256": "1669cff3363ee845eaab96fb2482e909719e8b042f622debc5d6ea900bbcc036",
+  "source_weight_sha256": "0799f7efc93712944624417d2054a922e36849d5c57df754ddae559b8bd6ff0e",
+  "missing_ohlc_rows": 142163,
+  "missing_targets": 221032,
+  "expected_dividend_policy": "All source rows missing; fill with zero as original code does. No dividend total-return claim.",
+  "target_formula": "Close[t+2]/Close[t+1]/AdjustmentFactor[t+2]-1, per stock row",
+  "verified_target_matches": 4240618,
+  "verified_target_mismatches": 0,
+  "target_min": -0.95496644295302,
+  "target_max": 9.830324909747292,
+  "target_abs_over_20pct": 422,
+  "target_abs_over_50pct": 192,
+  "feature_adjustment": "OHLC / prior cumulative factor; Volume * prior cumulative factor (original source convention)",
+  "signal_samples": 3898521,
+  "learn_samples": 3881597,
+  "universe": "All supplied codes as observed on each day; completeness of delisted history is unverified",
+  "limitations": [
+    "Corporate-action completeness and extreme price moves are unverified.",
+    "No historical shortability, limit-lock, auction fill, or delisting cash-flow data.",
+    "Research backtest conditional on supplied data; no claim of live executable performance."
+  ]
+}

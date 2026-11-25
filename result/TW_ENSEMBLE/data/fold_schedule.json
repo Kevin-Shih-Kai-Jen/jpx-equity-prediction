@@ -1,0 +1,242 @@
+[
+  {
+    "fold": 1,
+    "validation_start": "2017-03-04 00:00:00",
+    "test_start": "2017-04-03 00:00:00",
+    "test_end_exclusive": "2017-07-02 00:00:00"
+  },
+  {
+    "fold": 2,
+    "validation_start": "2017-06-02 00:00:00",
+    "test_start": "2017-07-02 00:00:00",
+    "test_end_exclusive": "2017-09-30 00:00:00"
+  },
+  {
+    "fold": 3,
+    "validation_start": "2017-08-31 00:00:00",
+    "test_start": "2017-09-30 00:00:00",
+    "test_end_exclusive": "2017-12-29 00:00:00"
+  },
+  {
+    "fold": 4,
+    "validation_start": "2017-11-29 00:00:00",
+    "test_start": "2017-12-29 00:00:00",
+    "test_end_exclusive": "2018-03-29 00:00:00"
+  },
+  {
+    "fold": 5,
+    "validation_start": "2018-02-27 00:00:00",
+    "test_start": "2018-03-29 00:00:00",
+    "test_end_exclusive": "2018-06-27 00:00:00"
+  },
+  {
+    "fold": 6,
+    "validation_start": "2018-05-28 00:00:00",
+    "test_start": "2018-06-27 00:00:00",
+    "test_end_exclusive": "2018-09-25 00:00:00"
+  },
+  {
+    "fold": 7,
+    "validation_start": "2018-08-26 00:00:00",
+    "test_start": "2018-09-25 00:00:00",
+    "test_end_exclusive": "2018-12-24 00:00:00"
+  },
+  {
+    "fold": 8,
+    "validation_start": "2018-11-24 00:00:00",
+    "test_start": "2018-12-24 00:00:00",
+    "test_end_exclusive": "2019-03-24 00:00:00"
+  },
+  {
+    "fold": 9,
+    "validation_start": "2019-02-22 00:00:00",
+    "test_start": "2019-03-24 00:00:00",
+    "test_end_exclusive": "2019-06-22 00:00:00"
+  },
+  {
+    "fold": 10,
+    "validation_start": "2019-05-23 00:00:00",
+    "test_start": "2019-06-22 00:00:00",
+    "test_end_exclusive": "2019-09-20 00:00:00"
+  },
+  {
+    "fold": 11,
+    "validation_start": "2019-08-21 00:00:00",
+    "test_start": "2019-09-20 00:00:00",
+    "test_end_exclusive": "2019-12-19 00:00:00"
+  },
+  {
+    "fold": 12,
+    "validation_start": "2019-11-19 00:00:00",
+    "test_start": "2019-12-19 00:00:00",
+    "test_end_exclusive": "2020-03-18 00:00:00"
+  },
+  {
+    "fold": 13,
+    "validation_start": "2020-02-17 00:00:00",
+    "test_start": "2020-03-18 00:00:00",
+    "test_end_exclusive": "2020-06-16 00:00:00"
+  },
+  {
+    "fold": 14,
+    "validation_start": "2020-05-17 00:00:00",
+    "test_start": "2020-06-16 00:00:00",
+    "test_end_exclusive": "2020-09-14 00:00:00"
+  },
+  {
+    "fold": 15,
+    "validation_start": "2020-08-15 00:00:00",
+    "test_start": "2020-09-14 00:00:00",
+    "test_end_exclusive": "2020-12-13 00:00:00"
+  },
+  {
+    "fold": 16,
+    "validation_start": "2020-11-13 00:00:00",
+    "test_start": "2020-12-13 00:00:00",
+    "test_end_exclusive": "2021-03-13 00:00:00"
+  },
+  {
+    "fold": 17,
+    "validation_start": "2021-02-11 00:00:00",
+    "test_start": "2021-03-13 00:00:00",
+    "test_end_exclusive": "2021-06-11 00:00:00"
+  },
+  {
+    "fold": 18,
+    "validation_start": "2021-05-12 00:00:00",
+    "test_start": "2021-06-11 00:00:00",
+    "test_end_exclusive": "2021-09-09 00:00:00"
+  },
+  {
+    "fold": 19,
+    "validation_start": "2021-08-10 00:00:00",
+    "test_start": "2021-09-09 00:00:00",
+    "test_end_exclusive": "2021-12-08 00:00:00"
+  },
+  {
+    "fold": 20,
+    "validation_start": "2021-11-08 00:00:00",
+    "test_start": "2021-12-08 00:00:00",
+    "test_end_exclusive": "2022-03-08 00:00:00"
+  },
+  {
+    "fold": 21,
+    "validation_start": "2022-02-06 00:00:00",
+    "test_start": "2022-03-08 00:00:00",
+    "test_end_exclusive": "2022-06-06 00:00:00"
+  },
+  {
+    "fold": 22,
+    "validation_start": "2022-05-07 00:00:00",
+    "test_start": "2022-06-06 00:00:00",
+    "test_end_exclusive": "2022-09-04 00:00:00"
+  },
+  {
+    "fold": 23,
+    "validation_start": "2022-08-05 00:00:00",
+    "test_start": "2022-09-04 00:00:00",
+    "test_end_exclusive": "2022-12-03 00:00:00"
+  },
+  {
+    "fold": 24,
+    "validation_start": "2022-11-03 00:00:00",
+    "test_start": "2022-12-03 00:00:00",
+    "test_end_exclusive": "2023-03-03 00:00:00"
+  },
+  {
+    "fold": 25,
+    "validation_start": "2023-02-01 00:00:00",
+    "test_start": "2023-03-03 00:00:00",
+    "test_end_exclusive": "2023-06-01 00:00:00"
+  },
+  {
+    "fold": 26,
+    "validation_start": "2023-05-02 00:00:00",
+    "test_start": "2023-06-01 00:00:00",
+    "test_end_exclusive": "2023-08-30 00:00:00"
+  },
+  {
+    "fold": 27,
+    "validation_start": "2023-07-31 00:00:00",
+    "test_start": "2023-08-30 00:00:00",
+    "test_end_exclusive": "2023-11-28 00:00:00"
+  },
+  {
+    "fold": 28,
+    "validation_start": "2023-10-29 00:00:00",
+    "test_start": "2023-11-28 00:00:00",
+    "test_end_exclusive": "2024-02-26 00:00:00"
+  },
+  {
+    "fold": 29,
+    "validation_start": "2024-01-27 00:00:00",
+    "test_start": "2024-02-26 00:00:00",
+    "test_end_exclusive": "2024-05-26 00:00:00"
+  },
+  {
+    "fold": 30,
+    "validation_start": "2024-04-26 00:00:00",
+    "test_start": "2024-05-26 00:00:00",
+    "test_end_exclusive": "2024-08-24 00:00:00"
+  },
+  {
+    "fold": 31,
+    "validation_start": "2024-07-25 00:00:00",
+    "test_start": "2024-08-24 00:00:00",
+    "test_end_exclusive": "2024-11-22 00:00:00"
+  },
+  {
+    "fold": 32,
+    "validation_start": "2024-10-23 00:00:00",
+    "test_start": "2024-11-22 00:00:00",
+    "test_end_exclusive": "2025-02-20 00:00:00"
+  },
+  {
+    "fold": 33,
+    "validation_start": "2025-01-21 00:00:00",
+    "test_start": "2025-02-20 00:00:00",
+    "test_end_exclusive": "2025-05-21 00:00:00"
+  },
+  {
+    "fold": 34,
+    "validation_start": "2025-04-21 00:00:00",
+    "test_start": "2025-05-21 00:00:00",
+    "test_end_exclusive": "2025-08-19 00:00:00"
+  },
+  {
+    "fold": 35,
+    "validation_start": "2025-07-20 00:00:00",
+    "test_start": "2025-08-19 00:00:00",
+    "test_end_exclusive": "2025-11-17 00:00:00"
+  },
+  {
+    "fold": 36,
+    "validation_start": "2025-10-18 00:00:00",
+    "test_start": "2025-11-17 00:00:00",
+    "test_end_exclusive": "2026-02-15 00:00:00"
+  },
+  {
+    "fold": 37,
+    "validation_start": "2026-01-16 00:00:00",
+    "test_start": "2026-02-15 00:00:00",
+    "test_end_exclusive": "2026-05-16 00:00:00"
+  },
+  {
+    "fold": 38,
+    "validation_start": "2026-04-16 00:00:00",
+    "test_start": "2026-05-16 00:00:00",
+    "test_end_exclusive": "2026-08-14 00:00:00"
+  },
+  {
+    "fold": 39,
+    "validation_start": "2026-07-15 00:00:00",
+    "test_start": "2026-08-14 00:00:00",
+    "test_end_exclusive": "2026-11-12 00:00:00"
+  },
+  {
+    "fold": 40,
+    "validation_start": "2026-10-13 00:00:00",
+    "test_start": "2026-11-12 00:00:00",
+    "test_end_exclusive": "2026-11-24 00:00:00"
+  }
+]

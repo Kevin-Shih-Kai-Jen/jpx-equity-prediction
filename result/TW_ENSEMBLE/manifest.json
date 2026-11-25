@@ -1,0 +1,312 @@
+{
+  "model_name": "TW_ENSEMBLE",
+  "publication_date": "2026-11-25",
+  "repository": "Kevin-Shih-Kai-Jen/jpx-equity-prediction",
+  "branch": "yoga/taiwan-stock-data",
+  "path": "result/TW_ENSEMBLE",
+  "base_commit": "a79c2b2efe9a8472f52e61c94f062425e06a0c35",
+  "language": "English",
+  "pdf_pages": 23,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 28682,
+      "sha256": "7927bfc2953073d5f81d095204846aa4f8a23fcf74b47260418764ea09034d84",
+      "git_blob_sha": "5066311cb0e2f2bb7c7a4e0f9ddab0dbb6ed74ab"
+    },
+    {
+      "path": "TW_ENSEMBLE_Backtest_Report_EN.pdf",
+      "bytes": 1974779,
+      "sha256": "151afb946338becf2665f2094b46b13c7578905305808b0125bd5d9b390182a6",
+      "git_blob_sha": "eecbbf99ce82db4f2ca020f276d12ce6dc30d815"
+    },
+    {
+      "path": "data/backtest_daily.csv",
+      "bytes": 383669,
+      "sha256": "c97c3d87c2d493f7b3329a62bba52e180b6a42d7739b4a525f458be4d3d96d14",
+      "git_blob_sha": "c7be676d90d375161500810645f54ef08080c736"
+    },
+    {
+      "path": "data/backtest_summary.json",
+      "bytes": 9671,
+      "sha256": "584c080450284538a1cf013ed181f110de09d1733d2c04be480d720e478a3b41",
+      "git_blob_sha": "091f0d1f51acc0f15d2d7b8c8f8d6b9e1b3a3e2d"
+    },
+    {
+      "path": "data/completed.json",
+      "bytes": 178,
+      "sha256": "6bfd756ef09b4ce3e6b028bd62d629c145d2f5dae52f74aec5ba2ff927583f52",
+      "git_blob_sha": "e16c92c0d86b39f97eefe9f45dc84928f35dd51e"
+    },
+    {
+      "path": "data/daily_rank_ic.csv",
+      "bytes": 97671,
+      "sha256": "c62ca8e09fa55fa0bd760acfa79aeadecdd89fa7636200ad38474740836bc824",
+      "git_blob_sha": "7bede7a9e71c096d5850ea3a36543e00b629dca9"
+    },
+    {
+      "path": "data/data_audit.json",
+      "bytes": 1408,
+      "sha256": "ba548d373700a399d059ca49c46fd5be84738e64c67385016bedb615946593e9",
+      "git_blob_sha": "faa995976181ba1f3a71d72e7e64034236f3c2c9"
+    },
+    {
+      "path": "data/environment.json",
+      "bytes": 1971,
+      "sha256": "7541de3c4ad8b85635062e82d360812e4c941764e5de33d7faec43ccdcc90581",
+      "git_blob_sha": "eee8339c1fc60e1673bd7c4c704d8d722129a45d"
+    },
+    {
+      "path": "data/epoch_history.jsonl",
+      "bytes": 88117,
+      "sha256": "45de8438b3f86aae5667189cdad209fe69b9db03d23ef0eb05b1d109f52c3f6d",
+      "git_blob_sha": "513793be6c8da2c2c0292d1befb339f922ce934c"
+    },
+    {
+      "path": "data/excluded_signal_dates.csv",
+      "bytes": 1637,
+      "sha256": "696d6195feccd896140cb930f50b7f646688bc9964d4f3a8992e891d19ec924b",
+      "git_blob_sha": "8208d77a0bb9bd8a1e57269b14a4f1a6973aea93"
+    },
+    {
+      "path": "data/fold_metrics.csv",
+      "bytes": 32654,
+      "sha256": "a03a3de8a7b6832302263d8dbe755f598005b75e0c50e269106e00ee179099c3",
+      "git_blob_sha": "1fd5e6c77a0f27f3bd00f283e1ff6795bb7fc9ad"
+    },
+    {
+      "path": "data/fold_metrics_from_2021_H2.csv",
+      "bytes": 19072,
+      "sha256": "370b29d5fa6e6f1443c26a04610d7222205415b82d7d085fc7d5905ef67aa527",
+      "git_blob_sha": "4bc2d9e40034e6591ff0763b30fe1746637086d4"
+    },
+    {
+      "path": "data/fold_schedule.json",
+      "bytes": 6433,
+      "sha256": "76c7e30e2ac23023ed0fd662459db4272e7f5bed050ed066ef771fb584a24ce2",
+      "git_blob_sha": "5051a5367774218d92785d4805ac2ad0e310bb33"
+    },
+    {
+      "path": "data/fold_summary.json",
+      "bytes": 7683,
+      "sha256": "77cb06a43f569a0eef6fe3db6d6dd9ca496166f6c2a29c830b1bde0d802de604",
+      "git_blob_sha": "b6fbaf403fbdabb78a8344ab3e338ca145ada8d1"
+    },
+    {
+      "path": "data/fold_training_summary.csv",
+      "bytes": 7845,
+      "sha256": "91d1dc0e0a33c63fa18ea1696d81b8392895a2f0d0ed63e89135b1a4f831df46",
+      "git_blob_sha": "35c918a0a6c250fa109bb0d80b5f5a3dfb96ad79"
+    },
+    {
+      "path": "data/independent_verification.json",
+      "bytes": 5016,
+      "sha256": "4dd9061cf645026f6d36f4ef752cf87ed69aa483ec509a4a3874dd7b827a1717",
+      "git_blob_sha": "a8907ffa28420b80b677aae6ea687995b6378cf9"
+    },
+    {
+      "path": "data/report_content.json",
+      "bytes": 51312,
+      "sha256": "cc46191f0948445aeefba6cc2f2fab39bd879b488149744358cf7a0ce865b74a",
+      "git_blob_sha": "988695ae80aabd8dd3ea9966850ece52971a8929"
+    },
+    {
+      "path": "data/selected_extreme_positions.csv",
+      "bytes": 212,
+      "sha256": "9603a31f7415d14bb26882502fefe39ec890cd6e41ecdd34f60300d3a155624f",
+      "git_blob_sha": "d6cd62ebcc11396c9eea911a6e9d8ddefae4c2fe"
+    },
+    {
+      "path": "data/selected_positions.csv.gz",
+      "bytes": 278119,
+      "sha256": "f462ea462f87bfe9404662ac141b9785fe571a9b5b6c85b1520bfc573cc71907",
+      "git_blob_sha": "afe041a994833b609771c12ea5d1a041ba2fef70"
+    },
+    {
+      "path": "data/stock_selection.csv",
+      "bytes": 48001,
+      "sha256": "98d7ddc1d849c12a2230fb75c572798aa19ca8d66ab41c3429f5b9a5a98ba8b7",
+      "git_blob_sha": "4ee54565d4753ffef99deb5a296576b0e957f0ae"
+    },
+    {
+      "path": "data/target_anomalies_over_20pct.csv",
+      "bytes": 23018,
+      "sha256": "5f1fcce3891af2045761108959cf18d86eec5069210facaff6aff53c2889ed8d",
+      "git_blob_sha": "e9a63e4d286339b8af14e1ee122e1ea72e142111"
+    },
+    {
+      "path": "data/year_and_legs.csv",
+      "bytes": 4059,
+      "sha256": "b5240eb3552e582147bd1cff6062a8213210abebda996cd947a6a94b73773ec2",
+      "git_blob_sha": "754ef744e5af4dabf6d0f6235f0cb1fbe8540613"
+    },
+    {
+      "path": "figures/calendar_year_and_legs.png",
+      "bytes": 144577,
+      "sha256": "a48dcfbec411e780b3f7029b148f8750735d01fd56671b75b03abca378176af5",
+      "git_blob_sha": "1e427e3e405e34ba6a637fe15cedc4f0211e901a"
+    },
+    {
+      "path": "figures/calendar_year_and_legs.svg",
+      "bytes": 99317,
+      "sha256": "faf0559bd010b0f568960027fbf012956a0042e30627def348bf84ace3bcb31f",
+      "git_blob_sha": "2eecd237d97bc4bd24b04104cc55521f07f5a5ab"
+    },
+    {
+      "path": "figures/equity_and_drawdown.png",
+      "bytes": 245180,
+      "sha256": "0a616e4f5f831567fa7afa64f8b2746dbca65d9c2b192bd7008d0794f38179a6",
+      "git_blob_sha": "4dd29ba46b2a02dae9eb02f91c46fc04763b57ad"
+    },
+    {
+      "path": "figures/equity_and_drawdown.svg",
+      "bytes": 274802,
+      "sha256": "db28304909ea0500d0e313bc8c80765c4b38c61b242b5f2076fa5938ba54b65a",
+      "git_blob_sha": "481e612af326f3c2c21da73123a8c365f2c489bf"
+    },
+    {
+      "path": "figures/fold_equity_01_10.png",
+      "bytes": 222351,
+      "sha256": "b640bfcd0ef67f5fbe3bf9fc7b9cbcb05b0650f2a1478e26dfd12f582314e81b",
+      "git_blob_sha": "4cb2f6bd6178bbbf413d505fd6aa8608bcd56dcc"
+    },
+    {
+      "path": "figures/fold_equity_01_10.svg",
+      "bytes": 158394,
+      "sha256": "98e3b8140780fa072daf00721589b3bf8e18bdbb333f3a250ca1581fa2d6dcca",
+      "git_blob_sha": "22991ec582fda0edcfb7b284800377f5f3663601"
+    },
+    {
+      "path": "figures/fold_equity_11_20.png",
+      "bytes": 231565,
+      "sha256": "15ef26a9d5e9c10987e2ad875472e76ce844f01996e3d9c2416b109d477312c3",
+      "git_blob_sha": "f88840cbc8c7bc9ff2841277c897ffe806e33cd3"
+    },
+    {
+      "path": "figures/fold_equity_11_20.svg",
+      "bytes": 158641,
+      "sha256": "d75bc8d4128a96536af50ea1db519269928836e8a52046ad868739647815d64d",
+      "git_blob_sha": "abb3fa8af9d1d0a1d8f78c3940014a377c301982"
+    },
+    {
+      "path": "figures/fold_equity_21_30.png",
+      "bytes": 224285,
+      "sha256": "d2134898a8857a0db715a43ab84236e41a6bb6f393d14b99c43aeb93fc45c5e9",
+      "git_blob_sha": "4cab5f6b2d1e6cfb311559b17f05f842c8443bcb"
+    },
+    {
+      "path": "figures/fold_equity_21_30.svg",
+      "bytes": 159273,
+      "sha256": "c95aa4b5369f45fa06b7669196995bd03a7bd247a86727ef459588469ed97fbc",
+      "git_blob_sha": "73d92582fb7e49f66a64a6c69933ab0c1f00dd6a"
+    },
+    {
+      "path": "figures/fold_equity_31_40.png",
+      "bytes": 235058,
+      "sha256": "198026b4ca343653f001d518cb65c0eca49fcfaed1cbf4ef158d189d1eda5a9c",
+      "git_blob_sha": "39f2a37f3aa67f6f3929cfd8b152729c9fd433cb"
+    },
+    {
+      "path": "figures/fold_equity_31_40.svg",
+      "bytes": 156338,
+      "sha256": "aa635f68a680862bead3fd7c16d89c596642ee712dad81f6901bd00f1426f757",
+      "git_blob_sha": "d9b6ae572081113444caa1f5a299b8ee2d40ef2c"
+    },
+    {
+      "path": "figures/fold_returns.png",
+      "bytes": 264330,
+      "sha256": "58d47e7a15914d5cd1ede52f01aedf85b82f46fe467800f932bf405f5dd35684",
+      "git_blob_sha": "7df8341c858c5f7a75d36b9a091aea3c01f32b45"
+    },
+    {
+      "path": "figures/fold_returns.svg",
+      "bytes": 155858,
+      "sha256": "e6bbd3d2864702d3b84f7bb682422fdaccb0b176657b8a1fc9413180336aeca2",
+      "git_blob_sha": "7a8b6cdb2d0983b9ed3ea9870a3719621800cb8a"
+    },
+    {
+      "path": "figures/fold_risk_and_ic.png",
+      "bytes": 127402,
+      "sha256": "4746df2a71e5030e091cfdecf9a16c8892f8b8426cfdf009462c29770eb00b2b",
+      "git_blob_sha": "d3f5ed69719747fe0627e91c747647f9e4faeb1f"
+    },
+    {
+      "path": "figures/fold_risk_and_ic.svg",
+      "bytes": 130057,
+      "sha256": "b93c34f9a9b7ad0d748b7fa85102739640e1f57d5a3aaaf5cf778c2536c53a4e",
+      "git_blob_sha": "4b7f7e3a8fcf53c2023643899cef112e0aaee19c"
+    },
+    {
+      "path": "model/JPX_ENSEMBLE_initial.pt",
+      "bytes": 578641,
+      "sha256": "0799f7efc93712944624417d2054a922e36849d5c57df754ddae559b8bd6ff0e",
+      "git_blob_sha": "0f294ac48c191e841240a415b2756198fb55385b"
+    },
+    {
+      "path": "model/README.md",
+      "bytes": 729,
+      "sha256": "96ad41eae4816fe4c48ea7424044013845d5f7ded1f72d4f24291dc9d8586413",
+      "git_blob_sha": "1bd5fdbe697fd142ce92ce45ba40faeac936eb8f"
+    },
+    {
+      "path": "model/TW_ENSEMBLE_final.pt",
+      "bytes": 580689,
+      "sha256": "ebf9141260d4a3cdbe547a943f394ced685fd897cf3da69ee587d91049a8ae86",
+      "git_blob_sha": "16473fc04a6d934a5ee1b60e43ad28f4ad249100"
+    },
+    {
+      "path": "report.html",
+      "bytes": 39347,
+      "sha256": "d43d3ca31b64332df590f10be45133e57f741865e62caf276e0701279c3a0870",
+      "git_blob_sha": "dc1c527d8e8c1a0bfb69ce22f232ddfe20b2f43c"
+    },
+    {
+      "path": "source/TW_ENSEMBLE_Kaggle.ipynb",
+      "bytes": 22007,
+      "sha256": "5f3e3927638a32d2464ff5ab94ca5094be70f07db26f859aea166194b617e4f5",
+      "git_blob_sha": "28451e47b510566fcb614bff34c2935d48594f14"
+    },
+    {
+      "path": "source/build_analysis.py",
+      "bytes": 37335,
+      "sha256": "388f6426ac5c2ba8bc5b1b0d7272abc2c93351b5929d436a4b36ec4142b757cd",
+      "git_blob_sha": "710c2874b0907564da1cd1edb4b858287492ae0b"
+    },
+    {
+      "path": "source/build_pdf.py",
+      "bytes": 5977,
+      "sha256": "afb2b65c1efe8f27998420cf80b07bd837539be03e3dccdbae915aa1e532f86a",
+      "git_blob_sha": "2dd7cbb114a56d1491f0f076d3f2e89a47fbfa71"
+    },
+    {
+      "path": "source/models.py",
+      "bytes": 6633,
+      "sha256": "dd13b52cbc51c0d153d65f9ba9a80069300906b7cfe394fa1e9cb2448d88ebb4",
+      "git_blob_sha": "fc9b0d2c0d79c9239cc558622e31e8927fae5fc8"
+    },
+    {
+      "path": "source/requirements-analysis.txt",
+      "bytes": 55,
+      "sha256": "64a4dc45409b823f8a7a2450718eff68504d4d5a2f894ef6b49a235c1c06206b",
+      "git_blob_sha": "97e932488af190fd575dc3085209d61475f84c8f"
+    },
+    {
+      "path": "source/requirements-training.txt",
+      "bytes": 136,
+      "sha256": "ddac8de41162acd24ff4065bf600230290de3f65fccf4d4c217323404464bc00",
+      "git_blob_sha": "0a9859d4338e865b34dad65777ae4dea70b460ce"
+    },
+    {
+      "path": "source/train_tw.py",
+      "bytes": 30897,
+      "sha256": "46748ac90eaa573f4aae5936aaa7a37589aa7fa7bdbcf659066b22d9bb25466d",
+      "git_blob_sha": "0ac9ef42c658c35603fa393e55b5382def03656b"
+    },
+    {
+      "path": "source/verify_results.py",
+      "bytes": 4659,
+      "sha256": "8818abaa9faaad03de58b1b28ace1a4831b3f4de6ff3d49e222f8f9e8e99f3ee",
+      "git_blob_sha": "03323d9f04179f1ce1445a0d6edba604b5c4ef65"
+    }
+  ]
+}

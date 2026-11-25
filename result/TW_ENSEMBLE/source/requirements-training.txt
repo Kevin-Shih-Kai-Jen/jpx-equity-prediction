@@ -1,0 +1,6 @@
+# Install a PyTorch build compatible with your GPU; see data/environment.json for the actual run.
+torch
+numpy
+pandas
+pyarrow
+matplotlib

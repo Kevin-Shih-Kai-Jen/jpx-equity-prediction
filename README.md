@@ -6,7 +6,7 @@ A personal quantitative-finance research project using PyTorch to predict JPX st
 
 Start with the **[results and research index](result/README.md)**. It brings the research questions, hypotheses, reflections, experiment reports, figures, and supporting evidence together in one place.
 
-The latest report is **[MASTER: learning, results and performance reflection](result/MASTER/MASTER_Research_Reflection_20261115.pdf)**. Earlier TimeGrad, Ensemble, CNN-LSTM, CNN-Ensemble, and modified PRISM research is organized in the same index. Reports describe their recorded experiments; the current source is a later snapshot and does not automatically reproduce those historical results.
+The latest backtest result is **[TW_ENSEMBLE: Taiwan transfer and 40-fold expanding-window analysis](result/TW_ENSEMBLE/README.md)**, with a complete English report, figures, daily and fold metrics, and model checkpoints. The [MASTER reflection](result/MASTER/MASTER_Research_Reflection_20261115.pdf), along with earlier TimeGrad, Ensemble, CNN-LSTM, CNN-Ensemble, and modified PRISM research, remains in the same index. Reports describe their recorded experiments; the current source is a later snapshot and does not automatically reproduce those historical results.
 
 ## Current source - 2026-11-15
 
@@ -53,3 +53,4 @@ The supplied entry point does not implement a `--data` argument. Full-data train
 This source sync passed Python syntax checks and imports for all ten modules. No full training run or backtest was performed for this update.
 
 Research notes formerly stored separately are now in `result/`, with duplicate index descriptions consolidated. Distinct historical PDFs and their supporting files are preserved. Earlier source versions, removed tests, and publication records remain available in Git history.
+

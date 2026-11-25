@@ -2,7 +2,13 @@
 
 This is the combined index for research questions, hypotheses, findings, validation plans, experiment reports, and supporting evidence. Start with the latest reflection, then follow the relevant model family's reports for detail.
 
-## Latest: MASTER (2026-11-15)
+## Latest backtest: TW_ENSEMBLE (2026-11-25)
+
+**[TW_ENSEMBLE - complete English analysis](TW_ENSEMBLE/README.md)** · [English PDF](TW_ENSEMBLE/TW_ENSEMBLE_Backtest_Report_EN.pdf) · [Fold metrics](TW_ENSEMBLE/data/fold_metrics.csv) · [Model checkpoints](TW_ENSEMBLE/model/)
+
+This completed Taiwan transfer run used two Tesla T4 GPUs and 40 expanding windows. Gross compounded returns are +43.17% over scored signals from 2017-04-05 and +43.67% from 2021-07-01, both through 2026-11-19. Only 19/40 folds are gross-positive; none is positive under the stated cost scenario. Gains are concentrated in folds 34-36, and only fold 3 selected an updated model. The English analysis includes annualized fold-return curves, all 40 within-fold equity paths, risk, Rank IC, annual returns, long/short contributions, data limitations, and reproducible supporting evidence. Early results are retrospective transfer diagnostics because the Japanese checkpoint incorporates information through June 2021.
+
+## MASTER (2026-11-15)
 
 **[Learning, results and performance reflection - PDF](MASTER/MASTER_Research_Reflection_20261115.pdf)**
 
@@ -60,3 +66,4 @@ The 2026-10-21 publication added five results reports and one reflection: two Ch
 The 2026-11-15 reorganization combines the former reflection index with this results index. PDF file hashes and extracted text were compared; the historical documents are distinct and are retained once at their canonical paths. Reorganizing these files and synchronizing the current source did not rerun any experiment. Earlier publication manifests remain in Git history.
 
 [Back to the repository](../README.md)
+

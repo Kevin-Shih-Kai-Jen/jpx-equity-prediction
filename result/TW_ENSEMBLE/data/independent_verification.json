@@ -1,0 +1,136 @@
+{
+  "passed": true,
+  "folds": 40,
+  "prediction_rows": 3843443,
+  "checks": [
+    "40 disjoint test windows",
+    "40 label purges",
+    "all daily position returns",
+    "all cost-scenario arithmetic",
+    "rank selection on 40 spread-out dates",
+    "both period metrics",
+    "final checkpoint hash and changed weights"
+  ],
+  "folds_accepting_updated_weights": [
+    3
+  ],
+  "changed_parameter_tensors": 16,
+  "first_complete_signal_date": "2017-04-05",
+  "last_complete_signal_date": "2026-11-19",
+  "last_realized_date": "2026-11-23",
+  "complete_dates": 2334,
+  "incomplete_dates": 17,
+  "mean_cost_scenario_per_day": 0.006914932756437737,
+  "verified_metrics": {
+    "all_validation": {
+      "gross": {
+        "days": 2334,
+        "mean_daily": 0.00022317895054895214,
+        "additive_return": 0.5208996705812543,
+        "annualized_sharpe": 0.300480446726709,
+        "positive_day_fraction": 0.49785775492716366,
+        "compounded_return": 0.43170311888041346,
+        "cagr_252": 0.03950674836464311,
+        "max_drawdown": -0.4000140884940857
+      },
+      "net_cost_scenario": {
+        "days": 2334,
+        "mean_daily": -0.006691753805888813,
+        "additive_return": -15.61855338294449,
+        "annualized_sharpe": -9.028951289182528,
+        "positive_day_fraction": 0.24764353041988005,
+        "compounded_return": -0.999999867221679,
+        "cagr_252": -0.8190702951633427,
+        "max_drawdown": -0.9999998710940494
+      },
+      "long_only_gross": {
+        "days": 2334,
+        "mean_daily": 0.0010959869455927226,
+        "additive_return": 2.5580335310134146,
+        "annualized_sharpe": 0.667618779159869,
+        "positive_day_fraction": 0.5141388174807198,
+        "compounded_return": 4.850835380634169,
+        "cagr_252": 0.21014068875326883,
+        "max_drawdown": -0.5739755141990319
+      },
+      "clipped_20pct_sensitivity": {
+        "days": 2334,
+        "mean_daily": 0.00022445667247791658,
+        "additive_return": 0.5238818735634573,
+        "annualized_sharpe": 0.30232861485775553,
+        "positive_day_fraction": 0.49785775492716366,
+        "compounded_return": 0.4361845499094623,
+        "cagr_252": 0.03985756906057335,
+        "max_drawdown": -0.39813604866490837
+      },
+      "equal_weight_available_labels": {
+        "days": 2334,
+        "mean_daily": 0.00038499934779281263,
+        "additive_return": 0.8985884777484247,
+        "annualized_sharpe": 0.5669587651905973,
+        "positive_day_fraction": 0.5989717223650386,
+        "compounded_return": 1.1409984283892687,
+        "cagr_252": 0.08566632376548189,
+        "max_drawdown": -0.3249403043082698
+      }
+    },
+    "from_2021_H2": {
+      "gross": {
+        "days": 1302,
+        "mean_daily": 0.00035624350641462314,
+        "additive_return": 0.46382904535183933,
+        "annualized_sharpe": 0.45268684864645453,
+        "positive_day_fraction": 0.5023041474654378,
+        "compounded_return": 0.43668003397150024,
+        "cagr_252": 0.07264690769862144,
+        "max_drawdown": -0.32741601892661487
+      },
+      "net_cost_scenario": {
+        "days": 1302,
+        "mean_daily": -0.006558092940659614,
+        "additive_return": -8.538637008738817,
+        "annualized_sharpe": -8.353487981013979,
+        "positive_day_fraction": 0.26036866359447003,
+        "compounded_return": -0.9998281861859433,
+        "cagr_252": -0.8132323890010006,
+        "max_drawdown": -0.9998320305907131
+      },
+      "long_only_gross": {
+        "days": 1302,
+        "mean_daily": 0.0009218787037365884,
+        "additive_return": 1.2002860722650381,
+        "annualized_sharpe": 0.5148775159626001,
+        "positive_day_fraction": 0.5,
+        "compounded_return": 0.9650418378816188,
+        "cagr_252": 0.139676619976594,
+        "max_drawdown": -0.5739755141990315
+      },
+      "clipped_20pct_sensitivity": {
+        "days": 1302,
+        "mean_daily": 0.0003585339848955778,
+        "additive_return": 0.4668112483340423,
+        "annualized_sharpe": 0.45590640800511867,
+        "positive_day_fraction": 0.5023041474654378,
+        "compounded_return": 0.4411770434409559,
+        "cagr_252": 0.07329593449405047,
+        "max_drawdown": -0.3253107369846573
+      },
+      "equal_weight_available_labels": {
+        "days": 1302,
+        "mean_daily": 0.0002477255241582679,
+        "additive_return": 0.32253863245406483,
+        "annualized_sharpe": 0.3429840311456562,
+        "positive_day_fraction": 0.5913978494623656,
+        "compounded_return": 0.2662382831139891,
+        "cagr_252": 0.046746935272270564,
+        "max_drawdown": -0.3055639666486233
+      }
+    }
+  },
+  "source_hashes_verified": {
+    "script_sha256": "46748ac90eaa573f4aae5936aaa7a37589aa7fa7bdbcf659066b22d9bb25466d",
+    "models_sha256": "dd13b52cbc51c0d153d65f9ba9a80069300906b7cfe394fa1e9cb2448d88ebb4",
+    "data_sha256": "1669cff3363ee845eaab96fb2482e909719e8b042f622debc5d6ea900bbcc036",
+    "weights_sha256": "0799f7efc93712944624417d2054a922e36849d5c57df754ddae559b8bd6ff0e"
+  }
+}

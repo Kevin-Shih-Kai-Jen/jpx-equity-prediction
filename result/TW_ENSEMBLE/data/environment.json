@@ -1,0 +1,52 @@
+{
+  "signature": {
+    "config": {
+      "experiment": "TW_ENSEMBLE_transfer_20261125_kaggle_v1",
+      "lookback": 21,
+      "hidden_size": 128,
+      "num_layers": 1,
+      "dropout": 0.2,
+      "seed": 20261125,
+      "train_start": "2017-01-03",
+      "test_start": "2017-04-03",
+      "step_days": 90,
+      "inner_validation_days": 30,
+      "max_epochs": 50,
+      "patience": 10,
+      "min_delta": 1e-05,
+      "lr": 0.001,
+      "batch_size": 4096,
+      "shuffle": false,
+      "feature_scaler": "frozen_original_JPX",
+      "precision": "float32_tf32",
+      "multi_gpu": "DataParallel_when_available",
+      "portfolio": "top3_bottom3_linear_2_to_1_gross_1",
+      "source_notebook": "https://www.kaggle.com/code/aiaila101/jpx-ensemble-norelu-top3-gap90",
+      "source_version": 1,
+      "source_train_last_date": "2021-03-08",
+      "source_validation_last_date": "2021-06-08",
+      "commission_one_way": 0.001425,
+      "sell_tax": 0.003,
+      "slippage_one_way": 0.0005,
+      "short_borrow_annual": 0.03
+    },
+    "data_sha256": "1669cff3363ee845eaab96fb2482e909719e8b042f622debc5d6ea900bbcc036",
+    "weights_sha256": "0799f7efc93712944624417d2054a922e36849d5c57df754ddae559b8bd6ff0e",
+    "script_sha256": "46748ac90eaa573f4aae5936aaa7a37589aa7fa7bdbcf659066b22d9bb25466d",
+    "models_sha256": "dd13b52cbc51c0d153d65f9ba9a80069300906b7cfe394fa1e9cb2448d88ebb4"
+  },
+  "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+  "torch": "2.11.0+cu130",
+  "numpy": "2.1.3",
+  "pandas": "2.3.3",
+  "cuda": "13.0",
+  "gpu_count": 2,
+  "gpu_names": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "gpu": "Tesla T4",
+  "gpu_memory_gib": 14.56219482421875,
+  "optimizer_policy": "New Adam on Taiwan transfer; model+optimizer best state carried between Taiwan folds.",
+  "modifications_from_kaggle": "Separate early-stop validation and test; batch 4096; fixed source scaler; gradient norm clip 1; TF32; original architecture/loss/lr/max epochs/patience."
+}
